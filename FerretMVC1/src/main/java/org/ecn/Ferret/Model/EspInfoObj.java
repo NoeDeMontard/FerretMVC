@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ecn.PAPPL6_2020.Model;
+package org.ecn.Ferret.Model;
 
 /**
  * Classe récapitulant les informations récupérées par le traitement sur le serveur ESP.

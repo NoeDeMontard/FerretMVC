@@ -1,6 +1,6 @@
 // NB : cette classe est considérée comme provisoirement terminée
 
-package org.ecn.PAPPL6_2020.Model;
+package org.ecn.Ferret.Model;
 
 /**
  * Classe générale sur l'élément de recherche ciblé. Va se décliner en sous-classes en fonction de la manière dont les donnéees sont entrées.

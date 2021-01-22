@@ -1,6 +1,6 @@
 // NB : cette classe est considérée comme provisoirement terminée
 
-package org.ecn.PAPPL6_2020.Model;
+package org.ecn.Ferret.Model;
 
 /**
  * Classe pour les paramètres de la recherche. A utiliser pour appeler les fonctions de traitement.

@@ -1,10 +1,12 @@
-package org.ecn.PAPPL6_2020.Controller;
+package org.ecn.Ferret.Controller;
 // import classes
+import org.ecn.Ferret.View.PopulationGUI;
+import org.ecn.Ferret.View.GUI;
+import org.ecn.Ferret.View.RegionInteretGUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.JFileChooser;
-import org.ecn.PAPPL6_2020.View.*;
 
 /**
  * Classe qui fait correspondre les infos de recherches entrées dans l'application Ferret à leur utilisation dans le modèle.

@@ -1,12 +1,15 @@
-package org.ecn.PAPPL6_2020.Controller;
+package org.ecn.Ferret.Controller;
 // import classes
+import org.ecn.Ferret.View.PopulationGUI;
+import org.ecn.Ferret.View.GUI;
+import org.ecn.Ferret.View.SettingsGUI;
+import org.ecn.Ferret.View.RegionInteretGUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import org.ecn.PAPPL6_2020.View.*;
 
 /**
  * Classe faisant le lien entre l'affichage des paramètres et la gestion des paramètres dans le modèle.

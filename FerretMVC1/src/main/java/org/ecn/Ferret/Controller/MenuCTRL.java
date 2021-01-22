@@ -1,14 +1,21 @@
 // NB : cette classe est considérée comme provisoirement terminée
 
-package org.ecn.PAPPL6_2020.Controller;
+package org.ecn.Ferret.Controller;
 // import classes
+import org.ecn.Ferret.View.PopulationGUI;
+import org.ecn.Ferret.View.MenuHelpGUI;
+import org.ecn.Ferret.View.AboutGUI;
+import org.ecn.Ferret.View.ContactGUI;
+import org.ecn.Ferret.View.UpdateGUI;
+import org.ecn.Ferret.View.MenuFerretGUI;
+import org.ecn.Ferret.View.SettingsGUI;
+import org.ecn.Ferret.View.RegionInteretGUI;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import org.ecn.PAPPL6_2020.View.*;
 
 /**
  * Classe de lien entre l'affichage du menu et les actions à effectuer.

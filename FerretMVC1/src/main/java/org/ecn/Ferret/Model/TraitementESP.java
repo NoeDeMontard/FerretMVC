@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ecn.PAPPL6_2020.Model;
+package org.ecn.Ferret.Model;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,7 +14,7 @@ import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import org.ecn.PAPPL6_2020.FerretMain;
+import org.ecn.Ferret.FerretMain;
 
 /**
  * Classe correspondant au traitement sur le serveur ESP.

@@ -1,4 +1,4 @@
-package org.ecn.PAPPL6_2020.Model;
+package org.ecn.Ferret.Model;
 
 /**
  * Classe définissant une entrée sous forme de variant pour laquelle on a utilisé "browse".

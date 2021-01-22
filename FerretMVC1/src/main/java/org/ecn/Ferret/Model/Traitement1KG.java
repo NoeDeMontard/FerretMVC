@@ -1,4 +1,4 @@
-package org.ecn.PAPPL6_2020.Model;
+package org.ecn.Ferret.Model;
 
 import java.awt.Component;
 import java.io.BufferedReader;

@@ -1,4 +1,4 @@
-package org.ecn.PAPPL6_2020.Model;
+package org.ecn.Ferret.Model;
 
 /**
  * Classe représentant une entrée de gène pour lequel on a donné l'ID.
