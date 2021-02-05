@@ -8,7 +8,7 @@ import javax.swing.SwingWorker;
 
 /**
  * Classe correspondant aux mises à jour.
- * @Authors: Mathieu JUNG-MULLER & Bozhou WANG & Siqi Yu
+ * @Authors: Mathieu JUNG-MULLER & Bozhou WANG & Siqi Yu test 2
 */
 
 public class UpdateM extends SwingWorker<Boolean,Object>{
