@@ -8,13 +8,15 @@ import javax.swing.SwingWorker;
 
 /**
  * Classe correspondant aux mises à jour.
- * @Authors: Mathieu JUNG-MULLER & Bozhou WANG & Siqi Yu test 2
+ * @Authors: Mathieu JUNG-MULLER & Bozhou WANG & Siqi Yu
 */
 
 public class UpdateM extends SwingWorker<Boolean,Object>{
-
+  //If there is an update available, needUpdate=true;
   Boolean needUpdate = null;
+  //If there is an urgent update, urgentUpdate=true;
   Boolean urgentUpdate = null;
+  //The message for the update
   String updateMessage = null;
 
   public Boolean needUpdate(){
@@ -28,10 +30,10 @@ public class UpdateM extends SwingWorker<Boolean,Object>{
   public String updateStatus(){
     return updateMessage;
   }
-
+  
   @Override
     public Boolean doInBackground() throws Exception {
-        URL urlLocation = new URL("https://webspace.princeton.edu/users/taverner/updateFerret.txt");
+        URL urlLocation = new URL("https://webspace.princeton.edu/users/taverner/updateFerret.txt");//This link doesn't work now
         try(BufferedReader br = new BufferedReader(new InputStreamReader(urlLocation.openStream()))){
             String currentString;
             while((currentString = br.readLine()) != null){

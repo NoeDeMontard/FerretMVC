@@ -20,6 +20,10 @@ public class RunCTRL implements ActionListener{
         this.traitement = traitement;
     }
 
+    public RunCTRL() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     @Override
     public void actionPerformed(ActionEvent arg0) {
         //TODO: il s'agit de vérifier que les paramètres d'exécution sont OK (pour pouvoir lancer Traitement1KG)

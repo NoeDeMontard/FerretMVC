@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.SwingWorker;
 import org.ecn.PAPPL6_2020.View.*;
@@ -32,11 +34,16 @@ public class UpdateCTRL  implements ActionListener{
                 if (arg0.getPropertyName().equals("state")) {
                     if ((SwingWorker.StateValue) arg0.getNewValue() == SwingWorker.StateValue.DONE) {
                         
+                        try {
+                            updateWorker.doInBackground();
+                        } catch (Exception ex) {
+                            Logger.getLogger(UpdateCTRL.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         String updateReason = updateWorker.updateStatus();
                         Boolean urgentUpdate = updateWorker.urgentUpdate();
                         Boolean needUpdate = updateWorker.needUpdate();
                         
-                        if (urgentUpdate || needUpdate) {
+                        if (urgentUpdate || needUpdate) {//If there is an update available
                             upV.getUpdateLabel().setText(updateReason);
                             upV.getUpdateBarHolder().remove(upV.getUpdateProgressBar());
                             LinkLabel ferretUpdate = null;
@@ -56,7 +63,7 @@ public class UpdateCTRL  implements ActionListener{
                                 ferretUpdate.setMaximumSize(ferretUpdate.getPreferredSize());
                                 upV.getUpdateBarHolder().add(ferretUpdate);
                             }
-                        } else {
+                        } else {//If there is no update available
                             upV.getUpdateLabel().setText("");
                             upV.getUpdateBarHolder().remove(upV.getUpdateProgressBar());
                             upV.getUpdateBarHolder().add(new JLabel(updateReason));
