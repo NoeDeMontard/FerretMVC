@@ -1,9 +1,9 @@
 package org.ecn.Ferret.Controller;
 
-import org.ecn.Ferret.View.RunGUI;
-import org.ecn.Ferret.Model.Traitement1KG;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.ecn.Ferret.Model.*;
+import org.ecn.Ferret.View.*;
 
 /**
  * Classe de lien entre le lancement de l'application Ferret par l'utilisateur et le traitement effectif par le modèle
@@ -18,6 +18,10 @@ public class RunCTRL implements ActionListener{
         this.run = run;
         run.RunListener(this);
         this.traitement = traitement;
+    }
+
+    public RunCTRL() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
