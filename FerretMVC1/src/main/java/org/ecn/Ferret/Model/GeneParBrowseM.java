@@ -2,6 +2,7 @@ package org.ecn.Ferret.Model;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import org.ecn.Ferret.View.RegionInteretGUI; // TODO MVC : getGeneNameRadioButton : faire la récupération de isGeneNames par le controleur (via RegionInteretGUI.getGeneNameRadioButton().isSelected())
 
 /**
@@ -92,52 +93,55 @@ public class GeneParBrowseM extends GeneM {
      * 
      * @return ArrayList geneListArrayList liste de gènes GeneM
      */
-    public ArrayList<GeneM>  getGeneIDNOM() { // Liste listeID ou listeNom
-        ArrayList<GeneM> geneListArrayList = new ArrayList<>();
+    public List<GeneM>  getGeneIDNOM() { // Liste listeID ou listeNom
+        List<GeneM> geneListArrayList = null;
         try{
             String delimiter = this.getDelimiter();
-            boolean geneNames = isGeneNames();
-            String invalidRegex = getInvalidRegex(geneNames); 
-            if ( delimiter != null ) {
-                try (BufferedReader file = new BufferedReader(new FileReader(adresse));) {
-                    String line;
-                    line = file.readLine();
-                    String[] genes;
-                    while (line != null ) {
-                        genes = line.split(delimiter);
-                        for (String geneString : genes) {
-                            geneString = geneString.replace(" ", "").toUpperCase();// Enlève les espaces - remove spaces
-                            if ( geneString.matches(invalidRegex) ) { // identifier les caractères invalides - identify invalid characters
-                                throw new InvalidCharacterException();
-                            }
-                            if (geneString.length() > 0) {
-                                if ( geneNames ) {
-                                    GeneParNomM geneParNom = new GeneParNomM();
-                                    geneParNom.setNom(geneString);
-                                    geneListArrayList.add(geneParNom);
-                                } else {
-                                    GeneParIDM geneParId = new GeneParIDM();
-                                    geneParId.setIdentifiant(Integer.parseInt(geneString));
-                                    geneListArrayList.add(geneParId);
-                                }
-
-                            }
-                        }
-                        line = file.readLine();
-                    }
-                    // file.close(); // "Java 7's try-with-resources structure automatically handles closing the resources that the try itself opens. Thus, adding an explicit close() call is redundant and potentially confusing."
-                } catch (InvalidCharacterException | IOException e){
-                    // TODO MVC : affichage d'erreur : demander un autre fichier ou afficher une erreur -> à faire avec autre part ?
-                    // InvalidCharacterException  : cas de contenu du fichier invalide: InvalidCharacterException - If a character doesn't match a verification Regex
-                    // ou FileNotFoundException - attrapé par l'IOException - if the named file does not exist, is a directory rather than a regular file, or for some other reason cannot be opened for reading.
-                    // ou IOException - If an I/O error occurs
-                }
-            }
+            geneListArrayList = getGeneIDNOM(delimiter);
         } catch (UnsupportedFileTypeException e) {
             // TODO MVC : affichage d'erreur : demander un autre fichier ou afficher une erreur -> à faire avec autre part ?
             // UnsupportedDataTypeException : type de fichier non supporté
         }
 
+        return geneListArrayList;
+    }
+    private List<GeneM>  getGeneIDNOM(String delimiter) { // Liste listeID ou listeNom, séparré en 2 pour éviter d'imbriquer des try-catch
+        ArrayList<GeneM> geneListArrayList = new ArrayList<>();
+        boolean geneNames = isGeneNames();
+        String invalidRegex = getInvalidRegex(geneNames); 
+        try (BufferedReader file = new BufferedReader(new FileReader(adresse));) {
+            String line;
+            line = file.readLine();
+            String[] genes;
+            while (line != null ) {
+                genes = line.split(delimiter);
+                for (String geneString : genes) {
+                    geneString = geneString.replace(" ", "").toUpperCase();// Enlève les espaces - remove spaces
+                    if ( geneString.matches(invalidRegex) ) { // identifier les caractères invalides - identify invalid characters
+                        throw new InvalidCharacterException();
+                    }
+                    if (geneString.length() > 0) {
+                        if ( geneNames ) {
+                            GeneParNomM geneParNom = new GeneParNomM();
+                            geneParNom.setNom(geneString);
+                            geneListArrayList.add(geneParNom);
+                        } else {
+                            GeneParIDM geneParId = new GeneParIDM();
+                            geneParId.setIdentifiant(Integer.parseInt(geneString));
+                            geneListArrayList.add(geneParId);
+                        }
+
+                    }
+                }
+                line = file.readLine();
+            }
+            // file.close(); // "Java 7's try-with-resources structure automatically handles closing the resources that the try itself opens. Thus, adding an explicit close() call is redundant and potentially confusing."
+        } catch (InvalidCharacterException | IOException e){
+            // TODO MVC : affichage d'erreur : demander un autre fichier ou afficher une erreur -> à faire avec autre part ?
+            // InvalidCharacterException  : cas de contenu du fichier invalide: InvalidCharacterException - If a character doesn't match a verification Regex
+            // ou FileNotFoundException - attrapé par l'IOException - if the named file does not exist, is a directory rather than a regular file, or for some other reason cannot be opened for reading.
+            // ou IOException - If an I/O error occurs
+        }
         return geneListArrayList;
     }
 
