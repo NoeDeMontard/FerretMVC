@@ -12,7 +12,7 @@ public class VariantParIDM extends VariantM {
 
   // setters et getters
 
-  public void setIndentifiant(int id){
+  public void setIdentifiant(int id){
     this.identifiant = id;
   }
 
