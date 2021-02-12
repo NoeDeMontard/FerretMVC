@@ -8,6 +8,7 @@ package org.ecn.Ferret.Model;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -141,6 +142,8 @@ public class TraitementNCBI extends Traitement {
 
             DocumentBuilder docBldr;
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, ""); // Compliant
+            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // compliant
             dbf.setNamespaceAware(true);
             dbf.setIgnoringComments(true);
             dbf.setIgnoringElementContentWhitespace(true);
@@ -230,6 +233,8 @@ public class TraitementNCBI extends Traitement {
             StringBuffer foundGenes = new StringBuffer();
             DocumentBuilder docBldr;
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
             dbf.setNamespaceAware(true);
             dbf.setIgnoringComments(true);
             dbf.setIgnoringElementContentWhitespace(true);
