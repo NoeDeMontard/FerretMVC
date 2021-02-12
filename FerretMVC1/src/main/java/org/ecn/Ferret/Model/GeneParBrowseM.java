@@ -2,14 +2,14 @@ package org.ecn.Ferret.Model;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
-import org.ecn.Ferret.View.RegionInteretGUI; // TODO : faire la récupération de isGeneNames par le controleur (via RegionInteretGUI.getGeneNameRadioButton().isSelected())
+import org.ecn.Ferret.View.RegionInteretGUI; // TODO MVC : getGeneNameRadioButton : faire la récupération de isGeneNames par le controleur (via RegionInteretGUI.getGeneNameRadioButton().isSelected())
 
 /**
  * Classe représentant une exception InvalidCharacterException - If a character doesn't match a verification Regex
  * @Authors: Noe DE MONTARD
 */
 class InvalidCharacterException extends Exception { }
+class UnsupportedFileTypeException  extends IOException { }
 
 /**
  * Classe représentant une entrée de gène sous forme "browse"
@@ -20,7 +20,6 @@ public class GeneParBrowseM extends GeneM {
 
     private String adresse;
 
-    // TODO: écrire une fonction qui enregistre les données sous formes de GeneParIDM ou GeneParNomM à partir du fichier donné par l'attribut adresse
     // NOTE : Ce code correspond à celui au niveau de la ligne 1685 du GUI.java de la version 2.1.1, 
     // de celui au niveau de la ligne 1920 de GUI_Formated.java (formatage netbeans automatique du GUI.java de la version 2.1.1), 
     // ou au commentaire suivant (vers la ligne 266 de RegionInteretGUI.java, méthode RegionInteretGUI.addRegoinInteret) :
@@ -29,7 +28,7 @@ public class GeneParBrowseM extends GeneM {
     //+ " - a tab-delimited .tab or .tsv file (example: gene.tab containing CCR5 &nbsp&nbsp&nbsp&nbsp HCP5) <br>"
     //+ " - a space-delimited .txt file (example: gene.txt containing CCR5 HCP5)"
     //+ "<br><br> A carriage return can also be used as a delimiter for all above file types.</html>"
-    private String getDelimiter() {
+    private String getDelimiter() throws UnsupportedFileTypeException{
         //this.adresse.toLowerCase().endsWith(".csv"); // toLowerCase to make the extension check case independant
         int i = this.adresse.lastIndexOf('.');
         String extension = adresse.substring(i + 1).toLowerCase();
@@ -52,8 +51,7 @@ public class GeneParBrowseM extends GeneM {
                 delimiter = " ";
                 break;
             default:
-                // TODO : erreur
-                break;
+                throw new UnsupportedFileTypeException();
         }
         return delimiter;
     }
@@ -80,10 +78,10 @@ public class GeneParBrowseM extends GeneM {
      * @return boolean geneNames
      */
     private boolean isGeneNames(){
-        return RegionInteretGUI.getGeneNameRadioButton().isSelected(); // TODO résoudre l'erreur : récupérer correctement le type de données
+        // TODO MVC : getGeneNameRadioButton : résoudre l'erreur : récupérer correctement le type de données -> à faire avec autre part ?
+        return RegionInteretGUI.getGeneNameRadioButton().isSelected(); 
     }
-    
-    // TODO: écrire une fonction qui enregistre les données sous formes de GeneParIDM ou GeneParNomM à partir du fichier donné par l'attribut adresse
+
     /**
      * Récupère les gènes du fichier et les renvoi dans une liste de GeneParIDM
      * ou de GeneParNomM, selon le boutton RegionInteretGUI.getGeneNameRadioButton.
@@ -92,52 +90,52 @@ public class GeneParBrowseM extends GeneM {
      * GeneParNomM, in accordance to the RegionInteretGUI.getGeneNameRadioButton
      * Button.
      * 
-     * @return List geneListArrayList liste de gènes 
+     * @return ArrayList geneListArrayList liste de gènes GeneM
      */
-    public List getGeneIDNOM() { // Liste listeID ou listeNom
+    public ArrayList<GeneM>  getGeneIDNOM() { // Liste listeID ou listeNom
         ArrayList<GeneM> geneListArrayList = new ArrayList<>();
-        String delimiter = this.getDelimiter();
-        boolean geneNames = isGeneNames();//TODO passer le boolean isGeneNames() comme un argument de la méthode ?
-        String invalidRegex = getInvalidRegex(geneNames); 
-        if ( delimiter != null ) {
-            try (BufferedReader file = new BufferedReader(new FileReader(adresse));) {
-                String line;
-                line = file.readLine();
-                String[] genes;
-                while (line != null ) {
-                    genes = line.split(delimiter);
-                    for (String geneString : genes) {
-                        geneString = geneString.replace(" ", "").toUpperCase();// Enlève les espaces - remove spaces
-                        if ( geneString.matches(invalidRegex) ) { // identifier les caractères invalides - identify invalid characters
-                            throw new InvalidCharacterException();
-                        }
-                        if (geneString.length() > 0) {
-                            if ( geneNames ) {
-                                GeneParNomM geneParNom = new GeneParNomM();
-                                geneParNom.setNom(geneString);
-                                geneListArrayList.add(geneParNom);
-                            } else {
-                                GeneParIDM geneParId = new GeneParIDM();
-                                geneParId.setIdentifiant(Integer.parseInt(geneString));
-                                geneListArrayList.add(geneParId);
-                            }
-                            
-                        }
-                    }
+        try{
+            String delimiter = this.getDelimiter();
+            boolean geneNames = isGeneNames();
+            String invalidRegex = getInvalidRegex(geneNames); 
+            if ( delimiter != null ) {
+                try (BufferedReader file = new BufferedReader(new FileReader(adresse));) {
+                    String line;
                     line = file.readLine();
+                    String[] genes;
+                    while (line != null ) {
+                        genes = line.split(delimiter);
+                        for (String geneString : genes) {
+                            geneString = geneString.replace(" ", "").toUpperCase();// Enlève les espaces - remove spaces
+                            if ( geneString.matches(invalidRegex) ) { // identifier les caractères invalides - identify invalid characters
+                                throw new InvalidCharacterException();
+                            }
+                            if (geneString.length() > 0) {
+                                if ( geneNames ) {
+                                    GeneParNomM geneParNom = new GeneParNomM();
+                                    geneParNom.setNom(geneString);
+                                    geneListArrayList.add(geneParNom);
+                                } else {
+                                    GeneParIDM geneParId = new GeneParIDM();
+                                    geneParId.setIdentifiant(Integer.parseInt(geneString));
+                                    geneListArrayList.add(geneParId);
+                                }
+
+                            }
+                        }
+                        line = file.readLine();
+                    }
+                    // file.close(); // "Java 7's try-with-resources structure automatically handles closing the resources that the try itself opens. Thus, adding an explicit close() call is redundant and potentially confusing."
+                } catch (InvalidCharacterException | IOException e){
+                    // TODO MVC : affichage d'erreur : demander un autre fichier ou afficher une erreur -> à faire avec autre part ?
+                    // InvalidCharacterException  : cas de contenu du fichier invalide: InvalidCharacterException - If a character doesn't match a verification Regex
+                    // ou FileNotFoundException - attrapé par l'IOException - if the named file does not exist, is a directory rather than a regular file, or for some other reason cannot be opened for reading.
+                    // ou IOException - If an I/O error occurs
                 }
-                // file.close(); // "Java 7's try-with-resources structure automatically handles closing the resources that the try itself opens. Thus, adding an explicit close() call is redundant and potentially confusing."
-            } catch (InvalidCharacterException e){
-                 // TODO InvalidCharacterException
-                 // cas de contenu du fichier invalide
-                 // InvalidCharacterException - If a character doesn't match a verification Regex
-            } catch (FileNotFoundException e) {
-                // TODO FileNotFoundException
-                // FileNotFoundException - if the named file does not exist, is a directory rather than a regular file, or for some other reason cannot be opened for reading.
-            } catch (IOException e) {
-                // TODO IO Exception
-                // IOException - If an I/O error occurs
             }
+        } catch (UnsupportedFileTypeException e) {
+            // TODO MVC : affichage d'erreur : demander un autre fichier ou afficher une erreur -> à faire avec autre part ?
+            // UnsupportedDataTypeException : type de fichier non supporté
         }
 
         return geneListArrayList;
