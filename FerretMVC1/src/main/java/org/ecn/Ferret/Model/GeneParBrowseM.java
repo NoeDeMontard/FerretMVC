@@ -126,7 +126,7 @@ public class GeneParBrowseM extends GeneM {
                     }
                     line = file.readLine();
                 }
-                file.close();
+                // file.close(); // "Java 7's try-with-resources structure automatically handles closing the resources that the try itself opens. Thus, adding an explicit close() call is redundant and potentially confusing."
             } catch (InvalidCharacterException e){
                  // TODO InvalidCharacterException
                  // cas de contenu du fichier invalide
