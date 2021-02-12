@@ -9,8 +9,6 @@ import org.ecn.Ferret.View.RegionInteretGUI; // TODO MVC : getGeneNameRadioButto
  * Classe représentant une exception InvalidCharacterException - If a character doesn't match a verification Regex
  * @Authors: Noe DE MONTARD
 */
-class InvalidCharacterException extends Exception { }
-class UnsupportedFileTypeException  extends IOException { }
 
 /**
  * Classe représentant une entrée de gène sous forme "browse"
@@ -21,58 +19,8 @@ public class GeneParBrowseM extends GeneM {
 
     private String adresse;
 
-    // NOTE : Ce code correspond à celui au niveau de la ligne 1685 du GUI.java de la version 2.1.1, 
-    // de celui au niveau de la ligne 1920 de GUI_Formated.java (formatage netbeans automatique du GUI.java de la version 2.1.1), 
-    // ou au commentaire suivant (vers la ligne 266 de RegionInteretGUI.java, méthode RegionInteretGUI.addRegoinInteret) :
-    //"<html>You can load a file in any of the following formats for either gene names or gene IDs: <br> "
-    //+ " - a comma-delimited .csv file (example: gene.csv containing CCR5, HCP5) <br>"
-    //+ " - a tab-delimited .tab or .tsv file (example: gene.tab containing CCR5 &nbsp&nbsp&nbsp&nbsp HCP5) <br>"
-    //+ " - a space-delimited .txt file (example: gene.txt containing CCR5 HCP5)"
-    //+ "<br><br> A carriage return can also be used as a delimiter for all above file types.</html>"
-    private String getDelimiter() throws UnsupportedFileTypeException{
-        //this.adresse.toLowerCase().endsWith(".csv"); // toLowerCase to make the extension check case independant
-        int i = this.adresse.lastIndexOf('.');
-        String extension = adresse.substring(i + 1).toLowerCase();
-        String delimiter =   null;
-        switch (extension) {
-            case "csv":
-                // "a comma-delimited .csv file (example: gene.csv containing CCR5, HCP5)"
-                // "A carriage return can also be used as a delimiter for all file types."
-                delimiter = ",";
-                break;
-            case "tab": //tab et tsv sont le même format
-            case "tsv":
-                // "a tab-delimited .tab or .tsv file (example: gene.tab containing CCR5 &nbsp&nbsp&nbsp&nbsp HCP5)"
-                // "A carriage return can also be used as a delimiter for all file types."
-                delimiter = "\\t";
-                break;
-            case "txt":
-                // "a space-delimited .txt file (example: gene.txt containing CCR5 HCP5)"
-                //" A carriage return can also be used as a delimiter for all file types."
-                delimiter = " ";
-                break;
-            default:
-                throw new UnsupportedFileTypeException();
-        }
-        return delimiter;
-    }
-
-    /**
-     * Retourne la chaine de caractère correspondant à l'expression régulière (Regex)
-     * détectant les caractères invalides.
-     *
-     * @return String invalidRegex 
-     */
-    private String getInvalidRegex(boolean isGeneNames) {
-        String invalidRegex;
-        if (isGeneNames) {
-            invalidRegex = ".*[^a-zA-Z0-9\\-].*"; // Tout sauf les lettres et les nombres, y compris les tirets bas - This is everything except letters and numbers, including underscore
-        } else {
-            invalidRegex = ".*\\D.*"; // Tout sauf les nombres - This is everything except numbers
-        }
-        return invalidRegex;
-    }
     
+        
     /**
      * Retourne True si le fichier contient des gènes d'après leur nom.
      *
@@ -93,11 +41,11 @@ public class GeneParBrowseM extends GeneM {
      * 
      * @return ArrayList geneListArrayList liste de gènes GeneM
      */
-    public List<GeneM>  getGeneIDNOM() { // Liste listeID ou listeNom
+    public List<GeneM>  getGeneIDNom() { // Liste listeID ou listeNom
         List<GeneM> geneListArrayList = null;
         try{
-            String delimiter = this.getDelimiter();
-            geneListArrayList = getGeneIDNOM(delimiter);
+            String delimiter = BrowseM.getDelimiter(this.adresse);
+            geneListArrayList = getGeneIDNom(delimiter);
         } catch (UnsupportedFileTypeException e) {
             // TODO MVC : affichage d'erreur : demander un autre fichier ou afficher une erreur -> à faire avec autre part ?
             // UnsupportedDataTypeException : type de fichier non supporté
@@ -105,10 +53,10 @@ public class GeneParBrowseM extends GeneM {
 
         return geneListArrayList;
     }
-    private List<GeneM>  getGeneIDNOM(String delimiter) { // Liste listeID ou listeNom, séparré en 2 pour éviter d'imbriquer des try-catch
+    private List<GeneM>  getGeneIDNom(String delimiter) { // Liste listeID ou listeNom, séparé en 2 pour éviter d'imbriquer des try-catch
         ArrayList<GeneM> geneListArrayList = new ArrayList<>();
         boolean geneNames = isGeneNames();
-        String invalidRegex = getInvalidRegex(geneNames); 
+        String invalidRegex = BrowseM.getInvalidRegex( !geneNames); 
         try (BufferedReader file = new BufferedReader(new FileReader(adresse));) {
             String line;
             line = file.readLine();
