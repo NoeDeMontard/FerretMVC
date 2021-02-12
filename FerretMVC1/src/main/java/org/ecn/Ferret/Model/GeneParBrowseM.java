@@ -99,14 +99,12 @@ public class GeneParBrowseM extends GeneM {
         String delimiter = this.getDelimiter();
         boolean geneNames = isGeneNames();//TODO passer le boolean isGeneNames() comme un argument de la méthode ?
         String invalidRegex = getInvalidRegex(geneNames); 
-        boolean invalidCharacter = false;
         if ( delimiter != null ) {
-            try {
-                BufferedReader file = new BufferedReader(new FileReader(adresse));
+            try (BufferedReader file = new BufferedReader(new FileReader(adresse));) {
                 String line;
                 line = file.readLine();
                 String[] genes;
-                while (line != null && !invalidCharacter) {
+                while (line != null ) {
                     genes = line.split(delimiter);
                     for (String geneString : genes) {
                         geneString = geneString.replace(" ", "").toUpperCase();// Enlève les espaces - remove spaces
@@ -131,6 +129,7 @@ public class GeneParBrowseM extends GeneM {
                 file.close();
             } catch (InvalidCharacterException e){
                  // TODO InvalidCharacterException
+                 // cas de contenu du fichier invalide
                  // InvalidCharacterException - If a character doesn't match a verification Regex
             } catch (FileNotFoundException e) {
                 // TODO FileNotFoundException
@@ -140,9 +139,7 @@ public class GeneParBrowseM extends GeneM {
                 // IOException - If an I/O error occurs
             }
         }
-        if (invalidCharacter){
-            //TODO : cas de contenu du fichier invalide
-        }
+
         return geneListArrayList;
     }
 
