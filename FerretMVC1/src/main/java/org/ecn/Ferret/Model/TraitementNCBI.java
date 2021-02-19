@@ -209,7 +209,6 @@ public class TraitementNCBI extends Traitement {
                 geneListIDBuffer = geneListIDBuffer.deleteCharAt(geneListIDBuffer.length() - 1);
                 geneString = geneListIDBuffer.toString();
             } catch (ParserConfigurationException | IOException | SAXException e) {
-                //e.printStackTrace();
                 return null;
             }
         }
@@ -249,29 +248,31 @@ public class TraitementNCBI extends Traitement {
                     currentGene = getChildByName(geneTrackNode, "Gene-track_geneid").getFirstChild().getNodeValue();
 
                 }
-
+                // Paramètres de xmlCommentFinder revenant plusieurs fois
+                String xmlGeneComment= "Gene-commentary_comment";
+                
                 // This is a horrible line. Mainly, this is horrible because I don't think nesting makes sense here but if not, would
                 // result in a lot of confusing variable names for nodes
                 Node subSourceNodeForChr = getChildByName(getChildByName(getChildByName(getChildByName(getChildByName(currentEntrezNode, "Entrezgene_source"),
                         "BioSource"), "BioSource_subtype"), "SubSource"), "SubSource_name");
                 String chromosome = subSourceNodeForChr.getFirstChild().getNodeValue();
                 NodeList commentList = getChildByName(currentEntrezNode, "Entrezgene_comments").getChildNodes();
-                Node geneLocationHistoryNode = xmlCommentFinder(commentList, "254", "Gene Location History", "Gene-commentary_comment");
+                Node geneLocationHistoryNode = xmlCommentFinder(commentList, "254", "Gene Location History", xmlGeneComment);
                 Node primaryAssemblyNode;
                 if (defaultHG) {
-                    Node annotationRelease105Node = xmlCommentFinder(geneLocationHistoryNode.getChildNodes(), "254", "Homo sapiens Annotation Release 105", "Gene-commentary_comment");
+                    Node annotationRelease105Node = xmlCommentFinder(geneLocationHistoryNode.getChildNodes(), "254", "Homo sapiens Annotation Release 105", xmlGeneComment);
                     if (annotationRelease105Node == null) {
                         continue;
                     }
-                    Node grch37p13Node = xmlCommentFinder(annotationRelease105Node.getChildNodes(), "24", "GRCh37.p13", "Gene-commentary_comment");
-                    primaryAssemblyNode = xmlCommentFinder(grch37p13Node.getChildNodes(), "25", "Primary Assembly", "Gene-commentary_comment");
+                    Node grch37p13Node = xmlCommentFinder(annotationRelease105Node.getChildNodes(), "24", "GRCh37.p13", xmlGeneComment);
+                    primaryAssemblyNode = xmlCommentFinder(grch37p13Node.getChildNodes(), "25", "Primary Assembly", xmlGeneComment);
                 } else {
-                    Node annotationRelease107Node = xmlCommentFinder(geneLocationHistoryNode.getChildNodes(), "254", "Homo sapiens Annotation Release 107", "Gene-commentary_comment");
+                    Node annotationRelease107Node = xmlCommentFinder(geneLocationHistoryNode.getChildNodes(), "254", "Homo sapiens Annotation Release 107", xmlGeneComment);
                     if (annotationRelease107Node == null) {
                         continue;
                     }
-                    Node grch38p2Node = xmlCommentFinder(annotationRelease107Node.getChildNodes(), "24", "GRCh38.p2", "Gene-commentary_comment");
-                    primaryAssemblyNode = xmlCommentFinder(grch38p2Node.getChildNodes(), "25", "Primary Assembly", "Gene-commentary_comment");
+                    Node grch38p2Node = xmlCommentFinder(annotationRelease107Node.getChildNodes(), "24", "GRCh38.p2", xmlGeneComment);
+                    primaryAssemblyNode = xmlCommentFinder(grch38p2Node.getChildNodes(), "25", "Primary Assembly", xmlGeneComment);
                 }
                 Node genomicAssemblyNode = xmlCommentFinder(primaryAssemblyNode.getChildNodes(), "1", "any", "Gene-commentary_seqs");
                 Node seqLocNode = getChildByName(genomicAssemblyNode, "Seq-loc");
@@ -296,7 +297,6 @@ public class TraitementNCBI extends Traitement {
                 }
             }
         } catch (ParserConfigurationException | IOException | SAXException e) {
-            //e.printStackTrace();
             return null;
         }
 
