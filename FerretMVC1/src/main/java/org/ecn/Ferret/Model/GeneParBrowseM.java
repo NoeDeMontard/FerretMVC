@@ -27,7 +27,8 @@ public class GeneParBrowseM extends GeneM {
      */
     private boolean isGeneNames(){
         // TODO MVC : getGeneNameRadioButton : résoudre l'erreur : récupérer correctement le type de données -> à faire avec autre part ?
-        return RegionInteretGUI.getGeneNameRadioButton().isSelected(); 
+        RegionInteretGUI RIgui = new RegionInteretGUI();
+        return RIgui.getGeneNameRadioButton().isSelected(); 
     }
 
     /**
