@@ -5,14 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import org.ecn.Ferret.View.RegionInteretGUI; // TODO MVC : getGeneNameRadioButton : faire la récupération de isGeneNames par le controleur (via RegionInteretGUI.getGeneNameRadioButton().isSelected())
 
-/**
- * Classe représentant une exception InvalidCharacterException - If a character doesn't match a verification Regex
- * @Authors: Noe DE MONTARD
-*/
+
 
 /**
  * Classe représentant une entrée de gène sous forme "browse"
- * @Authors: Mathieu JUNG-MULLER & Bozhou WANG & Noe DE MONTARD
+ * @author Mathieu JUNG-MULLER
+ * @author Bozhou WANG
+ * @author Noe DE MONTARD
 */
 
 public class GeneParBrowseM extends GeneM {
@@ -32,14 +31,22 @@ public class GeneParBrowseM extends GeneM {
     }
 
     /**
-     * Récupère les gènes du fichier et les renvoi dans une liste de GeneParIDM
-     * ou de GeneParNomM, selon le boutton RegionInteretGUI.getGeneNameRadioButton.
-     *
-     * Get the genes from the file and return them in a list of GeneParIDM or of
+     * Récupère les gènes depuis un fichier et les renvois dans une liste de GeneParIDM
+     * ou de GeneParNomM, selon le bouton RegionInteretGUI.getGeneNameRadioButton.
+     * <p>
+     * Le fichier doit être au format cvs (délimité par des virgules), tab, 
+     * tsv (délimités par des tabulations) ou txt (délimité par des espaces) 
+     * (les passage à la ligne servent aussi de délimiteur dans tous les cas). 
+     * <p>
+     * Son addresse est donné par l'attribut adresse accessible par 
+     * setAdresse(String path) et getAdresse().
+     * <p>
+     * (En) Get the genes from the file and return them in a list of GeneParIDM or of
      * GeneParNomM, in accordance to the RegionInteretGUI.getGeneNameRadioButton
      * Button.
      * 
-     * @return ArrayList geneListArrayList liste de gènes GeneM
+     * @return ArrayList geneListArrayList liste de gènes GeneM 
+     * dont les identifiants ou noms sont inscrits dans le fichier.
      */
     public List<GeneM>  getGeneIDNom() { // Liste listeID ou listeNom
         List<GeneM> geneListArrayList = null;
@@ -95,10 +102,19 @@ public class GeneParBrowseM extends GeneM {
 
     // setters et getters
 
+    /**
+     * Défini l'adresse du fichier contenant les gènes à récupérer
+     * @param path le chemin d'accès
+     */
+
     public void setAdresse(String path){
         this.adresse = path;
     }
 
+    /**
+     * Récupère l'adresse du fichier contenant les gènes à récupérer
+     * @return le chemin d'accès au fichier
+     */
     public String getAdresse(){
         return this.adresse;
     }
