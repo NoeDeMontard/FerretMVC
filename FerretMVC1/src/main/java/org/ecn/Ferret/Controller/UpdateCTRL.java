@@ -1,4 +1,4 @@
-package org.ecn.PAPPL6_2020.Controller;
+package org.ecn.Ferret.Controller;
 // import classes
 import static java.awt.Component.LEFT_ALIGNMENT;
 import java.awt.event.ActionEvent;
@@ -10,8 +10,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.SwingWorker;
-import org.ecn.PAPPL6_2020.View.*;
-import org.ecn.PAPPL6_2020.Model.*;
+import org.ecn.Ferret.View.LinkLabel;
+import org.ecn.Ferret.View.*;
+import org.ecn.Ferret.Model.*;
 
 /**
  * Classe faisant le lien entre la demande de mise à jour via la vue et le téléchargement de la mise à jour via le modèle.
