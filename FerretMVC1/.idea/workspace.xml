@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2cf79b91-7553-44ae-9c3d-5f2f00bb61b1" name="Default Changelist" comment="" />
+    <list default="true" id="2cf79b91-7553-44ae-9c3d-5f2f00bb61b1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ecn/Ferret/Model/Traitement1KG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ecn/Ferret/Model/Traitement1KG.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ecn/Ferret/View/RunGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ecn/Ferret/View/RunGUI.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,6 +39,7 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />

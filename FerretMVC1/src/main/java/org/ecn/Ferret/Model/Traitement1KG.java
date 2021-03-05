@@ -1,31 +1,14 @@
 package org.ecn.Ferret.Model;
 
-import java.awt.Component;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import htsjdk.tribble.readers.TabixReader;
+
+import java.io.*;
 import java.math.RoundingMode;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import java.util.*;
 
 /**
  * Classe pour le traitement général sur le serveur 1000 Génomes.
@@ -34,16 +17,16 @@ import javax.swing.JTextArea;
 */
 
 public class Traitement1KG extends Traitement {
-    
+
     LocusM[] queries;
-    String ftpAddress; // TODO: déterminer à quel moment la valeur de cet attribut est entrée
+    String ftpAddress; // DONE: déterminer à quel moment la valeur de cet attribut est entrée
     int progress;
-    JLabel status;  // TODO: à enlever pour mettre dans le GUI l'affichage par les JLabel
-    
+    //JLabel status;  // DONE: à enlever pour mettre dans le GUI l'affichage par les JLabel
+
     public void setProgress(int p){
         this.progress = p;
     }
-    
+
 
 
     /**
@@ -52,12 +35,12 @@ public class Traitement1KG extends Traitement {
      * @param snpQueries l'ensemble des requêtes entrées sous forme de variants (snp)
      */
     public void traitementVariantID(SettingsM settings, LinkedList<ElementDeRechercheM> snpQueries){
-        
+
         // on s'intéresse d'abord à la requête utilisant une entrée sous forme de variant
-        
-        
-                //publish("Looking up variant locations...");  TODO: à voir pour rajouter un lien vers le Contrôleur puis l'affichage GUI
-                LinkedList<String> chromosome = new LinkedList<>(); 
+
+
+                //publish("Looking up variant locations...");  Done: à voir pour rajouter un lien vers le Contrôleur puis l'affichage GUI
+                LinkedList<String> chromosome = new LinkedList<>();
                 LinkedList<String> startPos = new LinkedList<>();
                 LinkedList<String> endPos = new LinkedList<>();
                 LocusM[] queries = null;
@@ -101,59 +84,59 @@ public class Traitement1KG extends Traitement {
                         br.close();
                     }
                     int sd = ((VariantParIDM)snpQueries.get(0)).getSurroundingDist();
-                    if(!allSNPsFound && !SNPsFound.isEmpty()){//Partial list
-                        
-                        // TODO: Il s'agit de mettre en place du code qui permette de gérer l'affichage graphique de ce qui suit
-                        // (ie, demander à l'utilisateur de continuer ou bien afficher les problèmes / résultats obtenus)
-                        // par l'intermédiaire du MVC, et non au sein de cette classe du modèle.
-                            String[] options = {"Yes","No"};
-                            JPanel partialSNPPanel = new JPanel();
-                            JTextArea listOfSNPs = new JTextArea(SNPsFound.toString().substring(1, SNPsFound.toString().length()-1));
-                            listOfSNPs.setWrapStyleWord(true);
-                            listOfSNPs.setLineWrap(true);
-                            listOfSNPs.setBackground(partialSNPPanel.getBackground());
-                            partialSNPPanel.setLayout(new BoxLayout(partialSNPPanel, BoxLayout.Y_AXIS));
-                            partialSNPPanel.add(new JLabel("Ferret encountered problems retrieving the variant positions from the NCBI SNP Database."));
-                            partialSNPPanel.add(new JLabel("Here are the variants successfully retrieved:"));
-                            JScrollPane listOfSNPScrollPane = new JScrollPane(listOfSNPs,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-                            listOfSNPScrollPane.setBorder(BorderFactory.createEmptyBorder());
-                            listOfSNPScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
-                            partialSNPPanel.add(listOfSNPScrollPane);
-                            partialSNPPanel.add(new JLabel("Do you wish to continue?"));
-
-                            int choice = JOptionPane.showOptionDialog(null,
-                                            partialSNPPanel,
-                                            "Continue?",
-                                            JOptionPane.YES_NO_OPTION,
-                                            JOptionPane.PLAIN_MESSAGE,
-                                            null, 
-                                            options, 
-                                            null);
-                            if(choice == JOptionPane.YES_OPTION){
-                                queries = new LocusM[chromosome.size()];
-                                for(int i = 0; chromosome.size() > 0; i++){
-                                    queries[i] = new LocusM(Integer.parseInt(chromosome.remove()), (Integer.parseInt(startPos.remove()) - sd), (Integer.parseInt(endPos.remove()) + sd));
-                                }
-                            }
-                    } else if(SNPsFound.isEmpty()){
-                            JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
-                    } else if(allSNPsFound){
-                        queries = new LocusM[chromosome.size()];
-                        for(int i = 0; chromosome.size() > 0; i++){
-                            queries[i] = new LocusM(Integer.parseInt(chromosome.remove()), Integer.parseInt(startPos.remove()) - sd, Integer.parseInt(endPos.remove()) + sd);
-                        }
-                    }
-                    this.queries = queries;
+//                    if(!allSNPsFound && !SNPsFound.isEmpty()){//Partial list
+//
+//                        // Done: Il s'agit de mettre en place du code qui permettrq de gérer l'affichage graphique de ce qui suit
+//                        // (ie, demander à l'utilisateur de continuer ou bien afficher les problèmes / résultats obtenus)
+//                        // par l'intermédiaire du MVC, et non au sein de cette classe du modèle.
+//                            String[] options = {"Yes","No"};
+//                            JPanel partialSNPPanel = new JPanel();
+//                            JTextArea listOfSNPs = new JTextArea(SNPsFound.toString().substring(1, SNPsFound.toString().length()-1));
+//                            listOfSNPs.setWrapStyleWord(true);
+//                            listOfSNPs.setLineWrap(true);
+//                            listOfSNPs.setBackground(partialSNPPanel.getBackground());
+//                            partialSNPPanel.setLayout(new BoxLayout(partialSNPPanel, BoxLayout.Y_AXIS));
+//                            partialSNPPanel.add(new JLabel("Ferret encountered problems retrieving the variant positions from the NCBI SNP Database."));
+//                            partialSNPPanel.add(new JLabel("Here are the variants successfully retrieved:"));
+//                            JScrollPane listOfSNPScrollPane = new JScrollPane(listOfSNPs,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//                            listOfSNPScrollPane.setBorder(BorderFactory.createEmptyBorder());
+//                            listOfSNPScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
+//                            partialSNPPanel.add(listOfSNPScrollPane);
+//                            partialSNPPanel.add(new JLabel("Do you wish to continue?"));
+//
+//                            int choice = JOptionPane.showOptionDialog(null,
+//                                            partialSNPPanel,
+//                                            "Continue?",
+//                                            JOptionPane.YES_NO_OPTION,
+//                                            JOptionPane.PLAIN_MESSAGE,
+//                                            null,
+//                                            options,
+//                                            null);
+//                            if(choice == JOptionPane.YES_OPTION){
+//                                queries = new LocusM[chromosome.size()];
+//                                for(int i = 0; chromosome.size() > 0; i++){
+//                                    queries[i] = new LocusM(Integer.parseInt(chromosome.remove()), (Integer.parseInt(startPos.remove()) - sd), (Integer.parseInt(endPos.remove()) + sd));
+//                                }
+//                            }
+//                    } else if(SNPsFound.isEmpty()){
+//                            JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
+//                    } else if(allSNPsFound){
+//                        queries = new LocusM[chromosome.size()];
+//                        for(int i = 0; chromosome.size() > 0; i++){
+//                            queries[i] = new LocusM(Integer.parseInt(chromosome.remove()), Integer.parseInt(startPos.remove()) - sd, Integer.parseInt(endPos.remove()) + sd);
+//                        }
+//                    }
+//                    this.queries = queries;
                 } catch (FileNotFoundException e) {
                         // Either will occur if ncbi is down or if something is wrong with the input
                         // e.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
+                        //JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
                 } catch(IOException e){
                         //e.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
+                        //JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
                 } catch(Exception e){
                         //e.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
+                        //JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
                 }
         }
     /**
@@ -163,7 +146,7 @@ public class Traitement1KG extends Traitement {
      */
     public void traitementGene(SettingsM settings, LinkedList<ElementDeRechercheM> geneQueries){
         // requête où l'entrée est sous forme de gène (que ce soit ID du gène ou nom du gène)
-        
+
             //publish("Looking up gene locations...");
             FoundGeneAndRegion[] geneLocationFromGeneName = {null};
             if(geneQueries.get(0).getClass().getSimpleName().equals("geneParNomM")){
@@ -182,47 +165,47 @@ public class Traitement1KG extends Traitement {
                 geneLocationFromGeneName[0] = TraitementNCBI.getQueryFromGeneID(geneList,settings.getVersionHG());
             }
 
-            //TODO: séparer la partie ci-dessous du Modèle et la mettre dans la Vue en utilisant l'architecture MVC
-            if(geneLocationFromGeneName[0] == null){
-                JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any genes","Error",JOptionPane.OK_OPTION);
-            }else if(!geneLocationFromGeneName[0].getFoundAllGenes()){
-                    String[] options = {"Yes","No"};
-
-                    JPanel partialGenePanel = new JPanel();
-                    JTextArea listOfGenes = new JTextArea(geneLocationFromGeneName[0].getFoundGenes());
-                    listOfGenes.setWrapStyleWord(true);
-                    listOfGenes.setLineWrap(true);
-                    listOfGenes.setBackground(partialGenePanel.getBackground());
-                    partialGenePanel.setLayout(new BoxLayout(partialGenePanel, BoxLayout.Y_AXIS));
-                    partialGenePanel.add(new JLabel("Ferret encountered problems retrieving the gene positions from the NCBI Gene Database."));
-                    partialGenePanel.add(new JLabel("Here are the genes successfully retrieved:"));
-                    JScrollPane listOfGenesScrollPane = new JScrollPane(listOfGenes,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-                    listOfGenesScrollPane.setBorder(BorderFactory.createEmptyBorder());
-                    listOfGenesScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
-                    partialGenePanel.add(listOfGenesScrollPane);
-                    partialGenePanel.add(new JLabel("Do you wish to continue?"));
-
-                    // partie juste en dessous à changer -> le JPanel n'a rien à faire ici
-                    int choice = JOptionPane.showOptionDialog(null,
-                                    partialGenePanel,
-                                    "Continue?",
-                                    JOptionPane.YES_NO_OPTION,
-                                    JOptionPane.PLAIN_MESSAGE,
-                                    null, 
-                                    options, 
-                                    null);
-                    if(choice == JOptionPane.YES_OPTION){
-                        this.queries = geneLocationFromGeneName[0].getInputRegionArray();
-                    }
-            } else {
-                this.queries = geneLocationFromGeneName[0].getInputRegionArray();
-            }
+            //Done: séparer la partie ci-dessous du Modèle et la mettre dans la Vue en utilisant l'architecture MVC
+//            if(geneLocationFromGeneName[0] == null){
+//                JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any genes","Error",JOptionPane.OK_OPTION);
+//            }else if(!geneLocationFromGeneName[0].getFoundAllGenes()){
+//                    String[] options = {"Yes","No"};
+//
+//                    JPanel partialGenePanel = new JPanel();
+//                    JTextArea listOfGenes = new JTextArea(geneLocationFromGeneName[0].getFoundGenes());
+//                    listOfGenes.setWrapStyleWord(true);
+//                    listOfGenes.setLineWrap(true);
+//                    listOfGenes.setBackground(partialGenePanel.getBackground());
+//                    partialGenePanel.setLayout(new BoxLayout(partialGenePanel, BoxLayout.Y_AXIS));
+//                    partialGenePanel.add(new JLabel("Ferret encountered problems retrieving the gene positions from the NCBI Gene Database."));
+//                    partialGenePanel.add(new JLabel("Here are the genes successfully retrieved:"));
+//                    JScrollPane listOfGenesScrollPane = new JScrollPane(listOfGenes,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//                    listOfGenesScrollPane.setBorder(BorderFactory.createEmptyBorder());
+//                    listOfGenesScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
+//                    partialGenePanel.add(listOfGenesScrollPane);
+//                    partialGenePanel.add(new JLabel("Do you wish to continue?"));
+//
+//                    // partie juste en dessous à changer -> le JPanel n'a rien à faire ici
+//                    int choice = JOptionPane.showOptionDialog(null,
+//                                    partialGenePanel,
+//                                    "Continue?",
+//                                    JOptionPane.YES_NO_OPTION,
+//                                    JOptionPane.PLAIN_MESSAGE,
+//                                    null,
+//                                    options,
+//                                    null);
+//                    if(choice == JOptionPane.YES_OPTION){
+//                        this.queries = geneLocationFromGeneName[0].getInputRegionArray();
+//                    }
+//            } else {
+//                this.queries = geneLocationFromGeneName[0].getInputRegionArray();
+//            }
         }
-    
+
     /**
      * Fonction exécutant les entrées par gène ou variant (appelant donc la fonction appropriée parmi les deux précédentes).
      * @param settings les paramètres de la recherche
-     * @param enteredQueries 
+     * @param enteredQueries
      */
     public void traitement(SettingsM settings, LinkedList<ElementDeRechercheM> enteredQueries) {
 
@@ -232,7 +215,7 @@ public class Traitement1KG extends Traitement {
         else if(enteredQueries != null && enteredQueries.get(0).getClass().getSimpleName().startsWith("Gene")){
             traitementGene(settings, enteredQueries);
         }
-        
+
 
         //publish("Parsing Individuals...");
 
@@ -295,8 +278,8 @@ public class Traitement1KG extends Traitement {
                 }
             }
             popBuffRead.close();
-        } catch (IOException e) { 
-            //This shouldn't be a problem since the file being read comes with Ferret 
+        } catch (IOException e) {
+            //This shouldn't be a problem since the file being read comes with Ferret
             //e.printStackTrace();
         } finally {}
 
@@ -307,7 +290,7 @@ public class Traitement1KG extends Traitement {
         Integer tempInt = null;
 
         // écriture des fichiers
-        
+
         if (settings.getOutput().equals("vcf")){
             // Outputting VCF does not require writing the VCF from 1KG
             String fileName;
@@ -316,11 +299,11 @@ public class Traitement1KG extends Traitement {
             fileName = "Ferret_Data" + dtf.format(now);
             File vcfWriteFile = new File(fileName + ".vcf");
             try {
-                vcfWriteFile.createNewFile();		
+                vcfWriteFile.createNewFile();
                 vcfWrite = new BufferedWriter(new FileWriter(vcfWriteFile));
                 // Uses the web address from peopleSet, but I don't really see a problem with this
                 TabixReader tr = new TabixReader(webAddress);
-                // TODO: récupérer un bon TabixReader, nous n'en avons pas trouvé de convenable qui corresponde aux fonctionnalités développées ici
+                // Done: récupérer un bon TabixReader, nous n'en avons pas trouvé de convenable qui corresponde aux fonctionnalités développées ici
                 // (je ne sais pas pourquoi l'ancien TabixReader n'est plus valable...)
                 s = tr.readLine();
                 while (!s.contains("CHROM")) {
@@ -343,7 +326,7 @@ public class Traitement1KG extends Traitement {
                 }
                 vcfWrite.newLine();
 
-                for(int j = 0; j < queryNumber; j++){ 
+                for(int j = 0; j < queryNumber; j++){
                     webAddress = ftpAddress.replace("$",Integer.toString(sortedQueries.get(j).getChromosome()));
                     tr = new TabixReader(webAddress);
                     startTime = System.nanoTime();
@@ -379,7 +362,7 @@ public class Traitement1KG extends Traitement {
                                 chromosomeCount += 2;
                             }
                         }
-                        // This loop is equivalent to an if "all" 
+                        // This loop is equivalent to an if "all"
                         boolean tempBoolean = true;
                         for(int i = 0; i < variantFreq.length; i++){
                             if((variantFreq[i]/(float)chromosomeCount) < settings.getMaf()){
@@ -408,7 +391,7 @@ public class Traitement1KG extends Traitement {
             } catch (IOException e) {
                 e.printStackTrace();
                 vcfWriteFile.delete();
-            } 
+            }
         } else {
 
             // VCF writing code is right here for compatibility with swingWorker
@@ -420,7 +403,7 @@ public class Traitement1KG extends Traitement {
                 File vcfFile = new File(fileName + ".vcf");
                 vcfFile.createNewFile();
                 BufferedWriter vcfBuffWrite = new BufferedWriter(new FileWriter(vcfFile));
-                for(int j = 0; j < queryNumber; j++){ 
+                for(int j = 0; j < queryNumber; j++){
                     webAddress = ftpAddress.replace("$",Integer.toString(sortedQueries.get(j).getChromosome()));
                     /*
                 if (hgVersion == "GRCh37"){
@@ -457,7 +440,7 @@ public class Traitement1KG extends Traitement {
                                 }
                             }else{
                                 vcfBuffWrite.write(s);
-                            } 
+                            }
                             vcfBuffWrite.newLine();
                         } else {
                             vcfBuffWrite.write(s);
@@ -479,7 +462,7 @@ public class Traitement1KG extends Traitement {
                 e.printStackTrace();
                 System.out.println("Runtime Exception" + tempInt);
                 System.out.println("Iteration time: " + (System.nanoTime() - startTime));
-            } 
+            }
             // end VCF writing
 
 
@@ -541,10 +524,10 @@ public class Traitement1KG extends Traitement {
                 freqFile.createNewFile();
                 frqWrite = new BufferedWriter(new FileWriter(freqFile));
                 if(settings.getEsp()){
-                    frqWrite.write("CHROM\tVARIANT\tPOS\tALLELE1\tALLELE2\tNB_1KG_CHR\t1KG_A1_FREQ\tESP6500_EA_A1_FREQ\tESP6500_AA_A1_FREQ"); 
+                    frqWrite.write("CHROM\tVARIANT\tPOS\tALLELE1\tALLELE2\tNB_1KG_CHR\t1KG_A1_FREQ\tESP6500_EA_A1_FREQ\tESP6500_AA_A1_FREQ");
                     frqWrite.newLine();
                 } else {
-                    frqWrite.write("CHROM\tVARIANT\tPOS\tALLELE1\tALLELE2\tNB_CHR\t1KG_A1_FREQ\t1KG_A2_FREQ"); 
+                    frqWrite.write("CHROM\tVARIANT\tPOS\tALLELE1\tALLELE2\tNB_CHR\t1KG_A1_FREQ\t1KG_A2_FREQ");
                     frqWrite.newLine();
                 }
 
@@ -578,7 +561,7 @@ public class Traitement1KG extends Traitement {
                     }
                     // indel trick
                     String[] retainedPossibility = new String[2];
-                    if(!text[4].contains("CN") && variantPossibilities.length == 2 && 
+                    if(!text[4].contains("CN") && variantPossibilities.length == 2 &&
                         (variantPossibilities[0].length() > 1 || variantPossibilities[1].length() > 1)){
                         text[2] = "indel_" + text[2] + "_" + variantPossibilities[0] + "/" + variantPossibilities[1];
                         retainedPossibility[0] = variantPossibilities[0];
@@ -644,10 +627,10 @@ public class Traitement1KG extends Traitement {
                     // frq file is written here, ESP data is added
                     if(settings.getEsp()){
                             // The following line says: while espData is not empty AND [esp chr is less than 1KG chr OR (esp chr is equal to 1KG chr AND esp pos is less than 1KG pos)] then:
-                            while(!espData.isEmpty() && ( (espData.peek().getChrAsInt() < Integer.parseInt(text[0])) || 
+                            while(!espData.isEmpty() && ( (espData.peek().getChrAsInt() < Integer.parseInt(text[0])) ||
                                             ( (espData.peek().getChrAsInt() == Integer.parseInt(text[0])) && (espData.peek().getPos() < Integer.parseInt(text[1])) ) )){
                                     EspInfoObj temp = espData.remove();
-                                    
+
                                     // nous n'avons pas pris en compte d'ESP MAF (cette option n'existe pas dans notre version), donc par défaut on va de 0 à 1
                                     if ((temp.getEAFreq() >= 0 && temp.getEAFreq() <= 1) || (temp.getAAFreq() >= 0 && temp.getAAFreq() <= (1))){
                                             String snpName;
@@ -657,20 +640,20 @@ public class Traitement1KG extends Traitement {
                                                     snpName = temp.getSNP();
                                             }
                                             frqFileEmpty = false;
-                                            frqWrite.write(temp.getChr() + "\t" + snpName + "\t" + temp.getPos() + "\t" + 
+                                            frqWrite.write(temp.getChr() + "\t" + snpName + "\t" + temp.getPos() + "\t" +
                                                             temp.getRefAllele() + "\t" + temp.getAltAllele() + "\t" + "." + "\t" + "." + "\t" +
                                                             df.format(temp.getEAFreq()) + "\t" + df.format(temp.getAAFreq()));
                                             frqWrite.newLine();
                                     }
                             }
-                            // The following line says: if espData is not empty AND esp chr equals 1KG chr AND esp pos equals 1KG pos AND it's biallelic 
+                            // The following line says: if espData is not empty AND esp chr equals 1KG chr AND esp pos equals 1KG pos AND it's biallelic
                             if(!espData.isEmpty() && espData.peek().getChrAsInt() == Integer.parseInt(text[0]) && espData.peek().getPos() == Integer.parseInt(text[1]) && variantPossibilities.length == 2){
                                     EspInfoObj temp = espData.remove();///
                                     // 1KG and ESP Ref alleles and Alt alleles match
                                     if (variantPossibilities[0].equals(temp.getRefAllele()) && variantPossibilities[1].equals(temp.getAltAllele())){
                                         if ((freqZero >= settings.getMaf() && freqOne >= settings.getMaf()) ||(temp.getEAFreq() >= 0 && temp.getEAFreq() <= 1) || (temp.getAAFreq() >= 0 && temp.getAAFreq() <= 1)){
                                             frqFileEmpty = false;
-                                            frqWrite.write(text[0] + "\t" + text[2] + "\t" + text[1] + "\t" + 
+                                            frqWrite.write(text[0] + "\t" + text[2] + "\t" + text[1] + "\t" +
                                                 variantPossibilities[0] + "\t" + variantPossibilities[1] + "\t" + numChr + "\t" + df.format(freqZero) + "\t" +
                                                 df.format(temp.getEAFreq()) + "\t" + df.format(temp.getAAFreq()));
                                             frqWrite.newLine();
@@ -679,7 +662,7 @@ public class Traitement1KG extends Traitement {
                                     } else if (variantPossibilities[0].equals(temp.getAltAllele()) && variantPossibilities[1].equals(temp.getRefAllele())){
                                         if ((freqOne >= settings.getMaf() && freqZero >= settings.getMaf())||(temp.getEAFreq() >= 0 && temp.getEAFreq() <= 1) || (temp.getAAFreq() >= 0 && temp.getAAFreq() <= 1)){
                                             frqFileEmpty = false;
-                                            frqWrite.write(text[0] + "\t" + text[2] + "\t" + text[1] + "\t" + 
+                                            frqWrite.write(text[0] + "\t" + text[2] + "\t" + text[1] + "\t" +
                                                 variantPossibilities[0] + "\t" + variantPossibilities[1] + "\t" + numChr + "\t" + df.format(freqZero) + "\t" +
                                                 df.format(temp.getEAFreqAlt()) + "\t" + df.format(temp.getAAFreqAlt()));
                                             frqWrite.newLine();
@@ -688,7 +671,7 @@ public class Traitement1KG extends Traitement {
                                     } else{
                                         if (freqOne >= settings.getMaf() && freqZero >= settings.getMaf()){
                                             frqFileEmpty = false;
-                                            frqWrite.write(text[0] + "\t" + text[2] + "\t" + text[1] + "\t" + 
+                                            frqWrite.write(text[0] + "\t" + text[2] + "\t" + text[1] + "\t" +
                                                 variantPossibilities[0] + "\t" + variantPossibilities[1] + "\t" + numChr + "\t" + df.format(freqZero) + "\t" +
                                                 "." + "\t" + ".");
                                             frqWrite.newLine();
@@ -698,7 +681,7 @@ public class Traitement1KG extends Traitement {
                             } else if(variantPossibilities.length == 2){
                                 if (freqOne >= settings.getMaf() && freqZero >= settings.getMaf()){
                                     frqFileEmpty = false;
-                                    frqWrite.write(text[0] + "\t" + text[2] + "\t" + text[1] + "\t" + 
+                                    frqWrite.write(text[0] + "\t" + text[2] + "\t" + text[1] + "\t" +
                                         variantPossibilities[0] + "\t" + variantPossibilities[1] + "\t" + numChr + "\t" + df.format(freqZero) + "\t" +
                                         "." + "\t" + ".");
                                     frqWrite.newLine();
@@ -707,7 +690,7 @@ public class Traitement1KG extends Traitement {
                         } else {
                             if(variantPossibilities.length == 2 && freqOne >= settings.getMaf() && freqZero >= settings.getMaf()){
                                 frqFileEmpty = false;
-                                frqWrite.write(text[0] + "\t" + text[2] + "\t" + text[1] + "\t" + variantPossibilities[0] + "\t" + 
+                                frqWrite.write(text[0] + "\t" + text[2] + "\t" + text[1] + "\t" + variantPossibilities[0] + "\t" +
                                     variantPossibilities[1] + "\t" + numChr + "\t" + df.format(freqZero) + "\t" + df.format(freqOne));
                                 frqWrite.newLine();
                             }
@@ -755,16 +738,17 @@ public class Traitement1KG extends Traitement {
 
     }
 
-    
+
     // fonctions auxiliaires
-    
+
     /**
      * Fonction calculant l'évolution du process au fur et à mesure (pour après l'afficher via la Vue).
-     * @param processStatus 
+     * @param processStatus
      */
-    protected void process(List<String> processStatus){
+    public String process(List<String> processStatus){
             int statusIndex = processStatus.size();
-            status.setText(processStatus.get(statusIndex-1));
+            return processStatus.get(statusIndex-1);
+            //status.setText(processStatus.get(statusIndex-1));
     }
 
     /**
@@ -825,10 +809,10 @@ public class Traitement1KG extends Traitement {
      * Récupère les indices au sein d'une population à partir d'un fichier.
      * @param fileName le nom du fichier
      * @return une Hashmap avec population et indice associé
-     * @throws IOException 
+     * @throws IOException
      */
     public static HashMap<String, Integer> getPopulationIndices(String fileName) throws IOException{
-            // Since this seems to stay the same, this could be added to the population txt file. It would 
+            // Since this seems to stay the same, this could be added to the population txt file. It would
             // probably save 3-4 seconds of run time
             HashMap<String, Integer> peopleSet = new HashMap<>(3500);
 
@@ -865,7 +849,7 @@ public class Traitement1KG extends Traitement {
                             s = tr.readLine();
                     }
                     //vcfBuffWrite.close();
-            } catch (RuntimeException e) {
+            } catch (RuntimeException | IOException e) {
                     //e.printStackTrace();
             }
             return s;
@@ -889,11 +873,11 @@ public class Traitement1KG extends Traitement {
                             s = tr.readLine();
                     }
                     //vcfBuffWrite.close();
-            } catch (RuntimeException e) {
+            } catch (RuntimeException | IOException e) {
                     //e.printStackTrace();
             }
             return s;
-    }	
+    }
 
     /**
      * Fonction récupérant les infos sur les gens à partir de la version 1 (ce n'est ni la plus récente, ni celle par défaut).
@@ -914,11 +898,11 @@ public class Traitement1KG extends Traitement {
                     }
                     //vcfBuffWrite.close();
             } //e.printStackTrace();
-        catch (RuntimeException e) {
+        catch (RuntimeException | IOException e) {
                     //e.printStackTrace();
             }
             return s;
-    }	
+    }
 
 
     /**

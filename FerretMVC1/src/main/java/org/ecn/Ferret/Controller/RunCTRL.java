@@ -1,3 +1,5 @@
+package org.ecn.Ferret.Controller;
+
 /**
  * Classe de lien entre le lancement de l'application Ferret par l'utilisateur et le traitement effectif par le modèle
  * @Authors: Mathieu JUNG-MULLER & Bozhou WANG
