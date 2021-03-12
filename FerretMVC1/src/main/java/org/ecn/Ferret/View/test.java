@@ -26,7 +26,8 @@ public class test {
     mhg.addHelpMenuItems(g);
     pg.addPopulation(g);
     rig.addRegoinInteret(g);
-    r.addRun(g);
+    
+    r.addRun(g,pg,rig,mfg);
     
     g.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     g.afficher();
