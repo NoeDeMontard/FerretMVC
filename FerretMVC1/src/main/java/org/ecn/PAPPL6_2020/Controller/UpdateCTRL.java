@@ -10,8 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.SwingWorker;
-import org.ecn.PAPPL6_2020.View.*;
-import org.ecn.PAPPL6_2020.Model.*;
+import org.ecn.Ferret.View.*;
+import org.ecn.Ferret.Model.*;
 
 /**
  * Classe faisant le lien entre la demande de mise à jour via la vue et le téléchargement de la mise à jour via le modèle.

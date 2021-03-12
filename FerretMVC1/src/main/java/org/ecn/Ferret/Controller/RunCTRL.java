@@ -1,5 +1,9 @@
 package org.ecn.Ferret.Controller;
 
+import org.ecn.Ferret.View.PopulationGUI;
+import org.ecn.Ferret.View.RegionInteretGUI;
+import org.ecn.Ferret.View.SettingsGUI;
+
 /**
  * Classe de lien entre le lancement de l'application Ferret par l'utilisateur et le traitement effectif par le modèle
  * @Authors: Mathieu JUNG-MULLER & Bozhou WANG

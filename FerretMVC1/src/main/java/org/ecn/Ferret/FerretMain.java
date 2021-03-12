@@ -8,6 +8,7 @@ package org.ecn.Ferret;
 import org.ecn.Ferret.Controller.*;
 import org.ecn.Ferret.View.*;
 import org.ecn.Ferret.Model.*;
+import org.ecn.PAPPL6_2020.Controller.UpdateCTRL;
 /**
  *
  * @Authors: Mathieu JUNG-MULLER & Bozhou WANG

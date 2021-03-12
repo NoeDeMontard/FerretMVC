@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import org.ecn.PAPPL6_2020.Controller.UpdateCTRL;
 
 /**
  * Classe de lien entre l'affichage du menu et les actions à effectuer.
