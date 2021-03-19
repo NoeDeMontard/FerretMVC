@@ -10,5 +10,5 @@ package org.ecn.Ferret.Model;
  * @Authors: Mathieu JUNG-MULLER & Bozhou WANG
  */
 public  class TabixReader {
-    // TODO: mettre ici la classe de TabixReader qui correspond
+    // à voir: mettre ici la classe de TabixReader qui correspond
     }

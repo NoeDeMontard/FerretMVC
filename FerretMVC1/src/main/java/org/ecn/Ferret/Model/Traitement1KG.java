@@ -23,10 +23,11 @@ public class Traitement1KG extends Traitement {
     int progress;
     //JLabel status;  // DONE: à enlever pour mettre dans le GUI l'affichage par les JLabel
 
+    // TODO: Implémentation d'un constructeur pour la classe Traitement1KG
+
     public void setProgress(int p){
         this.progress = p;
     }
-
 
 
     /**
@@ -129,13 +130,13 @@ public class Traitement1KG extends Traitement {
 //                    this.queries = queries;
                 } catch (FileNotFoundException e) {
                         // Either will occur if ncbi is down or if something is wrong with the input
-                        // e.printStackTrace();
+                        e.printStackTrace();
                         //JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
                 } catch(IOException e){
-                        //e.printStackTrace();
+                        e.printStackTrace();
                         //JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
                 } catch(Exception e){
-                        //e.printStackTrace();
+                        e.printStackTrace();
                         //JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
                 }
         }
@@ -222,7 +223,7 @@ public class Traitement1KG extends Traitement {
         // analyse des individus
         DecimalFormat df = new DecimalFormat("#.####");
         df.setRoundingMode(RoundingMode.HALF_UP);
-        // Initalize some variables
+        // Initialize some variables
         ArrayList<String> peopleOfInterest = new ArrayList<String>();
         int variantCounter = 0, peopleCounter = 0;
         String[][] genotypes = null;

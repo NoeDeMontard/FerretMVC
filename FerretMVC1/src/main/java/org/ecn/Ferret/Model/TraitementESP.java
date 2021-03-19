@@ -32,7 +32,7 @@ public class TraitementESP extends Traitement {
      * @return list d'EspInfoObj
      */
     // aucune modification n'a été apportée sur ce traitement (nous avons seulement restreint l'application de la méthode à une information entrée sous forme de locus, à élargir si besoin)
-    // TODO: transformer au préalable les infos entrées autrement en infos sous forme de locus, à partir de la classe Traitement1KG (s'il y a besoin, nous n'avons pas testé)
+    // si besoin: transformer au préalable les infos entrées autrement en infos sous forme de locus, à partir de la classe Traitement1KG (s'il y a besoin, nous n'avons pas testé)
     public static LinkedList<EspInfoObj> exomeSequencingProject(ArrayList<LocusM> sortedQueries){
         // nous n'avons pas touché au corps de cette fonction
         LinkedList<EspInfoObj> espData = null;
