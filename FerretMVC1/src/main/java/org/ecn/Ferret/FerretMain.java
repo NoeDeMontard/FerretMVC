@@ -16,8 +16,6 @@ public class FerretMain {
     
 
     public static void main(String[] args) {
-      GUI gui = new GUI();
-      UpdateCTRL updateCtrl = new UpdateCTRL((UpdateGUI)gui);
       RunCTRL r = new RunCTRL();
       System.out.println(r);
       System.out.println("C'est bon ça marche.");

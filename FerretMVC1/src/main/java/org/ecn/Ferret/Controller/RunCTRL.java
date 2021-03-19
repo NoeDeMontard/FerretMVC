@@ -1,32 +1,31 @@
 package org.ecn.Ferret.Controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import org.ecn.Ferret.Model.*;
-import org.ecn.Ferret.View.*;
+import org.ecn.Ferret.View.PopulationGUI;
+import org.ecn.Ferret.View.RegionInteretGUI;
+import org.ecn.Ferret.View.SettingsGUI;
 
 /**
  * Classe de lien entre le lancement de l'application Ferret par l'utilisateur et le traitement effectif par le modèle
  * @Authors: Mathieu JUNG-MULLER & Bozhou WANG
 */
 
-public class RunCTRL implements ActionListener{
-    private RunGUI run; // la classe GUI lançant l'exécution
-    private Traitement1KG traitement; // la classe globale de traitement
-    
-    public RunCTRL(RunGUI run, Traitement1KG traitement) {
-        this.run = run;
-        run.RunListener(this);
-        this.traitement = traitement;
+public class RunCTRL {
+   // private RunGUI run; // la classe GUI lançant l'exécution
+    //private Traitement1KG traitement; // la classe globale de traitement
+    private PopulationGUI pg;
+    private RegionInteretGUI rig;
+    private SettingsGUI sg;
+    public RunCTRL(PopulationGUI pg,RegionInteretGUI rig,SettingsGUI sg) {
+        //this.run = run;
+       // run.RunListener(this);
+       // this.traitement = traitement;
+       this.pg=pg;
+       this.rig=rig;
+       this.sg=sg;
     }
-
-    public RunCTRL() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean VerificationParam(){//la methode pour verifier les paramatrs
+         
     }
-
-    @Override
-    public void actionPerformed(ActionEvent arg0) {
-        //TODO: il s'agit de vérifier que les paramètres d'exécution sont OK (pour pouvoir lancer Traitement1KG)
-        //TODO: connecter la vue, le contrôleur et le modèle pour lancer l'exécution à partir des infos entrées par l'utilisateur
+    public void ExecutionTraitement1KG(){//executer traitement1kg
+        
     }
-}

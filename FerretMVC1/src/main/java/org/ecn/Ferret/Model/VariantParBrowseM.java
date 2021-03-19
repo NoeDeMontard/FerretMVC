@@ -8,20 +8,29 @@ import java.util.List;
 
 /**
  * Classe définissant une entrée sous forme de variant pour laquelle on a utilisé "browse".
- * @Authors: Mathieu JUNG-MULLER & Bozhou WANG
+ * @author Mathieu JUNG-MULLER
+ * @author Bozhou WANG
+ * @author Noe DE MONTARD
 */
 
 public class VariantParBrowseM extends VariantM {
 
     private String adresse; // l'adresse du fichier où sont entrés les variants
 
-    // TODO: écrire une fonction qui enregistre les données sous forme de VariantParIDM à partir du fichier donné par l'attribut adresse
-    // NOTE : Ce code correspond au commentaire suivant (vers la ligne 215 de RegionInteretGUI.java, méthode RegionInteretGUI.addRegionInteret) :
-    //"<html>You can load a file in any of the following formats: <br> - a comma-delimited .csv file (example: variant.csv containing 73885319, 2395029) <br>"
-    //+ " - a tab-delimited .tab or .tsv file (example: variant.tab containing 73885319 &nbsp&nbsp&nbsp&nbsp 2395029) <br>"
-    //+ " - a space-delimited .txt file (example: variant.txt containing 73885319 2395029)"
-    //+ "<br><br> A carriage return can also be used as a delimiter for all above file types.</html>");
-    // getInvalidRegex(True)
+
+    /**
+     * Récupère les variants depuis un fichier et les renvois dans une liste de VariantParIDM.
+     * <p>
+     * Le fichier doit être au format cvs (délimité par des virgules), tab, 
+     * tsv (délimités par des tabulations) ou txt (délimité par des espaces) 
+     * (les passage à la ligne servent aussi de délimiteur dans tous les cas).
+     * <p>
+     * Son addresse est donné par l'attribut adresse accessible par 
+     * setAdresse(String path) et getAdresse().
+     * 
+     * @return List VariantParIDM Liste des variants 
+     * dont les identifiants sont inscrits dans le fichier.
+     */
     public List<VariantParIDM>  getVariantId() { // Liste 
         List<VariantParIDM> variantListArrayList = null;
         try{
@@ -69,10 +78,18 @@ public class VariantParBrowseM extends VariantM {
     }
     // setters et getters
 
+    /**
+     * Défini l'adresse du fichier contenant les variants à récupérer
+     * @param path le chemin d'accès
+     */
     public void setAdresse(String path){
       this.adresse = path;
     }
 
+    /**
+     * Récupère l'adresse du fichier contenant les variants à récupérer
+     * @return chemin du fichier
+     */
     public String getAdresse(){
       return this.adresse;
     }
