@@ -1,6 +1,5 @@
 package org.ecn.Ferret.Model;
 
-import htsjdk.tribble.readers.TabixReader;
 
 import java.io.*;
 import java.math.RoundingMode;
@@ -850,7 +849,7 @@ public class Traitement1KG extends Traitement {
                             s = tr.readLine();
                     }
                     //vcfBuffWrite.close();
-            } catch (RuntimeException | IOException e) {
+            } catch (RuntimeException e) {
                     //e.printStackTrace();
             }
             return s;
@@ -874,7 +873,7 @@ public class Traitement1KG extends Traitement {
                             s = tr.readLine();
                     }
                     //vcfBuffWrite.close();
-            } catch (RuntimeException | IOException e) {
+            } catch (RuntimeException e) {
                     //e.printStackTrace();
             }
             return s;
@@ -899,7 +898,7 @@ public class Traitement1KG extends Traitement {
                     }
                     //vcfBuffWrite.close();
             } //e.printStackTrace();
-        catch (RuntimeException | IOException e) {
+        catch (RuntimeException e) {
                     //e.printStackTrace();
             }
             return s;

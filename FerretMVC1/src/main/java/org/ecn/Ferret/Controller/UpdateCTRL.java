@@ -1,4 +1,4 @@
-package org.ecn.PAPPL6_2020.Controller;
+package org.ecn.Ferret.Controller;
 // import classes
 import static java.awt.Component.LEFT_ALIGNMENT;
 import java.awt.event.ActionEvent;
@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.SwingWorker;
+import org.ecn.Ferret.View.LinkLabel;
 import org.ecn.Ferret.View.*;
 import org.ecn.Ferret.Model.*;
 
@@ -34,16 +35,11 @@ public class UpdateCTRL  implements ActionListener{
                 if (arg0.getPropertyName().equals("state")) {
                     if ((SwingWorker.StateValue) arg0.getNewValue() == SwingWorker.StateValue.DONE) {
                         
-                        try {
-                            updateWorker.doInBackground();
-                        } catch (Exception ex) {
-                            Logger.getLogger(UpdateCTRL.class.getName()).log(Level.SEVERE, null, ex);
-                        }
                         String updateReason = updateWorker.updateStatus();
                         Boolean urgentUpdate = updateWorker.urgentUpdate();
                         Boolean needUpdate = updateWorker.needUpdate();
                         
-                        if (urgentUpdate || needUpdate) {//If there is an update available
+                        if (urgentUpdate || needUpdate) {
                             upV.getUpdateLabel().setText(updateReason);
                             upV.getUpdateBarHolder().remove(upV.getUpdateProgressBar());
                             LinkLabel ferretUpdate = null;
@@ -63,7 +59,7 @@ public class UpdateCTRL  implements ActionListener{
                                 ferretUpdate.setMaximumSize(ferretUpdate.getPreferredSize());
                                 upV.getUpdateBarHolder().add(ferretUpdate);
                             }
-                        } else {//If there is no update available
+                        } else {
                             upV.getUpdateLabel().setText("");
                             upV.getUpdateBarHolder().remove(upV.getUpdateProgressBar());
                             upV.getUpdateBarHolder().add(new JLabel(updateReason));

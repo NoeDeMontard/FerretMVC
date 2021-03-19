@@ -17,20 +17,21 @@ import org.ecn.Ferret.View.RegionInteretGUI; // TODO MVC : getGeneNameRadioButto
 public class GeneParBrowseM extends GeneM {
 
     private String adresse;
+    private boolean GeneNames;
 
-    
-        
     /**
-     * Retourne True si le fichier contient des gènes d'après leur nom.
-     *
-     * @return boolean geneNames
+     * Constructeur préparant la classe en lui donnant l'adresse du fichier à 
+     * analyser ainsi que son type 
+     * (True = fichier avec des noms de gènes, False = avec des id de gènes)
+     * @param adresse
+     * @param GeneNames
      */
-    private boolean isGeneNames(){
-        // TODO MVC : getGeneNameRadioButton : résoudre l'erreur : récupérer correctement le type de données -> à faire avec autre part ?
-        RegionInteretGUI RIgui = new RegionInteretGUI();
-        return RIgui.getGeneNameRadioButton().isSelected(); 
+    public GeneParBrowseM(String adresse, boolean GeneNames) {
+        this.adresse = adresse;
+        this.GeneNames = GeneNames;
     }
-
+    
+    
     /**
      * Récupère les gènes depuis un fichier et les renvois dans une liste de GeneParIDM
      * ou de GeneParNomM, selon le bouton RegionInteretGUI.getGeneNameRadioButton.
@@ -119,4 +120,22 @@ public class GeneParBrowseM extends GeneM {
     public String getAdresse(){
         return this.adresse;
     }
+    
+        /**
+     * Retourne True si le fichier contient des gènes d'après leur nom.
+     *
+     * @return boolean geneNames
+     */
+    private boolean isGeneNames(){
+        // TODO MVC : 
+        // getGeneNameRadioButton : résoudre l'erreur : récupérer correctement le type de données -> à faire avec autre partie ?
+        //RegionInteretGUI RIgui = new RegionInteretGUI();
+        //return RIgui.getGeneNameRadioButton().isSelected(); 
+        return this.GeneNames;
+    }
+
+    public void setGeneNames(boolean GeneNames) {
+        this.GeneNames = GeneNames;
+    }
+
 }

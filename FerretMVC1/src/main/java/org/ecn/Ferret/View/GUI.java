@@ -24,6 +24,10 @@ public class GUI extends JFrame {
     private String fileNameAndPath;
     URL questionMarkURL = getClass().getResource("questionMark25.png");
     ImageIcon questionMark = new ImageIcon(questionMarkURL);
+    // questionMarkURL semble null. J'ai tenté de déplacer l'image, de mettre un
+    // chemin plus complet ou d'utiliser ImageIcon("questionMark25.png"); mais 
+    // aucune de ses solutions n'a marché (la dernière ne met pas de message d'
+    // erreur mais l'icone ne s'affiche pas
     JLabel fileLocation = new JLabel("File location: None Selected");
     static JFrame snpFerret = new JFrame("Ferret v2.1.2");
     
@@ -54,13 +58,13 @@ public class GUI extends JFrame {
     NumberFormat mafFormat = NumberFormat.getNumberInstance();
 
     //Constants
-    final static version1KG[] currVersion = {version1KG.THREE};
-    final static fileOutput[] currFileOut = {fileOutput.ALL};
-    final static Boolean[] defaultHG = {true};
-    final static double[] mafThreshold = {0.0};
-    final static double[] mafThresholdMax = {0.5};
-    final static Boolean[] espMAFBoolean = {false};
-    final static Boolean[] checkedForUpdate = {false};
+    static final version1KG[] currVersion = {version1KG.THREE};
+    static final fileOutput[] currFileOut = {fileOutput.ALL};
+    static final Boolean[] defaultHG = {true};
+    static final double[] mafThreshold = {0.0};
+    static final double[] mafThresholdMax = {0.5};
+    static final Boolean[] espMAFBoolean = {false};
+    static final Boolean[] checkedForUpdate = {false};
     final JFileChooser saveFileChooser = new JFileChooser();
 
     // Enumerations

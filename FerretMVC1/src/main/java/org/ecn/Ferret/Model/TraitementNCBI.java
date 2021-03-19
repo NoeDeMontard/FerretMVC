@@ -25,8 +25,8 @@ import org.xml.sax.SAXException;
  * @author Noe DE MONTARD
  */
 public class TraitementNCBI extends Traitement {
-    // aucune des méthodes de cette classe n'a subi de modification de notre part, elles ont simplement été déplacées
-    // nous avons simplement remplacé l'ancienne classe InputRegion et ses occurrences ici par LocusM
+    // Cette classe a subie des modifications pour remplacer l'ancienne classe InputRegion et ses occurrences ici par LocusM
+    // mais aussi une modification pour éliminer un dédoublement de code dans les fonctions getQueryFromGeneX()
 
     // le serveur NCBI est organisé sous forme d'arbres impliquant des noeuds père et fils, d'où l'importance d'utiliser des méthodes prédéfinies permettant de naviguer au sein de cet ensemble
     // pour la théorie là-dessus, ce que nous avons vu sur les arbres en MADIS est suffisant
@@ -156,10 +156,12 @@ public class TraitementNCBI extends Traitement {
      * @return FoundGeneAndRegion format du retour
      */
     private static FoundGeneAndRegion getQueryFromGene(String[] geneListArray, boolean defaultHG, boolean isNameAndNotID) {
-
+        
         if (geneListArray.length == 0) {
             return null;
         }
+        
+        // variables for differences between usage of names an usage of IDs
         String geneListGeneIndicator;
         String geneListGeneSeparator;
         if (isNameAndNotID) {
@@ -169,13 +171,18 @@ public class TraitementNCBI extends Traitement {
             geneListGeneIndicator = "";
             geneListGeneSeparator = ",";
         }
+        
+        // passing the genes in a StringBuilder
         StringBuilder geneList = new StringBuilder();
         for (int i = 0; i < geneListArray.length - 1; i++) {
             geneList.append(geneListArray[i] + geneListGeneIndicator + geneListGeneSeparator);
         }
         geneList.append(geneListArray[geneListArray.length - 1] + geneListGeneIndicator);
+        
         String geneString = "";
         DocumentBuilder docBldr;
+        
+        // new DocumentBuilderFactory with the right protections
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
         dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
@@ -183,8 +190,10 @@ public class TraitementNCBI extends Traitement {
         dbf.setIgnoringComments(true);
         dbf.setIgnoringElementContentWhitespace(true);
         dbf.setCoalescing(false);
+        
         StringBuilder foundGenes = new StringBuilder();
         ArrayList<LocusM> queriesArrayList = new ArrayList<>();
+        
         if (isNameAndNotID) {
             try {
                 docBldr = dbf.newDocumentBuilder();
@@ -296,13 +305,14 @@ public class TraitementNCBI extends Traitement {
                     foundGenes.append(currentGene + ",");
                 }
             }
+            foundGenes.deleteCharAt(foundGenes.length() - 1);
         } catch (ParserConfigurationException | IOException | SAXException e) {
             return null;
         }
 
         LocusM[] queriesFound = queriesArrayList.toArray(new LocusM[queriesArrayList.size()]);
 
-        foundGenes.deleteCharAt(foundGenes.length() - 1);
+        
         return new FoundGeneAndRegion(foundGenes.toString(), queriesFound, queriesFound.length == geneListArray.length);
     }
 }
