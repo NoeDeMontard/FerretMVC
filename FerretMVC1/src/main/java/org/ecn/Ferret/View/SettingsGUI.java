@@ -19,6 +19,7 @@ import javax.swing.event.ChangeListener;
  * @Authors: Mathieu JUNG-MULLER & Bozhou WANG
  */
 public class SettingsGUI extends ElementDuMenuGUI{
+    private final Font usedFont = new Font("SansSerif", Font.BOLD, 16);
     //Settings pane:
     JFrame settingsFrame = new JFrame("Settings");
     JPanel settingsPanel = new JPanel();
@@ -115,7 +116,7 @@ public class SettingsGUI extends ElementDuMenuGUI{
         settingsPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         settingsFrame.setResizable(true);
         settingsFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        vcfVersionLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+        vcfVersionLabel.setFont(usedFont);
         settingsPanel.add(vcfVersionLabel);
         vcfRadioButtons.add(phase3Button);
         vcfRadioButtons.add(phase1Button);
@@ -126,18 +127,18 @@ public class SettingsGUI extends ElementDuMenuGUI{
         settingsPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         mafPanel.setAlignmentX(LEFT_ALIGNMENT);
         settingsPanel.add(mafOptionLabel);
-        mafOptionLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+        mafOptionLabel.setFont(usedFont);
         settingsPanel.add(mafPanel);
         mafPanel.setLayout(new BoxLayout(mafPanel, BoxLayout.X_AXIS));
         mafPanel.add(mafThresholdLabel);
         mafText.setColumns(5);
         mafText.setMaximumSize(mafText.getPreferredSize());
-        mafText.setValue(new Double(0));        
+        mafText.setValue(Double.valueOf(0));        
         mafPanel.add(mafText);
 
         mafSlider.setMajorTickSpacing(1000);
         mafSlider.setPaintTicks(true);
-        Hashtable labelTable = new Hashtable();
+        Hashtable<Integer,JLabel> labelTable = new Hashtable();
         labelTable.put(0, new JLabel("0.0"));
         labelTable.put(5000, new JLabel("0.5"));
         mafSlider.setLabelTable(labelTable);
@@ -145,7 +146,7 @@ public class SettingsGUI extends ElementDuMenuGUI{
         mafSlider.setPaintLabels(true);
         mafPanel.add(mafSlider);
 
-        Hashtable labelTable2 = new Hashtable();
+        Hashtable<Integer,JLabel> labelTable2 = new Hashtable();
         labelTable2.put(0, new JLabel("0.0"));
         labelTable2.put(5000, new JLabel("0.5"));
 
@@ -165,7 +166,7 @@ public class SettingsGUI extends ElementDuMenuGUI{
                 + "Exome Sequencing Project, or the African American population from the Exome Sequencing Project. </html>");
         settingsPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         settingsPanel.add(filesLabel);
-        filesLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+        filesLabel.setFont(usedFont);
         fileOutputButtons.add(allFilesButton);
         fileOutputButtons.add(freqFileButton);
         fileOutputButtons.add(vcfFileButton);
@@ -190,7 +191,7 @@ public class SettingsGUI extends ElementDuMenuGUI{
         allFilesButton.setSelected(true);
         settingsPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         settingsPanel.add(hgVersionLabel);
-        hgVersionLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+        hgVersionLabel.setFont(usedFont);
 
         hgVersionButtons.add(version19Button);
         hgVersionButtons.add(version38Button);

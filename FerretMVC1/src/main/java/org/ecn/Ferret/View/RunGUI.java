@@ -44,7 +44,7 @@ public class RunGUI extends GUI{
         goButton.setActionCommand("goButton");
     }
 
-    public void RunListener(ActionListener a) {
+    public void runListener(ActionListener a) {
         goButton.addActionListener(a);}
 
 //    public void RunListener() {
@@ -55,7 +55,7 @@ public class RunGUI extends GUI{
 //        });
 //    }
 
-    public void AfficheVariantID(ArrayList<String> SNPsFound,LinkedList<String> chromosome,LinkedList<String> startPos,LinkedList<String> endPos,int sd){
+    public void afficheVariantID(List<String> SNPsFound,LinkedList<String> chromosome,LinkedList<String> startPos,LinkedList<String> endPos,int sd){
 
         String[] options = {"Yes","No"};
         JPanel partialSNPPanel = new JPanel();
@@ -82,16 +82,16 @@ public class RunGUI extends GUI{
                 null);
         if(choice == JOptionPane.YES_OPTION){
             LocusM[] queries = new LocusM[chromosome.size()];
-            for(int i = 0; chromosome.size() > 0; i++){
+            for(int i = 0; ! chromosome.isEmpty() ; i++){
                 queries[i] = new LocusM(Integer.parseInt(chromosome.remove()), (Integer.parseInt(startPos.remove()) - sd), (Integer.parseInt(endPos.remove()) + sd));
             }}}
 
-    public void AffichageError(){
+    public void affichageError(){
         JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
     }
-    public void AffichageAllSNPsFound(LinkedList<String> chromosome,LinkedList<String> startPos,LinkedList<String> endPos,int sd){
+    public void affichageAllSNPsFound(LinkedList<String> chromosome,LinkedList<String> startPos,LinkedList<String> endPos,int sd){
         LocusM[] queries = new LocusM[chromosome.size()];
-        for(int i = 0; chromosome.size() > 0; i++){
+        for(int i = 0; ! chromosome.isEmpty(); i++){
             queries[i] = new LocusM(Integer.parseInt(chromosome.remove()), Integer.parseInt(startPos.remove()) - sd, Integer.parseInt(endPos.remove()) + sd);
         }}
 
@@ -99,7 +99,7 @@ public class RunGUI extends GUI{
      *
      * @param geneLocationFromGeneName
      */
-    public void AffichageGene(FoundGeneAndRegion[] geneLocationFromGeneName){
+    public void affichageGene(FoundGeneAndRegion[] geneLocationFromGeneName){
         String[] options = {"Yes","No"};
         LocusM[] queries;
 
@@ -117,7 +117,7 @@ public class RunGUI extends GUI{
         partialGenePanel.add(listOfGenesScrollPane);
         partialGenePanel.add(new JLabel("Do you wish to continue?"));
 
-        // partie juste en dessous à changer -> le JPanel n'a rien à faire ici
+        // TODO : partie juste en dessous à changer -> le JPanel n'a rien à faire ici // n'était pas marqué comme un TODO mais semble en être un
         int choice = JOptionPane.showOptionDialog(null,
                 partialGenePanel,
                 "Continue?",

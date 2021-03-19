@@ -15,6 +15,7 @@ import javax.swing.*;
  * @Authors: Mathieu JUNG-MULLER & Bozhou WANG
  */
 public class PopulationGUI extends GUI{
+    private final Font usedFont = new Font("Serif", Font.BOLD, 20);
     // Races Selection Declarations
     String[] asnCode = {"EAS","CDX","CHB","CHS","JPT","KHV","CHD"};
     String[] eurCode = {"EUR","CEU","GBR","FIN","IBS","TSI"};
@@ -90,7 +91,7 @@ public class PopulationGUI extends GUI{
     
     public void addPopulation(GUI g){
         allracessub[0] = new JCheckBox("ALL All Populations (n=2,504)");
-        allracesLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        allracesLabel.setFont(usedFont);
         g.allracesPanel.add(allracesLabel);
         g.allracesPanel.add(allracessub[0]);
         
@@ -104,7 +105,7 @@ public class PopulationGUI extends GUI{
         afrsub[5] = new JCheckBox("LWK Luhya (n=99)");
         afrsub[6] = new JCheckBox("MSL Mende (n=85)");
         afrsub[7] = new JCheckBox("YRI Yoruba (n=108)");
-        afrLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        afrLabel.setFont(usedFont);
         afrPanel.add(afrLabel);
         for (JCheckBox afrsub1 : afrsub) {
             afrPanel.add(afrsub1);
@@ -120,7 +121,7 @@ public class PopulationGUI extends GUI{
         amrsub[2] = new JCheckBox("MXL Mexican American (n=64)");
         amrsub[3] = new JCheckBox("PEL Peruvian (n=85)");
         amrsub[4] = new JCheckBox("PUR Puerto Rican (n=104)");
-        amrLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        amrLabel.setFont(usedFont);
         amrPanel.add(amrLabel);
         for (int i = 0; i < amrsub.length; i++) {
             amrPanel.add(amrsub[i]);
@@ -138,7 +139,7 @@ public class PopulationGUI extends GUI{
         asnsub[4] = new JCheckBox("JPT Japanese (n=104)");
         asnsub[5] = new JCheckBox("KHV Kinh Vietnamese (n=99)");
         asnsub[6] = new JCheckBox("CHD Denver Chinese (n=0)");
-        asnLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        asnLabel.setFont(usedFont);
         asnPanel.add(asnLabel);
         for (int i = 0; i < asnsub.length; i++) {
             asnPanel.add(asnsub[i]);
@@ -155,7 +156,7 @@ public class PopulationGUI extends GUI{
         eursub[3] = new JCheckBox("FIN Finnish (n=99)");
         eursub[4] = new JCheckBox("IBS Spanish (n=107)");
         eursub[5] = new JCheckBox("TSI Tuscan (n=107)");
-        eurLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        eurLabel.setFont(usedFont);
         eurPanel.add(eurLabel);
         for (int i = 0; i < eursub.length; i++) {
             eurPanel.add(eursub[i]);
@@ -172,7 +173,7 @@ public class PopulationGUI extends GUI{
         sansub[3] = new JCheckBox("ITU Indian Telugu (n=102)");
         sansub[4] = new JCheckBox("PJL Punjabi (n=96)");
         sansub[5] = new JCheckBox("STU Sri Lankan Tamil (n=102)");
-        sanLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        sanLabel.setFont(usedFont);
         sanPanel.add(sanLabel);
         for (int i = 0; i < sansub.length; i++) {
             sanPanel.add(sansub[i]);
