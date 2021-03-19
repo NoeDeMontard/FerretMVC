@@ -1,15 +1,17 @@
 package org.ecn.Ferret.Controller;
 
+import org.ecn.Ferret.Model.Traitement1KG;
+import org.ecn.Ferret.View.PopulationGUI;
+import org.ecn.Ferret.View.RegionInteretGUI;
+import org.ecn.Ferret.View.RunGUI;
+import org.ecn.Ferret.View.SettingsGUI;
+
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
-import javax.swing.JOptionPane;
-import org.ecn.Ferret.View.PopulationGUI;
-import org.ecn.Ferret.View.RegionInteretGUI;
-import org.ecn.Ferret.View.RunGUI;
-import org.ecn.Ferret.View.SettingsGUI;
 
 /**
  * Classe de lien entre le lancement de l'application Ferret par l'utilisateur et le traitement effectif par le modèle
@@ -17,22 +19,62 @@ import org.ecn.Ferret.View.SettingsGUI;
 */
 
 public class RunCTRL {
-   // private RunGUI run; // la classe GUI lançant l'exécution
-    //private Traitement1KG traitement; // la classe globale de traitement
+    private Traitement1KG traitement; // la classe globale de traitement
     private PopulationGUI pg;
     private RegionInteretGUI rig;
     private SettingsGUI sg;
-    private RunGUI rg;
-    public RunCTRL(PopulationGUI pg,RegionInteretGUI rig,SettingsGUI sg, RunGUI rg) {
+    private RunGUI rg; // la classe GUI lançant l'exécution
+    public RunCTRL(PopulationGUI pg,RegionInteretGUI rig,SettingsGUI sg, RunGUI rg, Traitement1KG traitement) {
         //this.run = run;
        // run.RunListener(this);
-       // this.traitement = traitement;
+       this.traitement = traitement;
        this.pg=pg;
        this.rig=rig;
        this.sg=sg;
        this.rg=rg;
     }
-    public boolean VerificationParam(){//la methode pour verifier les paramatrs
+
+	public Traitement1KG getTraitement() {
+		return traitement;
+	}
+
+	public void setTraitement(Traitement1KG traitement) {
+		this.traitement = traitement;
+	}
+
+	public PopulationGUI getPg() {
+		return pg;
+	}
+
+	public void setPg(PopulationGUI pg) {
+		this.pg = pg;
+	}
+
+	public RegionInteretGUI getRig() {
+		return rig;
+	}
+
+	public void setRig(RegionInteretGUI rig) {
+		this.rig = rig;
+	}
+
+	public SettingsGUI getSg() {
+		return sg;
+	}
+
+	public void setSg(SettingsGUI sg) {
+		this.sg = sg;
+	}
+
+	public RunGUI getRg() {
+		return rg;
+	}
+
+	public void setRg(RunGUI rg) {
+		this.rg = rg;
+	}
+
+	public boolean VerificationParam(){//la methode pour verifier les paramatrs
          	final long startTime = System.nanoTime();
 	        ArrayList<CharSequence> populations = new ArrayList<CharSequence>();
 		for(int i = 0; i < afrsub.length; i++){

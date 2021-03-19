@@ -1,6 +1,8 @@
 package org.ecn.Ferret.Model;
 
 
+import htsjdk.tribble.readers.TabixReader;
+
 import java.io.*;
 import java.math.RoundingMode;
 import java.net.URL;
@@ -22,12 +24,49 @@ public class Traitement1KG extends Traitement {
     int progress;
     //JLabel status;  // DONE: à enlever pour mettre dans le GUI l'affichage par les JLabel
 
-    // TODO: Implémentation d'un constructeur pour la classe Traitement1KG
+    // DONE: Implémentation d'un constructeur pour la classe Traitement1KG
+
+    /**
+     * Constructeur de Traitement1KG
+     * @param queries La requête de recherche du locus entrée dans le contrôleur
+     * @param ftpAddress L'adresse cible de la recherche
+     * @param progress Progrès de l'opération de recherche de la requête
+     */
+    public Traitement1KG(LocusM[] queries, String ftpAddress, int progress) {
+        this.queries = queries;
+        this.ftpAddress = ftpAddress;
+        this.progress = progress;
+    }
+
+    public Traitement1KG() {
+        this.queries = null;
+        this.ftpAddress = "";
+        this.progress = 0;
+    }
+
+    public LocusM[] getQueries() {
+        return queries;
+    }
+
+    public String getFtpAddress() {
+        return ftpAddress;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setQueries(LocusM[] queries) {
+        this.queries = queries;
+    }
+
+    public void setFtpAddress(String ftpAddress) {
+        this.ftpAddress = ftpAddress;
+    }
 
     public void setProgress(int p){
         this.progress = p;
     }
-
 
     /**
      * Fonction ayant pour but de traiter le cas où l'entrée se fait par un variant.
@@ -39,11 +78,11 @@ public class Traitement1KG extends Traitement {
         // on s'intéresse d'abord à la requête utilisant une entrée sous forme de variant
 
 
-                //publish("Looking up variant locations...");  Done: à voir pour rajouter un lien vers le Contrôleur puis l'affichage GUI
+                //publish("Looking up variant locations...");
                 LinkedList<String> chromosome = new LinkedList<>();
                 LinkedList<String> startPos = new LinkedList<>();
                 LinkedList<String> endPos = new LinkedList<>();
-                LocusM[] queries = null;
+//                LocusM[] queries = null;
                 ArrayList<String> SNPsFound = new ArrayList<>();
                 boolean allSNPsFound = true;
                 try {
@@ -60,15 +99,16 @@ public class Traitement1KG extends Traitement {
                         }
                         boolean chrFound = false, startFound = false, endFound = false, locatedOnInvalidChr = false;
                         while(!(startFound && endFound && chrFound) && (currentString = br.readLine()) != null){
+                            String substring = currentString.substring(currentString.indexOf(" : \"") + 4, currentString.indexOf("\","));
                             if(currentString.contains("\"chrPosFrom\"")){
-                                startPos.add(currentString.substring(currentString.indexOf(" : \"") + 4, currentString.indexOf("\",")));
+                                startPos.add(substring);
                                 startFound = true;
                             } else if(currentString.contains("\"chr\"")){
-                                chromosome.add(currentString.substring(currentString.indexOf(" : \"") + 4, currentString.indexOf("\",")));
+                                chromosome.add(substring);
                                 locatedOnInvalidChr = chromosome.peekLast().equals("X") | chromosome.peekLast().equals("Y") | chromosome.peekLast().equals("MT");
                                 chrFound = true;
                             } else if(currentString.contains("\"chrPosTo\"")){
-                                endPos.add(currentString.substring(currentString.indexOf(" : \"") + 4, currentString.indexOf("\",")));
+                                endPos.add(substring);
                                 endFound = true;
                             }
                         }
@@ -164,42 +204,6 @@ public class Traitement1KG extends Traitement {
                 }
                 geneLocationFromGeneName[0] = TraitementNCBI.getQueryFromGeneID(geneList,settings.getVersionHG());
             }
-
-            //Done: séparer la partie ci-dessous du Modèle et la mettre dans la Vue en utilisant l'architecture MVC
-//            if(geneLocationFromGeneName[0] == null){
-//                JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any genes","Error",JOptionPane.OK_OPTION);
-//            }else if(!geneLocationFromGeneName[0].getFoundAllGenes()){
-//                    String[] options = {"Yes","No"};
-//
-//                    JPanel partialGenePanel = new JPanel();
-//                    JTextArea listOfGenes = new JTextArea(geneLocationFromGeneName[0].getFoundGenes());
-//                    listOfGenes.setWrapStyleWord(true);
-//                    listOfGenes.setLineWrap(true);
-//                    listOfGenes.setBackground(partialGenePanel.getBackground());
-//                    partialGenePanel.setLayout(new BoxLayout(partialGenePanel, BoxLayout.Y_AXIS));
-//                    partialGenePanel.add(new JLabel("Ferret encountered problems retrieving the gene positions from the NCBI Gene Database."));
-//                    partialGenePanel.add(new JLabel("Here are the genes successfully retrieved:"));
-//                    JScrollPane listOfGenesScrollPane = new JScrollPane(listOfGenes,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//                    listOfGenesScrollPane.setBorder(BorderFactory.createEmptyBorder());
-//                    listOfGenesScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
-//                    partialGenePanel.add(listOfGenesScrollPane);
-//                    partialGenePanel.add(new JLabel("Do you wish to continue?"));
-//
-//                    // partie juste en dessous à changer -> le JPanel n'a rien à faire ici
-//                    int choice = JOptionPane.showOptionDialog(null,
-//                                    partialGenePanel,
-//                                    "Continue?",
-//                                    JOptionPane.YES_NO_OPTION,
-//                                    JOptionPane.PLAIN_MESSAGE,
-//                                    null,
-//                                    options,
-//                                    null);
-//                    if(choice == JOptionPane.YES_OPTION){
-//                        this.queries = geneLocationFromGeneName[0].getInputRegionArray();
-//                    }
-//            } else {
-//                this.queries = geneLocationFromGeneName[0].getInputRegionArray();
-//            }
         }
 
     /**
@@ -215,7 +219,6 @@ public class Traitement1KG extends Traitement {
         else if(enteredQueries != null && enteredQueries.get(0).getClass().getSimpleName().startsWith("Gene")){
             traitementGene(settings, enteredQueries);
         }
-
 
         //publish("Parsing Individuals...");
 
@@ -281,7 +284,7 @@ public class Traitement1KG extends Traitement {
         } catch (IOException e) {
             //This shouldn't be a problem since the file being read comes with Ferret
             //e.printStackTrace();
-        } finally {}
+        }
 
         //publish("Downloading Data from 1000 Genomes...");
         String s;
@@ -849,7 +852,7 @@ public class Traitement1KG extends Traitement {
                             s = tr.readLine();
                     }
                     //vcfBuffWrite.close();
-            } catch (RuntimeException e) {
+            } catch (RuntimeException | IOException e) {
                     //e.printStackTrace();
             }
             return s;
@@ -873,7 +876,7 @@ public class Traitement1KG extends Traitement {
                             s = tr.readLine();
                     }
                     //vcfBuffWrite.close();
-            } catch (RuntimeException e) {
+            } catch (RuntimeException | IOException e) {
                     //e.printStackTrace();
             }
             return s;
@@ -898,7 +901,7 @@ public class Traitement1KG extends Traitement {
                     }
                     //vcfBuffWrite.close();
             } //e.printStackTrace();
-        catch (RuntimeException e) {
+        catch (RuntimeException | IOException e) {
                     //e.printStackTrace();
             }
             return s;

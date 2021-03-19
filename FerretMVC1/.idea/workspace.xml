@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="2cf79b91-7553-44ae-9c3d-5f2f00bb61b1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ecn/Ferret/Model/TabixReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ecn/Ferret/Model/TabixReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ecn/Ferret/Controller/RunCTRL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ecn/Ferret/Controller/RunCTRL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ecn/Ferret/Model/Traitement1KG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ecn/Ferret/Model/Traitement1KG.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ecn/Ferret/Model/TraitementESP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ecn/Ferret/Model/TraitementESP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ecn/Ferret/View/RunGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ecn/Ferret/View/RunGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

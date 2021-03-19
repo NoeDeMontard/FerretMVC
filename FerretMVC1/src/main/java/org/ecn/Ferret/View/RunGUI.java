@@ -6,6 +6,7 @@
 package org.ecn.Ferret.View;
 // import classes
 
+import org.ecn.Ferret.Controller.RunCTRL;
 import org.ecn.Ferret.Model.FoundGeneAndRegion;
 import org.ecn.Ferret.Model.LocusM;
 import org.ecn.Ferret.Model.Traitement1KG;
@@ -13,7 +14,6 @@ import org.ecn.Ferret.Model.Traitement1KG;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,6 +29,7 @@ public class RunGUI extends GUI{
     JPanel goPanel = new JPanel();
     JLabel status;
     JButton goButton = new JButton("Run Ferret, Run!");
+    RunCTRL runCTRL;
 
     //à appeler dans le contrôleur
     public void setStatus(Traitement1KG traitement, List<String> processStatus){
@@ -117,7 +118,6 @@ public class RunGUI extends GUI{
         partialGenePanel.add(listOfGenesScrollPane);
         partialGenePanel.add(new JLabel("Do you wish to continue?"));
 
-        // TODO : partie juste en dessous à changer -> le JPanel n'a rien à faire ici // n'était pas marqué comme un TODO mais semble en être un
         int choice = JOptionPane.showOptionDialog(null,
                 partialGenePanel,
                 "Continue?",
