@@ -73,7 +73,7 @@ public class RunCTRL {
 	public void setRg(RunGUI rg) {
 		this.rg = rg;
 	}
-
+/*
 	public boolean VerificationParam(){//la methode pour verifier les paramatrs
          	final long startTime = System.nanoTime();
 	        ArrayList<CharSequence> populations = new ArrayList<CharSequence>();
@@ -551,5 +551,6 @@ public class RunCTRL {
     public void ExecutionTraitement1KG(){//executer traitement1kg
         
     }
+   */
 }
 
