@@ -22,6 +22,8 @@ public class Traitement1KG extends Traitement {
     LocusM[] queries;
     String ftpAddress; // DONE: déterminer à quel moment la valeur de cet attribut est entrée
     int progress;
+    boolean allSNPsFound;
+    boolean noSNPFound;
     //JLabel status;  // DONE: à enlever pour mettre dans le GUI l'affichage par les JLabel
 
     // DONE: Implémentation d'un constructeur pour la classe Traitement1KG
@@ -36,6 +38,22 @@ public class Traitement1KG extends Traitement {
         this.queries = queries;
         this.ftpAddress = ftpAddress;
         this.progress = progress;
+    }
+
+    /**
+     * Constructeur de Traitement1KG
+     * @param queries La requête de recherche du locus entrée dans le contrôleur
+     * @param ftpAddress L'adresse cible de la recherche
+     * @param progress Progrès de l'opération de recherche de la requête
+     * @param allSNPsFound
+     * @param noSNPFound
+     */
+    public Traitement1KG(LocusM[] queries, String ftpAddress, int progress,boolean allSNPsFound, boolean noSNPFound) {
+        this.queries = queries;
+        this.ftpAddress = ftpAddress;
+        this.progress = progress;
+        this.allSNPsFound = allSNPsFound;
+        this.noSNPFound = noSNPFound;
     }
 
     public Traitement1KG() {
@@ -68,6 +86,22 @@ public class Traitement1KG extends Traitement {
         this.progress = p;
     }
 
+    public boolean isAllSNPsFound() {
+        return allSNPsFound;
+    }
+
+    public void setAllSNPsFound(boolean allSNPsFound) {
+        this.allSNPsFound = allSNPsFound;
+    }
+
+    public boolean isNoSNPFound() {
+        return noSNPFound;
+    }
+
+    public void setNoSNPFound(boolean noSNPFound) {
+        this.noSNPFound = noSNPFound;
+    }
+
     /**
      * Fonction ayant pour but de traiter le cas où l'entrée se fait par un variant.
      * @param settings les paramètres de la recherche
@@ -76,7 +110,6 @@ public class Traitement1KG extends Traitement {
     public void traitementVariantID(SettingsM settings, LinkedList<ElementDeRechercheM> snpQueries){
 
         // on s'intéresse d'abord à la requête utilisant une entrée sous forme de variant
-
 
                 //publish("Looking up variant locations...");
                 LinkedList<String> chromosome = new LinkedList<>();
@@ -124,6 +157,8 @@ public class Traitement1KG extends Traitement {
                         br.close();
                     }
                     int sd = ((VariantParIDM)snpQueries.get(0)).getSurroundingDist();
+                    this.allSNPsFound = allSNPsFound;
+                    this.noSNPFound = SNPsFound.isEmpty();
 //                    if(!allSNPsFound && !SNPsFound.isEmpty()){//Partial list
 //
 //                        // Done: Il s'agit de mettre en place du code qui permettrq de gérer l'affichage graphique de ce qui suit
@@ -159,8 +194,8 @@ public class Traitement1KG extends Traitement {
 //                                }
 //                            }
 //                    } else if(SNPsFound.isEmpty()){
-//                            JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
-//                    } else if(allSNPsFound){
+//                            JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);}
+//                    if(allSNPsFound){
 //                        queries = new LocusM[chromosome.size()];
 //                        for(int i = 0; chromosome.size() > 0; i++){
 //                            queries[i] = new LocusM(Integer.parseInt(chromosome.remove()), Integer.parseInt(startPos.remove()) - sd, Integer.parseInt(endPos.remove()) + sd);
@@ -219,7 +254,7 @@ public class Traitement1KG extends Traitement {
         else if(enteredQueries != null && enteredQueries.get(0).getClass().getSimpleName().startsWith("Gene")){
             traitementGene(settings, enteredQueries);
         }
-
+        // TODO: meme chose trouver une solution pour publish
         //publish("Parsing Individuals...");
 
         // analyse des individus
@@ -751,6 +786,7 @@ public class Traitement1KG extends Traitement {
     public String process(List<String> processStatus){
             int statusIndex = processStatus.size();
             return processStatus.get(statusIndex-1);
+            // TODO: Relier cette partie a la vue aussi
             //status.setText(processStatus.get(statusIndex-1));
     }
 

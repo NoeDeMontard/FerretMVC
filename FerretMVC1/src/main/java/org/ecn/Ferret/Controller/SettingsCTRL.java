@@ -1,5 +1,6 @@
 package org.ecn.Ferret.Controller;
 // import classes
+import org.ecn.Ferret.Model.SettingsM;
 import org.ecn.Ferret.View.PopulationGUI;
 import org.ecn.Ferret.View.GUI;
 import org.ecn.Ferret.View.SettingsGUI;
@@ -27,6 +28,23 @@ public class SettingsCTRL implements ActionListener, ChangeListener, PropertyCha
         settingsV.settingsChangeListener(this);
         settingsV.settingsPropertyChangeListener(this);
     }
+
+//    public SettingsGUI getSettingsV() {
+//        return settingsV;
+//    }
+
+    //Il nous faut une méthode qui renvoie un objet SettingsM afin de l'utiliser dans l'exécution de traitement1KG dans RunCTRL
+    public SettingsM getSettingsM() {
+        //TODO: Il faut spécifier les valeurs ci-dessous (les reprendre de la vue)
+        int version1KG = 3; // la version utilisée (pour l'instant, a priori 1 ou 3)
+        float maf = 0; // permet de différencier les variants rares des communs
+        String output = ""; // quels fichiers vont être créés par Ferret
+        boolean versionHG = false; // version par défaut ou non
+        boolean esp = false; // est-ce que l'utilisateur veut aussi générer des infos du serveur ESP
+        SettingsM sm = new SettingsM(version1KG, maf, output, versionHG, esp);
+        return sm;
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -56,40 +56,52 @@ public class RunGUI extends GUI{
 //        });
 //    }
 
-    public void afficheVariantID(List<String> SNPsFound,LinkedList<String> chromosome,LinkedList<String> startPos,LinkedList<String> endPos,int sd){
+    public void afficheVariantID(List<String> SNPsFound,LinkedList<String> chromosome,LinkedList<String> startPos,LinkedList<String> endPos,int sd, RunCTRL runCTRL){
 
-        String[] options = {"Yes","No"};
-        JPanel partialSNPPanel = new JPanel();
-        JTextArea listOfSNPs = new JTextArea(SNPsFound.toString().substring(1, SNPsFound.toString().length()-1));
-        listOfSNPs.setWrapStyleWord(true);
-        listOfSNPs.setLineWrap(true);
-        listOfSNPs.setBackground(partialSNPPanel.getBackground());
-        partialSNPPanel.setLayout(new BoxLayout(partialSNPPanel, BoxLayout.Y_AXIS));
-        partialSNPPanel.add(new JLabel("Ferret encountered problems retrieving the variant positions from the NCBI SNP Database."));
-        partialSNPPanel.add(new JLabel("Here are the variants successfully retrieved:"));
-        JScrollPane listOfSNPScrollPane = new JScrollPane(listOfSNPs,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        listOfSNPScrollPane.setBorder(BorderFactory.createEmptyBorder());
-        listOfSNPScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
-        partialSNPPanel.add(listOfSNPScrollPane);
-        partialSNPPanel.add(new JLabel("Do you wish to continue?"));
+        boolean allSNPFound = runCTRL.getTraitement().isAllSNPsFound();
+        boolean noSNPFound = runCTRL.getTraitement().isNoSNPFound();
+        if(!allSNPFound && !noSNPFound){//Partial list
+            // Done: Il s'agit de mettre en place du code qui permettrq de gérer l'affichage graphique de ce qui suit
+            // (ie, demander à l'utilisateur de continuer ou bien afficher les problèmes / résultats obtenus)
+            // par l'intermédiaire du MVC, et non au sein de cette classe du modèle.
+            String[] options = {"Yes","No"};
+            JPanel partialSNPPanel = new JPanel();
+            JTextArea listOfSNPs = new JTextArea(SNPsFound.toString().substring(1, SNPsFound.toString().length()-1));
+            listOfSNPs.setWrapStyleWord(true);
+            listOfSNPs.setLineWrap(true);
+            listOfSNPs.setBackground(partialSNPPanel.getBackground());
+            partialSNPPanel.setLayout(new BoxLayout(partialSNPPanel, BoxLayout.Y_AXIS));
+            partialSNPPanel.add(new JLabel("Ferret encountered problems retrieving the variant positions from the NCBI SNP Database."));
+            partialSNPPanel.add(new JLabel("Here are the variants successfully retrieved:"));
+            JScrollPane listOfSNPScrollPane = new JScrollPane(listOfSNPs,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            listOfSNPScrollPane.setBorder(BorderFactory.createEmptyBorder());
+            listOfSNPScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
+            partialSNPPanel.add(listOfSNPScrollPane);
+            partialSNPPanel.add(new JLabel("Do you wish to continue?"));
 
-        int choice = JOptionPane.showOptionDialog(null,
-                partialSNPPanel,
-                "Continue?",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                options,
-                null);
-        if(choice == JOptionPane.YES_OPTION){
-            LocusM[] queries = new LocusM[chromosome.size()];
-            for(int i = 0; ! chromosome.isEmpty() ; i++){
-                queries[i] = new LocusM(Integer.parseInt(chromosome.remove()), (Integer.parseInt(startPos.remove()) - sd), (Integer.parseInt(endPos.remove()) + sd));
-            }}}
-
-    public void affichageError(){
-        JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
+            int choice = JOptionPane.showOptionDialog(null,
+                    partialSNPPanel,
+                    "Continue?",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    options,
+                    null);
+//            if(choice == JOptionPane.YES_OPTION){
+//                LocusM[] queries = new LocusM[chromosome.size()];
+//                for(int i = 0; chromosome.size() > 0; i++){
+//                    queries[i] = new LocusM(Integer.parseInt(chromosome.remove()), (Integer.parseInt(startPos.remove()) - sd), (Integer.parseInt(endPos.remove()) + sd));
+//                }
+//            }
+        } else if(noSNPFound){
+            JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
+        }
     }
+
+//    public void affichageError(){
+//        JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
+//    }
+
     public void affichageAllSNPsFound(LinkedList<String> chromosome,LinkedList<String> startPos,LinkedList<String> endPos,int sd){
         LocusM[] queries = new LocusM[chromosome.size()];
         for(int i = 0; ! chromosome.isEmpty(); i++){
