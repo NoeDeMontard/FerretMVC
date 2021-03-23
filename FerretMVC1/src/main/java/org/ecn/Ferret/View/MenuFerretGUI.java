@@ -5,15 +5,17 @@
  */
 package org.ecn.Ferret.View;
 // import classes
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import org.ecn.Ferret.Controller.MenuCTRL;
 
 /**
  * Classe d'affichage général du menu de l'application Ferret. Le menu permettra ensuite d'ouvrir les différents onglets.
  * @Authors: Mathieu JUNG-MULLER & Bozhou WANG
  */
-public class MenuFerretGUI extends ElementDuMenuGUI{
+public class MenuFerretGUI extends ElementDuMenuGUI implements ActionListener{
     // MenuBar_Ferret
     JMenu ferretMenu = new JMenu("Ferret");
     JMenuItem settingsMenuItem = new JMenuItem("Settings");
@@ -28,8 +30,11 @@ public class MenuFerretGUI extends ElementDuMenuGUI{
         ferretMenu.add(updateMenuItem);
         ferretMenu.add(exitMenuItem);
         // setActionCommand
+        settingsMenuItem.addActionListener(this);
         settingsMenuItem.setActionCommand("settingsMenuItem");
+        exitMenuItem.addActionListener(this);
         exitMenuItem.setActionCommand("exitMenuItem");
+        updateMenuItem.addActionListener(this);
         updateMenuItem.setActionCommand("updateMenuItem");
     }
     
@@ -37,5 +42,9 @@ public class MenuFerretGUI extends ElementDuMenuGUI{
         settingsMenuItem.addActionListener(a);
         exitMenuItem.addActionListener(a);
         updateMenuItem.addActionListener(a);
+    }
+    public void actionPerformed(ActionEvent ae) {
+        MenuCTRL menu = new MenuCTRL();
+        menu.actionPerformed(ae);
     }
 }

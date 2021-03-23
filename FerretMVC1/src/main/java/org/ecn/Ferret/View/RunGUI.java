@@ -53,6 +53,7 @@ public class RunGUI extends GUI{
         goButton.setPreferredSize(new Dimension(320, 60));
         goPanel.setBackground(Color.gray);
         // setActionCommand
+        goButton.addActionListener(this);
         goButton.setActionCommand("goButton");
     }
 

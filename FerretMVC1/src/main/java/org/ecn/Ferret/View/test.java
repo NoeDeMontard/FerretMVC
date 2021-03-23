@@ -5,6 +5,7 @@
  */
 package org.ecn.Ferret.View;
 
+
 import javax.swing.JFrame;
 
 /**
@@ -13,7 +14,7 @@ import javax.swing.JFrame;
  */
 public class test {
     public static void main(String[] args) {
-    
+   
     GUI g = new GUI();
     PopulationGUI pg = new PopulationGUI();
     RegionInteretGUI rig = new  RegionInteretGUI();
