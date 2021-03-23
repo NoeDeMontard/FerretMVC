@@ -24,6 +24,7 @@ public class GUI extends JFrame {
     private String fileNameAndPath;
     URL questionMarkURL = getClass().getResource("questionMark25.png");
     ImageIcon questionMark = new ImageIcon(questionMarkURL);
+    // TODO: Toujours un problème avec cette ImageIcon, elle bloque l'éxecution du test main
     // questionMarkURL semble null. J'ai tenté de déplacer l'image, de mettre un
     // chemin plus complet ou d'utiliser ImageIcon("questionMark25.png"); mais 
     // aucune de ses solutions n'a marché (la dernière ne met pas de message d'

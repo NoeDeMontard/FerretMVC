@@ -786,7 +786,7 @@ public class Traitement1KG extends Traitement {
     public String process(List<String> processStatus){
             int statusIndex = processStatus.size();
             return processStatus.get(statusIndex-1);
-            // TODO: Relier cette partie a la vue aussi
+            //Relier cette partie a la vue aussi
             //status.setText(processStatus.get(statusIndex-1));
     }
 

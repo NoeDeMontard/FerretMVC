@@ -35,6 +35,15 @@ public class RunCTRL {
        this.rg=rg;
     }
 
+    // TODO: J'ai créé un constructeur vide pour l'appel dans le mains, vous pouvez le supprimer
+    public RunCTRL() {
+    	this.traitement = new Traitement1KG();
+    	this.pg = new PopulationGUI();
+    	this.rig = new RegionInteretGUI();
+    	this.sg = new SettingsGUI();
+    	this.rg = new RunGUI();
+	}
+
 	public Traitement1KG getTraitement() {
 		return traitement;
 	}
@@ -546,7 +555,7 @@ public class RunCTRL {
 
 			}
 
-}
+}*/
       
     
     public void ExecutionTraitement1KG(){//executer traitement1kg
@@ -555,8 +564,7 @@ public class RunCTRL {
     	// TODO: Il faut spécifier les éléments de recherche depuis InfosRechercheCTRL
 		LinkedList<ElementDeRechercheM> enteredQueries = new LinkedList<>();
 		traitement.traitement(sc.getSettingsM(), enteredQueries);
-
     }
-   */
+
 }
 
