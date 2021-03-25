@@ -15,18 +15,18 @@ import java.util.Locale;
 
 /**
  * Classe de lien entre le lancement de l'application Ferret par l'utilisateur et le traitement effectif par le modèle
- * @Authors: Mathieu JUNG-MULLER & Bozhou WANG
+ * @Authors: Mathieu JUNG-MULLER & Bozhou WANG & Imane SALMI & Imane TAHIRI
 */
 
 public class RunCTRL {
     private Traitement1KG traitement; // la classe globale de traitement
     private PopulationGUI pg;
     private RegionInteretGUI rig;
-//    private SettingsCTRL sc;
+//  private SettingsCTRL sc;
     private SettingsGUI sg;
     private RunGUI rg; // la classe GUI lançant l'exécution
     public RunCTRL(PopulationGUI pg,RegionInteretGUI rig,SettingsGUI sg, RunGUI rg, Traitement1KG traitement) {
-        //this.run = run;
+    	//this.run = run;
        // run.RunListener(this);
        this.traitement = traitement;
        this.pg=pg;
@@ -83,6 +83,7 @@ public class RunCTRL {
 	public void setRg(RunGUI rg) {
 		this.rg = rg;
 	}
+
 /*
 	public boolean VerificationParam(){//la methode pour verifier les paramatrs
          	final long startTime = System.nanoTime();
@@ -556,7 +557,8 @@ public class RunCTRL {
 			}
 
 }*/
-      
+
+
     
     public void ExecutionTraitement1KG(){//executer traitement1kg
     	SettingsCTRL sc = new SettingsCTRL (sg,pg,rig);

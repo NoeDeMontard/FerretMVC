@@ -23,6 +23,8 @@ import org.xml.sax.SAXException;
  * @author Mathieu JUNG-MULLER
  * @author Bozhou WANG
  * @author Noe DE MONTARD
+ * @author Imane SALMI
+ * @author Imane TAHIRI
  */
 public class TraitementNCBI extends Traitement {
     // Cette classe a subie des modifications pour remplacer l'ancienne classe InputRegion et ses occurrences ici par LocusM
@@ -314,5 +316,10 @@ public class TraitementNCBI extends Traitement {
 
         
         return new FoundGeneAndRegion(foundGenes.toString(), queriesFound, queriesFound.length == geneListArray.length);
+    }
+
+    @Override
+    protected Integer doInBackground() throws Exception {
+        return null;
     }
 }

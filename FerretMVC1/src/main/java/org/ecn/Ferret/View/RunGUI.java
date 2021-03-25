@@ -13,6 +13,7 @@ import org.ecn.Ferret.Model.Traitement1KG;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.List;
 
 /**
  * Classe d'affichage du lancement de l'application Ferret.
- * @Authors: Mathieu JUNG-MULLER & Bozhou WANG
+ * @Authors: Mathieu JUNG-MULLER & Bozhou WANG & Imane SALMI & Imane TAHIRI
  */
 public class RunGUI extends GUI{
     JPanel goPanel = new JPanel();
@@ -33,7 +34,8 @@ public class RunGUI extends GUI{
 
     //à appeler dans le contrôleur
     public void setStatus(Traitement1KG traitement, List<String> processStatus){
-        status.setText(traitement.process(processStatus));
+          traitement.process(processStatus, status);
+//        status.setText(traitement.process(processStatus));
     }
 
     // TODO: GUI ne suffit pas comme paramétre ici, il faut la modifier pour éviter l'erreur dans test r.addRun(g,pg,rig,mfg);
@@ -60,13 +62,13 @@ public class RunGUI extends GUI{
     public void runListener(ActionListener a) {
         goButton.addActionListener(a);}
 
-//    public void RunListener() {
-//        goButton.addActionListener(new ActionListener(){
-//            public void actionPerformed(ActionEvent e){
-//                JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
-//            }
-//        });
-//    }
+    public void RunListener() {
+        goButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
+            }
+        });
+    }
 
     /**
      *

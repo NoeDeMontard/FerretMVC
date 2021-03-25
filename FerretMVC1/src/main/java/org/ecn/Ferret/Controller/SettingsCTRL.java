@@ -14,7 +14,7 @@ import javax.swing.event.ChangeListener;
 
 /**
  * Classe faisant le lien entre l'affichage des paramètres et la gestion des paramètres dans le modèle.
- * @Authors: Mathieu JUNG-MULLER & Bozhou WANG
+ * @Authors: Mathieu JUNG-MULLER & Bozhou WANG & Imane SALMI & Imane TAHIRI
 */
 public class SettingsCTRL implements ActionListener, ChangeListener, PropertyChangeListener{
     private SettingsGUI settingsV;

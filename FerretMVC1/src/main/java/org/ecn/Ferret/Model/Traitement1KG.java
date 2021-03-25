@@ -3,6 +3,7 @@ package org.ecn.Ferret.Model;
 
 import htsjdk.tribble.readers.TabixReader;
 
+import javax.swing.*;
 import java.io.*;
 import java.math.RoundingMode;
 import java.net.URL;
@@ -14,14 +15,13 @@ import java.util.*;
 /**
  * Classe pour le traitement général sur le serveur 1000 Génomes.
  * Cette classe nécessite d'être fortement retravaillée, notamment pour gérer les différents format possibles d'entrées.
- * @Authors: Mathieu JUNG-MULLER & Bozhou WANG
+ * @Authors: Mathieu JUNG-MULLER & Bozhou WANG & Imane SALMI & Imane TAHIRI
 */
 
 public class Traitement1KG extends Traitement {
-
     LocusM[] queries;
     String ftpAddress; // DONE: déterminer à quel moment la valeur de cet attribut est entrée
-    int progress;
+//    int progress; //Progrès de l'opération de recherche de la requête
     boolean allSNPsFound;
     boolean noSNPFound;
     //JLabel status;  // DONE: à enlever pour mettre dans le GUI l'affichage par les JLabel
@@ -37,21 +37,20 @@ public class Traitement1KG extends Traitement {
     public Traitement1KG(LocusM[] queries, String ftpAddress, int progress) {
         this.queries = queries;
         this.ftpAddress = ftpAddress;
-        this.progress = progress;
+//        this.progress = progress;
     }
 
     /**
      * Constructeur de Traitement1KG
      * @param queries La requête de recherche du locus entrée dans le contrôleur
      * @param ftpAddress L'adresse cible de la recherche
-     * @param progress Progrès de l'opération de recherche de la requête
      * @param allSNPsFound
      * @param noSNPFound
      */
-    public Traitement1KG(LocusM[] queries, String ftpAddress, int progress,boolean allSNPsFound, boolean noSNPFound) {
+    public Traitement1KG(LocusM[] queries, String ftpAddress,boolean allSNPsFound, boolean noSNPFound) {
         this.queries = queries;
         this.ftpAddress = ftpAddress;
-        this.progress = progress;
+//        this.progress = progress;
         this.allSNPsFound = allSNPsFound;
         this.noSNPFound = noSNPFound;
     }
@@ -59,7 +58,12 @@ public class Traitement1KG extends Traitement {
     public Traitement1KG() {
         this.queries = null;
         this.ftpAddress = "";
-        this.progress = 0;
+//        this.progress = 0;
+    }
+
+    @Override
+    protected Integer doInBackground() throws Exception {
+        return null;
     }
 
     public LocusM[] getQueries() {
@@ -70,9 +74,9 @@ public class Traitement1KG extends Traitement {
         return ftpAddress;
     }
 
-    public int getProgress() {
-        return progress;
-    }
+//    public int getProgress() {
+//        return progress;
+//    }
 
     public void setQueries(LocusM[] queries) {
         this.queries = queries;
@@ -82,9 +86,9 @@ public class Traitement1KG extends Traitement {
         this.ftpAddress = ftpAddress;
     }
 
-    public void setProgress(int p){
-        this.progress = p;
-    }
+//    public void setProgress(int p){
+//        this.progress = p;
+//    }
 
     public boolean isAllSNPsFound() {
         return allSNPsFound;
@@ -111,7 +115,7 @@ public class Traitement1KG extends Traitement {
 
         // on s'intéresse d'abord à la requête utilisant une entrée sous forme de variant
 
-                //publish("Looking up variant locations...");
+                publish("Looking up variant locations...");
                 LinkedList<String> chromosome = new LinkedList<>();
                 LinkedList<String> startPos = new LinkedList<>();
                 LinkedList<String> endPos = new LinkedList<>();
@@ -222,7 +226,7 @@ public class Traitement1KG extends Traitement {
     public void traitementGene(SettingsM settings, LinkedList<ElementDeRechercheM> geneQueries){
         // requête où l'entrée est sous forme de gène (que ce soit ID du gène ou nom du gène)
 
-            //publish("Looking up gene locations...");
+            publish("Looking up gene locations...");
             FoundGeneAndRegion[] geneLocationFromGeneName = {null};
             if(geneQueries.get(0).getClass().getSimpleName().equals("geneParNomM")){
                 String[] geneList;
@@ -241,6 +245,7 @@ public class Traitement1KG extends Traitement {
             }
         }
 
+
     /**
      * Fonction exécutant les entrées par gène ou variant (appelant donc la fonction appropriée parmi les deux précédentes).
      * @param settings les paramètres de la recherche
@@ -254,8 +259,8 @@ public class Traitement1KG extends Traitement {
         else if(enteredQueries != null && enteredQueries.get(0).getClass().getSimpleName().startsWith("Gene")){
             traitementGene(settings, enteredQueries);
         }
-        // TODO: meme chose trouver une solution pour publish
-        //publish("Parsing Individuals...");
+
+        publish("Parsing Individuals...");
 
         // analyse des individus
         DecimalFormat df = new DecimalFormat("#.####");
@@ -321,7 +326,7 @@ public class Traitement1KG extends Traitement {
             //e.printStackTrace();
         }
 
-        //publish("Downloading Data from 1000 Genomes...");
+        publish("Downloading Data from 1000 Genomes...");
         String s;
         BufferedWriter vcfWrite = null;
         long startTime = 0;
@@ -508,7 +513,7 @@ public class Traitement1KG extends Traitement {
             // si demandé par l'utilisateur dans les paramètres
             LinkedList<EspInfoObj> espData = null;
             if(settings.getEsp()){
-                //publish("Downloading Data from Exome Sequencing Project...");
+                publish("Downloading Data from Exome Sequencing Project...");
                 espData = TraitementESP.exomeSequencingProject(sortedQueries); // on appelle la méthode de traitement statique
             }
             if(variantCounter == 0 && (espData == null || espData.size() == 0)){
@@ -520,7 +525,7 @@ public class Traitement1KG extends Traitement {
                 vcfFile.delete();
             }
 
-            //publish("Outputting files...");
+            publish("Outputting files...");
             try {
                 // Creating lookup HashMap for family info, etc.
                 HashMap<String, String[]> familyInfo = new HashMap<String, String[]>(5000);
@@ -783,11 +788,11 @@ public class Traitement1KG extends Traitement {
      * Fonction calculant l'évolution du process au fur et à mesure (pour après l'afficher via la Vue).
      * @param processStatus
      */
-    public String process(List<String> processStatus){
+    public void process(List<String> processStatus, JLabel status){
             int statusIndex = processStatus.size();
-            return processStatus.get(statusIndex-1);
+//            return processStatus.get(statusIndex-1);
             //Relier cette partie a la vue aussi
-            //status.setText(processStatus.get(statusIndex-1));
+            status.setText(processStatus.get(statusIndex-1));
     }
 
     /**

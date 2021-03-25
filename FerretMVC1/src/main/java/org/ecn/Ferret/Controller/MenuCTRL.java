@@ -20,7 +20,7 @@ import org.ecn.Ferret.Controller.UpdateCTRL;
 
 /**
  * Classe de lien entre l'affichage du menu et les actions à effectuer.
- * @Authors: Mathieu JUNG-MULLER & Bozhou WANG
+ * @Authors: Mathieu JUNG-MULLER & Bozhou WANG & Imane SALMI & Imane TAHIRI
 */
 public class MenuCTRL implements ActionListener {
 

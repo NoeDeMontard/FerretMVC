@@ -16,7 +16,7 @@ public class FerretMain {
     
 
     public static void main(String[] args) {
-      //RunCTRL r = new RunCTRL();
+      RunCTRL r = new RunCTRL();
       //System.out.println(r);
       
     }

@@ -5,8 +5,10 @@
  */
 package org.ecn.Ferret.Model;
 
+import javax.swing.*;
+
 /**
  * Classe générique de traitement. Se décline en sous-classes pour les trois serveurs sur lesquels effectuer des requêtes.
- * @Authors: Mathieu JUNG-MULLER & Bozhou WANG
+ * @Authors: Mathieu JUNG-MULLER & Bozhou WANG & Imane SALMI & Imane TAHIRI
  */
-public abstract class Traitement {}
+public abstract class Traitement extends SwingWorker<Integer, String> {}

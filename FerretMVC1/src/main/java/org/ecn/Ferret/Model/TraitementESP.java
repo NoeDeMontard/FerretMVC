@@ -18,7 +18,7 @@ import org.ecn.Ferret.FerretMain;
 
 /**
  * Classe correspondant au traitement sur le serveur ESP.
- * @Authors: Mathieu JUNG-MULLER & Bozhou WANG
+ * @Authors: Mathieu JUNG-MULLER & Bozhou WANG & Imane SALMI & Imane TAHIRI
  */
 
 
@@ -97,6 +97,11 @@ public class TraitementESP extends Traitement {
                 //e.printStackTrace();
         }
         return espData;
+    }
+
+    @Override
+    protected Integer doInBackground() throws Exception {
+        return null;
     }
 }
 
