@@ -11,7 +11,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
+import org.ecn.Ferret.View.GUI;
 
 /**
  * Classe de lien entre le lancement de l'application Ferret par l'utilisateur et le traitement effectif par le modèle
@@ -19,6 +21,7 @@ import java.util.Locale;
 */
 
 public class RunCTRL {
+    private GUI gui;
     private Traitement1KG traitement; // la classe globale de traitement
     private PopulationGUI pg;
     private RegionInteretGUI rig;
@@ -32,6 +35,7 @@ public class RunCTRL {
        this.rig=rig;
        this.sg=sg;
        this.rg=rg;
+       this.gui=gui;
     }
 
 	public Traitement1KG getTraitement() {
@@ -73,46 +77,47 @@ public class RunCTRL {
 	public void setRg(RunGUI rg) {
 		this.rg = rg;
 	}
-/*
-	public boolean VerificationParam(){//la methode pour verifier les paramatrs
+
+	public void VerificationParam(){//la methode pour verifier les paramatrs
+                final Boolean[] defaultHG = {true};
          	final long startTime = System.nanoTime();
 	        ArrayList<CharSequence> populations = new ArrayList<CharSequence>();
-		for(int i = 0; i < afrsub.length; i++){
-			if(afrsub[i].isSelected()){
-				populations.add(afrCode[i]);
+		for(int i = 0; i < pg.afrsub.length; i++){
+			if(pg.afrsub[i].isSelected()){
+				populations.add(pg.afrCode[i]);
 			}
 		}
-		for(int i = 0; i < eursub.length; i++){
-			if(eursub[i].isSelected()){
-				populations.add(eurCode[i]);
+		for(int i = 0; i < pg.eursub.length; i++){
+			if(pg.eursub[i].isSelected()){
+				populations.add(pg.eurCode[i]);
 			}
 		}
-		for(int i = 0; i < sansub.length; i++){
-			if(sansub[i].isSelected()){
-				populations.add(sanCode[i]);
+		for(int i = 0; i < pg.sansub.length; i++){
+			if(pg.sansub[i].isSelected()){
+				populations.add(pg.sanCode[i]);
 			}
 		}
-		for(int i = 0; i < asnsub.length; i++){
-			if(asnsub[i].isSelected()){
-				populations.add(asnCode[i]);
+		for(int i = 0; i < pg.asnsub.length; i++){
+			if(pg.asnsub[i].isSelected()){
+				populations.add(pg.asnCode[i]);
 			}
 		}
-		for(int i = 0; i < amrsub.length; i++){
-			if(amrsub[i].isSelected()){
-				populations.add(amrCode[i]);
+		for(int i = 0; i < pg.amrsub.length; i++){
+			if(pg.amrsub[i].isSelected()){
+				populations.add(pg.amrCode[i]);
 			}
 		}
-		if(allracessub[0].isSelected()){
+		if(pg.allracessub[0].isSelected()){
 			populations.add("ALL");
 		}
-		boolean popSelected = !populations.isEmpty(), fileLocSelected = (fileNameAndPath != null);
+		boolean popSelected = !populations.isEmpty(), fileLocSelected = (rig.fileNameAndPath != null);
 
-		if(inputSelect.getSelectedIndex() == 0){
+		if(rig.inputSelect.getSelectedIndex() == 0){
 					// Chr position input method
-			boolean getESP = chrESPCheckBox.isSelected();
-			String chrSelected = (String)chrList.getSelectedItem();
-			String startPosition = startPosTextField.getText();
-			String endPosition = endPosTextField.getText();
+			boolean getESP = rig.chrESPCheckBox.isSelected();
+			String chrSelected = (String)rig.chrList.getSelectedItem();
+			String startPosition = rig.startPosTextField.getText();
+			String endPosition = rig.endPosTextField.getText();
 
 			boolean isChrSelected, startSelected, endSelected, startEndValid = true, withinRange = true;
 			int chrEndBound = 0;
@@ -200,7 +205,7 @@ public class RunCTRL {
 			}
 
 			
-			if(isChrSelected && popSelected && startSelected && endSelected && startEndValid && withinRange && fileLocSelected ){
+			if(!(isChrSelected && popSelected && startSelected && endSelected && startEndValid && withinRange && fileLocSelected )){/*
                            inputRegion[] queries = {new inputRegion(chrSelected, Integer.parseInt(startPosition), Integer.parseInt(endPosition))};
                          // if not get esp, string is none, else if get only ref, then string is ref, else string is both
 			// this should be combined with the one single call to Ferret later
@@ -229,7 +234,7 @@ public class RunCTRL {
 				webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/supporting/GRCh38_positions/ALL.chr$.phase3_shapeit2_mvncall_integrated_v3plus_nounphased.rsID.genotypes.GRCh38_dbSNP_no_SVs.vcf.gz";
 			}
 			
-                        } else {
+                        } else {*/
 				StringBuffer errorMessage = new StringBuffer("Correct the following errors:");
 				if(!isChrSelected){
 					errorMessage.append("\n Select a chromosome");
@@ -252,20 +257,20 @@ public class RunCTRL {
 				if(!fileLocSelected){
 					errorMessage.append("\n Select a destination for the files to be saved");
 				}
-				JOptionPane.showMessageDialog(SNPFerret, errorMessage,"Error",JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(gui.snpFerret, errorMessage,"Error",JOptionPane.OK_OPTION);
 			}
 
-		 } else if(inputSelect.getSelectedIndex() == 1){	// Gene starts after this line ------------------------------------------------------------------
-			boolean getESP = geneESPCheckBox.isSelected();
-			String geneString = geneNameField.getText();
+		 } else if(rig.inputSelect.getSelectedIndex() == 1){	// Gene starts after this line ------------------------------------------------------------------
+			boolean getESP = rig.geneESPCheckBox.isSelected();
+			String geneString = rig.geneNameField.getText();
 			String[] geneListArray = null;
 			boolean geneListInputted = geneString.length() > 0;
-			boolean geneFileImported = geneFileNameAndPath != null;
+			boolean geneFileImported = rig.geneFileNameAndPath != null;
 			boolean geneFileError = false;
 			boolean geneFileExtensionError = false;
 			boolean invalidCharacter = false;
-			boolean geneNameInputted = geneNameRadioButton.isSelected();
-			boolean fromNCBI = geneNCBIRadioButton.isSelected();
+			boolean geneNameInputted = rig.geneNameRadioButton.isSelected();
+			boolean fromNCBI = rig.geneNCBIRadioButton.isSelected();
 
 			String invalidRegex;
 			if(geneNameInputted){
@@ -275,10 +280,10 @@ public class RunCTRL {
 			}
 
 			if(geneFileImported){
-				if(geneFileNameAndPath.length() <= 4){
+				if(rig.geneFileNameAndPath.length() <= 4){
 					geneFileError = true;
 				} else {
-					String fileType = geneFileNameAndPath.substring(geneFileNameAndPath.length()-4);
+					String fileType = rig.geneFileNameAndPath.substring(rig.geneFileNameAndPath.length()-4);
 					String delimiter = null;
 					switch (fileType) {
 					case ".csv":
@@ -299,7 +304,7 @@ public class RunCTRL {
 
 					if(delimiter != null){
 						try (
-							BufferedReader geneFileRead = new BufferedReader(new FileReader(geneFileNameAndPath));
+							BufferedReader geneFileRead = new BufferedReader(new FileReader(rig.geneFileNameAndPath));
 						  ){
 							String geneStringToParse;
 							while((geneStringToParse = geneFileRead.readLine()) != null){
@@ -336,7 +341,7 @@ public class RunCTRL {
 				geneListArray = geneList.split(",");
 			}
 
-	            if((geneListInputted || (geneFileImported && !geneFileError && !geneFileExtensionError)) && !invalidCharacter && popSelected && fileLocSelected ){
+	            if(!((geneListInputted || (geneFileImported && !geneFileError && !geneFileExtensionError)) && !invalidCharacter && popSelected && fileLocSelected )){/*
 
 			// this should be combined with the one single call to Ferret later
 			final Integer[] variants = {0};
@@ -370,7 +375,7 @@ public class RunCTRL {
 					geneQueryType = "geneID";
 				}
 
-			} else {
+			} else {*/
 				StringBuffer errorMessage = new StringBuffer("Correct the following errors:");
 				if(!geneListInputted && !geneFileImported){
 					errorMessage.append("\n Enter a gene name/ID or select a file");
@@ -391,22 +396,22 @@ public class RunCTRL {
 					errorMessage.append("\n Select one or more populations");
 				}
 						
-				JOptionPane.showMessageDialog(SNPFerret, errorMessage,"Error",JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(gui.snpFerret, errorMessage,"Error",JOptionPane.OK_OPTION);
 			}
 		} else { // SNP starts here ---------------------------------------------------------------------------------
 
-			boolean getESP = snpESPCheckBox.isSelected();
-			String snpString = snpTextField.getText();
+			boolean getESP = rig.snpESPCheckBox.isSelected();
+			String snpString = rig.snpTextField.getText();
 			boolean snpListInputted = snpString.length() > 0;
-			boolean snpFileImported = snpFileNameAndPath != null;
+			boolean snpFileImported = rig.snpFileNameAndPath != null;
 			boolean snpFileError = false;
 			boolean snpFileExtensionError = false;
 			boolean invalidCharacter = false;
-			boolean fromNCBI = snpNCBIRadioButton.isSelected();
+			boolean fromNCBI = rig.snpNCBIRadioButton.isSelected();
 			String invalidRegex = ".*\\D.*"; // This is everything except numbers
 			ArrayList<String> snpListArray = new ArrayList<String>();
-			String snpWindowSize = snpWindowField.getText();
-			boolean snpWindowSelected = snpWindowCheckBox.isSelected();
+			String snpWindowSize = rig.snpWindowField.getText();
+			boolean snpWindowSelected = (rig.snpWindowCheckBox).isSelected();
 			boolean validWindowSizeEntered = true; // must be both not empty and an int
 
 			if(snpWindowSelected){
@@ -424,10 +429,10 @@ public class RunCTRL {
 			}
 
 			if(snpFileImported){
-				if(snpFileNameAndPath.length() <= 4){
+				if(rig.snpFileNameAndPath.length() <= 4){
 					snpFileError = true;
 				} else {
-					String fileType = snpFileNameAndPath.substring(snpFileNameAndPath.length()-4);
+					String fileType = rig.snpFileNameAndPath.substring(rig.snpFileNameAndPath.length()-4);
 					String delimiter = null;
 					switch (fileType) {
 					case ".csv":
@@ -446,7 +451,7 @@ public class RunCTRL {
 					}
 					if(delimiter != null){
 						try (
-								BufferedReader snpFileRead = new BufferedReader(new FileReader(snpFileNameAndPath));
+								BufferedReader snpFileRead = new BufferedReader(new FileReader(rig.snpFileNameAndPath));
 								){
 							String snpStringToParse;
 							while((snpStringToParse = snpFileRead.readLine()) != null){
@@ -487,7 +492,7 @@ public class RunCTRL {
 			}
 
 			
-		  if((snpListInputted || (snpFileImported && !snpFileError && !snpFileExtensionError)) && !invalidCharacter && validWindowSizeEntered && popSelected && fileLocSelected ){
+		  if (!((snpListInputted || (snpFileImported && !snpFileError && !snpFileExtensionError)) && !invalidCharacter && validWindowSizeEntered && popSelected && fileLocSelected )){/*
 
 				final Integer[] variants = {0};
 				String output = null;
@@ -515,7 +520,7 @@ public class RunCTRL {
 				}
 
 
-			} else {
+			} else {*/
 
 				StringBuffer errorMessage = new StringBuffer("Correct the following errors:");
 				if(!snpListInputted && !snpFileImported){
@@ -539,9 +544,9 @@ public class RunCTRL {
 				if(!validWindowSizeEntered){
 					errorMessage.append("\n You must enter an integer window size if you wish to retrieve regions around variants");
 				}
-				
+				JOptionPane.showMessageDialog(gui.snpFerret, errorMessage,"Error",JOptionPane.OK_OPTION);
 				}
-				JOptionPane.showMessageDialog(SNPFerret, errorMessage,"Error",JOptionPane.OK_OPTION);
+				
 
 			}
 
@@ -551,6 +556,6 @@ public class RunCTRL {
     public void ExecutionTraitement1KG(){//executer traitement1kg
         
     }
-   */
+   
 }
 

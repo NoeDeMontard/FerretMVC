@@ -17,26 +17,26 @@ import javax.swing.*;
 public class PopulationGUI extends GUI{
     private final Font usedFont = new Font("Serif", Font.BOLD, 20);
     // Races Selection Declarations
-    String[] asnCode = {"EAS","CDX","CHB","CHS","JPT","KHV","CHD"};
-    String[] eurCode = {"EUR","CEU","GBR","FIN","IBS","TSI"};
-    String[] afrCode = {"AFR","ACB","ASW","ESN","GWD","LWK","MSL","YRI"};
-    String[] amrCode = {"AMR","CLM","MXL","PEL","PUR"};
-    String[] sanCode = {"SAS","BEB","GIH","ITU","PJL","STU"};
-    String[] allracesString = {"ALL"};
+    public String[] asnCode = {"EAS","CDX","CHB","CHS","JPT","KHV","CHD"};
+    public String[] eurCode = {"EUR","CEU","GBR","FIN","IBS","TSI"};
+    public String[] afrCode = {"AFR","ACB","ASW","ESN","GWD","LWK","MSL","YRI"};
+    public String[] amrCode = {"AMR","CLM","MXL","PEL","PUR"};
+    public String[] sanCode = {"SAS","BEB","GIH","ITU","PJL","STU"};
+    public String[] allracesString = {"ALL"};
 
-    JLabel afrLabel = new JLabel("Africans");
-    JLabel eurLabel = new JLabel("Europeans");
-    JLabel asnLabel = new JLabel("East Asians");
-    JLabel amrLabel = new JLabel("Americans");
-    JLabel sanLabel = new JLabel("South Asians");
-    JLabel allracesLabel = new JLabel("All Populations");
+    public JLabel afrLabel = new JLabel("Africans");
+    public JLabel eurLabel = new JLabel("Europeans");
+    public JLabel asnLabel = new JLabel("East Asians");
+    public JLabel amrLabel = new JLabel("Americans");
+    public JLabel sanLabel = new JLabel("South Asians");
+    public JLabel allracesLabel = new JLabel("All Populations");
 
-    JCheckBox[] afrsub = new JCheckBox[8];
-    JCheckBox[] eursub = new JCheckBox[6];
-    JCheckBox[] amrsub = new JCheckBox[5];
-    JCheckBox[] sansub = new JCheckBox[6];
-    JCheckBox[] asnsub = new JCheckBox[7];
-    JCheckBox[] allracessub = new JCheckBox[1];
+    public JCheckBox[] afrsub = new JCheckBox[8];
+    public JCheckBox[] eursub = new JCheckBox[6];
+    public JCheckBox[] amrsub = new JCheckBox[5];
+    public JCheckBox[] sansub = new JCheckBox[6];
+    public JCheckBox[] asnsub = new JCheckBox[7];
+    public JCheckBox[] allracessub = new JCheckBox[1];
 
     //Getters
     public String[] getAsnCode() {

@@ -21,7 +21,7 @@ import javax.swing.*;
  */
 public class GUI extends JFrame {
     //Declarations
-    private String fileNameAndPath;
+    public String fileNameAndPath;
     URL questionMarkURL = getClass().getResource("questionMark25.png");
     ImageIcon questionMark = new ImageIcon(questionMarkURL);
     // questionMarkURL semble null. J'ai tenté de déplacer l'image, de mettre un
@@ -29,7 +29,7 @@ public class GUI extends JFrame {
     // aucune de ses solutions n'a marché (la dernière ne met pas de message d'
     // erreur mais l'icone ne s'affiche pas
     JLabel fileLocation = new JLabel("File location: None Selected");
-    static JFrame snpFerret = new JFrame("Ferret v2.1.2");
+    public static JFrame snpFerret = new JFrame("Ferret v2.1.2");
     
     //------------------------ 
     JPanel bigPanel = new JPanel();
