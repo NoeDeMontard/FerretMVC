@@ -19,15 +19,15 @@ public class RegionInteretGUI extends GUI {
     JLabel startLabel = new JLabel("Start:");
     JLabel endLabel = new JLabel("End:");
     String[] chrOptions = {" ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"};
-    private JComboBox<String> chrList = new JComboBox<>(chrOptions);
-    private JTextField startPosTextField = new JTextField(8);
-    private JTextField endPosTextField = new JTextField(8);
-    JCheckBox chrESPCheckBox = new JCheckBox("Output frequencies from the Exome Sequencing Project");
+    public JComboBox<String> chrList = new JComboBox<>(chrOptions);
+    public JTextField startPosTextField = new JTextField(8);
+    public JTextField endPosTextField = new JTextField(8);
+    public JCheckBox chrESPCheckBox = new JCheckBox("Output frequencies from the Exome Sequencing Project");
     JLabel questionMarkLocusInput = new JLabel(questionMark);
    
     // Gene Panel Declarations
     JLabel geneNameLabel = new JLabel("Input gene(s):");
-    JCheckBox geneESPCheckBox = new JCheckBox("Output frequencies from the Exome Sequencing Project");
+    public JCheckBox geneESPCheckBox = new JCheckBox("Output frequencies from the Exome Sequencing Project");
     private JTextField geneWindowField = new JTextField(8);
     JCheckBox geneWindowCheckBox = new JCheckBox("Include borders of all selected gene(s) in a window of ");
     JLabel geneWindowBP = new JLabel(" bp");
@@ -39,27 +39,27 @@ public class RegionInteretGUI extends GUI {
     JPanel geneInputPanel = new JPanel();
     JPanel geneSelectOptionsPanel = new JPanel();
     JPanel geneESPOptionPanel = new JPanel();
-    JTabbedPane inputSelect = new JTabbedPane();
+    public JTabbedPane inputSelect = new JTabbedPane();
     JLabel geneOR = new JLabel("OR");
-    String geneFileNameAndPath;
+    public String geneFileNameAndPath;
     JLabel geneFileLocation = new JLabel("No file selected");
     JLabel geneInputType = new JLabel("Input gene as: ");
     JButton geneFileBrowseButton = new JButton("Browse");
     JButton geneFileClearButton = new JButton("Clear");
-    JRadioButton geneNameRadioButton = new JRadioButton("Name");
+    public JRadioButton geneNameRadioButton = new JRadioButton("Name");
     JRadioButton geneIDRadioButton = new JRadioButton("ID");
     ButtonGroup geneInputButtonGroup = new ButtonGroup();
-    JRadioButton geneNCBIRadioButton = new JRadioButton("NCBI");
+    public JRadioButton geneNCBIRadioButton = new JRadioButton("NCBI");
     JRadioButton geneV37RadioButton = new JRadioButton("v37");
     ButtonGroup geneSourceButtonGroup = new ButtonGroup();
     JLabel questionMarkGeneInput = new JLabel(questionMark);
     JLabel questionMarkGeneFileInput = new JLabel(questionMark);
 
     // Variant Panel Declarations
-    private JTextField snpTextField = new JTextField(8);
-    private JTextField snpWindowField = new JTextField(8);
-    private JTextField geneNameField = new JTextField(8);
-    JCheckBox snpWindowCheckBox = new JCheckBox("Include surrounding variant(s) in a window of ");
+    public JTextField snpTextField = new JTextField(8);
+    public JTextField snpWindowField = new JTextField(8);
+    public JTextField geneNameField = new JTextField(8);
+    public JCheckBox snpWindowCheckBox = new JCheckBox("Include surrounding variant(s) in a window of ");
     JLabel snpWindowBP = new JLabel("bp");
     JLabel snpTextLabel = new JLabel("Input variant ID(s):");
     JPanel snpWindowPanel = new JPanel();
@@ -71,9 +71,9 @@ public class RegionInteretGUI extends GUI {
     JButton snpFileBrowseButton = new JButton("Browse");
     JButton snpFileClearButton = new JButton("Clear");
     JLabel snpFileLocation = new JLabel("No file selected");
-    JCheckBox snpESPCheckBox = new JCheckBox("Output frequencies from the Exome Sequencing Project");
-    String snpFileNameAndPath;
-    JRadioButton snpNCBIRadioButton = new JRadioButton("NCBI");
+    public JCheckBox snpESPCheckBox = new JCheckBox("Output frequencies from the Exome Sequencing Project");
+    public String snpFileNameAndPath;
+    public JRadioButton snpNCBIRadioButton = new JRadioButton("NCBI");
     JRadioButton snpV37RadioButton = new JRadioButton("v37");
     ButtonGroup snpSourceButtonGroup = new ButtonGroup();
     JLabel questionMarkSNPInput = new JLabel(questionMark);

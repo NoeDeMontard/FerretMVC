@@ -22,11 +22,20 @@ import javax.swing.*;
  */
 public class GUI extends JFrame implements ActionListener {
     //Declarations
+<<<<<<< HEAD
     private String fileNameAndPath;
     URL questionMarkURL = getClass().getResource("/org/ecn/ferret/View/questionMark25.png");
     ImageIcon questionMark = new ImageIcon(questionMarkURL);
+=======
+    public String fileNameAndPath;
+    URL questionMarkURL = getClass().getResource("/org/ecn/Ferret/View/questionMark25.png");
+    ImageIcon questionMark = new ImageIcon(questionMarkURL);
+    // DONE: (Assurez-vous que le fichier questionMark.png se trouve bien dans le fichier du code)
+    // Pour le moment, le fichier est placé dans <chemin_du_projet>\target\classes\org\ecn\Ferret\View\questionMark25.png
+    // Il faudra vérifier que après génération du jar il ne pose pas de problème
+>>>>>>> 92a99b687bd1db09316110d4b169aa1255d5cfc4
     JLabel fileLocation = new JLabel("File location: None Selected");
-    static JFrame snpFerret = new JFrame("Ferret v2.1.2");
+    public static JFrame snpFerret = new JFrame("Ferret v2.1.2");
     
     //------------------------ 
     JPanel bigPanel = new JPanel();
