@@ -23,14 +23,11 @@ import javax.swing.*;
 public class GUI extends JFrame implements ActionListener {
     //Declarations
     public String fileNameAndPath;
-    URL questionMarkURL = getClass().getResource("questionMark25.png");
+    URL questionMarkURL = getClass().getResource("/org/ecn/Ferret/View/questionMark25.png");
     ImageIcon questionMark = new ImageIcon(questionMarkURL);
     // DONE: (Assurez-vous que le fichier questionMark.png se trouve bien dans le fichier du code)
-    //Toujours un problème avec cette ImageIcon, elle bloque l'éxecution du test main
-    // questionMarkURL semble null. J'ai tenté de déplacer l'image, de mettre un
-    // chemin plus complet ou d'utiliser ImageIcon("questionMark25.png"); mais 
-    // aucune de ses solutions n'a marché (la dernière ne met pas de message d'
-    // erreur mais l'icone ne s'affiche pas
+    // Pour le moment, le fichier est placé dans <chemin_du_projet>\target\classes\org\ecn\Ferret\View\questionMark25.png
+    // Il faudra vérifier que après génération du jar il ne pose pas de problème
     JLabel fileLocation = new JLabel("File location: None Selected");
     public static JFrame snpFerret = new JFrame("Ferret v2.1.2");
     
