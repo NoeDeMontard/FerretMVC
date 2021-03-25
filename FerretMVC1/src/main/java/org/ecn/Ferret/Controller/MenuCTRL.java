@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import org.ecn.PAPPL6_2020.Controller.UpdateCTRL;
+import org.ecn.Ferret.Controller.UpdateCTRL;
 
 /**
  * Classe de lien entre l'affichage du menu et les actions à effectuer.
@@ -24,10 +24,10 @@ import org.ecn.PAPPL6_2020.Controller.UpdateCTRL;
 */
 public class MenuCTRL implements ActionListener {
 
-    private MenuFerretGUI mfg; // la partie "Ferret" du menu
+    public MenuFerretGUI mfg; // la partie "Ferret" du menu
     private MenuHelpGUI mhg; // la partie "Help" du menu
-    private static PopulationGUI pop; // la population d'étude
-    private static RegionInteretGUI region; // la région d'intérêt
+    public static PopulationGUI pop; // la population d'étude
+    public static RegionInteretGUI region; // la région d'intérêt
     
     public MenuCTRL (MenuFerretGUI mfg,MenuHelpGUI mhg,PopulationGUI pop,RegionInteretGUI region) {
         this.mfg = mfg;
@@ -35,6 +35,10 @@ public class MenuCTRL implements ActionListener {
         this.region = region;
         mfg.menuFerretListener(this);
         mhg.menuHelpListener(this);
+    }
+
+    public MenuCTRL() {
+        
     }
 
     @Override
@@ -56,6 +60,7 @@ public class MenuCTRL implements ActionListener {
                 break;
             case "aboutMenuItem":
                 mhg.about = new AboutGUI();
+          
                 break;
             case "faqMenuItem":
                 try {
@@ -65,6 +70,7 @@ public class MenuCTRL implements ActionListener {
                 break;
             case "contactMenuItem":
                 mhg.contact = new ContactGUI();
+           
                 break;
             default:
                 break;

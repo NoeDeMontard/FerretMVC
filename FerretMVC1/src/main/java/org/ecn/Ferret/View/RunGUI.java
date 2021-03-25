@@ -36,12 +36,24 @@ public class RunGUI extends GUI{
         status.setText(traitement.process(processStatus));
     }
 
+    // TODO: GUI ne suffit pas comme paramétre ici, il faut la modifier pour éviter l'erreur dans test r.addRun(g,pg,rig,mfg);
     public void addRun(GUI g){
         g.bigPanel.add(goPanel);
         goPanel.add(goButton);
         goButton.setPreferredSize(new Dimension(320, 60));
         goPanel.setBackground(Color.gray);
         // setActionCommand
+        goButton.setActionCommand("goButton");
+    }
+
+    //J'ai ajouté une autre méthode avec les bons paramètres en attendant
+    public void addRun(GUI g,PopulationGUI pg,RegionInteretGUI rig,MenuFerretGUI mfg){
+        g.bigPanel.add(goPanel);
+        goPanel.add(goButton);
+        goButton.setPreferredSize(new Dimension(320, 60));
+        goPanel.setBackground(Color.gray);
+        // setActionCommand
+        goButton.addActionListener(this);
         goButton.setActionCommand("goButton");
     }
 
@@ -56,40 +68,67 @@ public class RunGUI extends GUI{
 //        });
 //    }
 
-    public void afficheVariantID(List<String> SNPsFound,LinkedList<String> chromosome,LinkedList<String> startPos,LinkedList<String> endPos,int sd){
+    /**
+     *
+     * @param SNPsFound
+     * @param chromosome
+     * @param startPos
+     * @param endPos
+     * @param sd
+     * @param runCTRL
+     */
+    public void afficheVariantID(List<String> SNPsFound,LinkedList<String> chromosome,LinkedList<String> startPos,LinkedList<String> endPos,int sd, RunCTRL runCTRL){
 
-        String[] options = {"Yes","No"};
-        JPanel partialSNPPanel = new JPanel();
-        JTextArea listOfSNPs = new JTextArea(SNPsFound.toString().substring(1, SNPsFound.toString().length()-1));
-        listOfSNPs.setWrapStyleWord(true);
-        listOfSNPs.setLineWrap(true);
-        listOfSNPs.setBackground(partialSNPPanel.getBackground());
-        partialSNPPanel.setLayout(new BoxLayout(partialSNPPanel, BoxLayout.Y_AXIS));
-        partialSNPPanel.add(new JLabel("Ferret encountered problems retrieving the variant positions from the NCBI SNP Database."));
-        partialSNPPanel.add(new JLabel("Here are the variants successfully retrieved:"));
-        JScrollPane listOfSNPScrollPane = new JScrollPane(listOfSNPs,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        listOfSNPScrollPane.setBorder(BorderFactory.createEmptyBorder());
-        listOfSNPScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
-        partialSNPPanel.add(listOfSNPScrollPane);
-        partialSNPPanel.add(new JLabel("Do you wish to continue?"));
+        boolean allSNPFound = runCTRL.getTraitement().isAllSNPsFound();
+        boolean noSNPFound = runCTRL.getTraitement().isNoSNPFound();
+        if(!allSNPFound && !noSNPFound){//Partial list
+            // Done: Il s'agit de mettre en place du code qui permettra de gérer l'affichage graphique de ce qui suit
+            // (ie, demander à l'utilisateur de continuer ou bien afficher les problèmes / résultats obtenus)
+            String[] options = {"Yes","No"};
+            JPanel partialSNPPanel = new JPanel();
+            JTextArea listOfSNPs = new JTextArea(SNPsFound.toString().substring(1, SNPsFound.toString().length()-1));
+            listOfSNPs.setWrapStyleWord(true);
+            listOfSNPs.setLineWrap(true);
+            listOfSNPs.setBackground(partialSNPPanel.getBackground());
+            partialSNPPanel.setLayout(new BoxLayout(partialSNPPanel, BoxLayout.Y_AXIS));
+            partialSNPPanel.add(new JLabel("Ferret encountered problems retrieving the variant positions from the NCBI SNP Database."));
+            partialSNPPanel.add(new JLabel("Here are the variants successfully retrieved:"));
+            JScrollPane listOfSNPScrollPane = new JScrollPane(listOfSNPs,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            listOfSNPScrollPane.setBorder(BorderFactory.createEmptyBorder());
+            listOfSNPScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
+            partialSNPPanel.add(listOfSNPScrollPane);
+            partialSNPPanel.add(new JLabel("Do you wish to continue?"));
 
-        int choice = JOptionPane.showOptionDialog(null,
-                partialSNPPanel,
-                "Continue?",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                options,
-                null);
-        if(choice == JOptionPane.YES_OPTION){
-            LocusM[] queries = new LocusM[chromosome.size()];
-            for(int i = 0; ! chromosome.isEmpty() ; i++){
-                queries[i] = new LocusM(Integer.parseInt(chromosome.remove()), (Integer.parseInt(startPos.remove()) - sd), (Integer.parseInt(endPos.remove()) + sd));
-            }}}
+            int choice = JOptionPane.showOptionDialog(null,
+                    partialSNPPanel,
+                    "Continue?",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    options,
+                    null);
+            if(choice == JOptionPane.YES_OPTION){
+                affichageAllSNPsFound(chromosome, startPos, endPos, sd);
+            }
+        } else if(noSNPFound){
+            affichageError();
+        }
+    }
 
+    /**
+     *
+     */
     public void affichageError(){
         JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
     }
+
+    /**
+     *
+     * @param chromosome
+     * @param startPos
+     * @param endPos
+     * @param sd
+     */
     public void affichageAllSNPsFound(LinkedList<String> chromosome,LinkedList<String> startPos,LinkedList<String> endPos,int sd){
         LocusM[] queries = new LocusM[chromosome.size()];
         for(int i = 0; ! chromosome.isEmpty(); i++){
@@ -100,7 +139,7 @@ public class RunGUI extends GUI{
      *
      * @param geneLocationFromGeneName
      */
-    public void affichageGene(FoundGeneAndRegion[] geneLocationFromGeneName){
+    public LocusM[] affichageGene(FoundGeneAndRegion[] geneLocationFromGeneName){
         String[] options = {"Yes","No"};
         LocusM[] queries;
 
@@ -132,5 +171,6 @@ public class RunGUI extends GUI{
         else {
             queries = geneLocationFromGeneName[0].getInputRegionArray();
         }
+        return queries;
     }
 }

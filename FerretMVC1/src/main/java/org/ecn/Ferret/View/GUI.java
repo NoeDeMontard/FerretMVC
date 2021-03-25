@@ -9,6 +9,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.text.NumberFormat;
@@ -19,11 +20,13 @@ import javax.swing.*;
  * Elle regroupe l'affichage de la fenêtre principale et plusieurs paramètres d'affichage.
  * @Authors: Mathieu JUNG-MULLER & Bozhou WANG
  */
-public class GUI extends JFrame {
+public class GUI extends JFrame implements ActionListener {
     //Declarations
     public String fileNameAndPath;
     URL questionMarkURL = getClass().getResource("questionMark25.png");
     ImageIcon questionMark = new ImageIcon(questionMarkURL);
+    // DONE: (Assurez-vous que le fichier questionMark.png se trouve bien dans le fichier du code)
+    //Toujours un problème avec cette ImageIcon, elle bloque l'éxecution du test main
     // questionMarkURL semble null. J'ai tenté de déplacer l'image, de mettre un
     // chemin plus complet ou d'utiliser ImageIcon("questionMark25.png"); mais 
     // aucune de ses solutions n'a marché (la dernière ne met pas de message d'
@@ -66,6 +69,11 @@ public class GUI extends JFrame {
     static final Boolean[] espMAFBoolean = {false};
     static final Boolean[] checkedForUpdate = {false};
     final JFileChooser saveFileChooser = new JFileChooser();
+
+    @Override
+    public void actionPerformed(ActionEvent arg0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     // Enumerations
     public enum version1KG {
@@ -183,7 +191,6 @@ public class GUI extends JFrame {
         progressPanel.add(progressBar);
         progressPanel.add(Box.createVerticalGlue());
         progressWindow.pack();
-
         snpFerret.setJMenuBar(ferretMenuBar);
         snpFerret.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         snpFerret.setResizable(true);
@@ -206,6 +213,7 @@ public class GUI extends JFrame {
         snpFerret.setVisible(true);
         
         // setActionCommand
+        browseButton.addActionListener(this);
         browseButton.setActionCommand("browseButton");
     }
 

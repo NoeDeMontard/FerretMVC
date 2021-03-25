@@ -16,8 +16,14 @@ public class SettingsM {
     private boolean versionHG; // version par défaut ou non
     private boolean esp; // est-ce que l'utilisateur veut aussi générer des infos du serveur ESP
 
-  
-    // setters et getters
+    public SettingsM(int version1KG, float maf, String output, boolean versionHG, boolean esp) {
+        this.version1KG = version1KG;
+        this.maf = maf;
+        this.output = output;
+        this.versionHG = versionHG;
+        this.esp = esp;
+    }
+// setters et getters
 
     public void setVersion1KG(int v){
       this.version1KG = v;

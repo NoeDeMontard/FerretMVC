@@ -1,17 +1,20 @@
 package org.ecn.Ferret.Controller;
 
+import org.ecn.Ferret.Model.ElementDeRechercheM;
+import org.ecn.Ferret.Model.SettingsM;
 import org.ecn.Ferret.Model.Traitement1KG;
-import org.ecn.Ferret.View.PopulationGUI;
-import org.ecn.Ferret.View.RegionInteretGUI;
-import org.ecn.Ferret.View.RunGUI;
-import org.ecn.Ferret.View.SettingsGUI;
+import org.ecn.Ferret.View.*;
 
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.Arrays;
+=======
+import java.util.LinkedList;
+>>>>>>> 92ae9a55b293f72318f574b6fdb888d117a8f7cc
 import java.util.Locale;
 import org.ecn.Ferret.View.GUI;
 
@@ -25,6 +28,7 @@ public class RunCTRL {
     private Traitement1KG traitement; // la classe globale de traitement
     private PopulationGUI pg;
     private RegionInteretGUI rig;
+//    private SettingsCTRL sc;
     private SettingsGUI sg;
     private RunGUI rg; // la classe GUI lançant l'exécution
     public RunCTRL(PopulationGUI pg,RegionInteretGUI rig,SettingsGUI sg, RunGUI rg, Traitement1KG traitement) {
@@ -37,6 +41,15 @@ public class RunCTRL {
        this.rg=rg;
        this.gui=gui;
     }
+
+    // TODO: J'ai créé un constructeur vide pour l'appel dans le mains, vous pouvez le supprimer
+    public RunCTRL() {
+    	this.traitement = new Traitement1KG();
+    	this.pg = new PopulationGUI();
+    	this.rig = new RegionInteretGUI();
+    	this.sg = new SettingsGUI();
+    	this.rg = new RunGUI();
+	}
 
 	public Traitement1KG getTraitement() {
 		return traitement;
@@ -550,12 +563,20 @@ public class RunCTRL {
 
 			}
 
-}
+}*/
       
     
     public void ExecutionTraitement1KG(){//executer traitement1kg
-        
+    	SettingsCTRL sc = new SettingsCTRL (sg,pg,rig);
+    	InfosRechercheCTRL rc = new InfosRechercheCTRL(rig,pg, rg);
+    	// TODO: Il faut spécifier les éléments de recherche depuis InfosRechercheCTRL
+		LinkedList<ElementDeRechercheM> enteredQueries = new LinkedList<>();
+		traitement.traitement(sc.getSettingsM(), enteredQueries);
     }
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> 92ae9a55b293f72318f574b6fdb888d117a8f7cc
 }
 
