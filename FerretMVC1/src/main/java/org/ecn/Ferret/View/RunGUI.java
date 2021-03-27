@@ -26,12 +26,15 @@ import java.util.List;
  * Classe d'affichage du lancement de l'application Ferret.
  * @Authors: Mathieu JUNG-MULLER & Bozhou WANG & Imane SALMI & Imane TAHIRI
  */
-public class RunGUI extends GUI{
+public class RunGUI extends GUI implements ActionListener{
     JPanel goPanel = new JPanel();
     JLabel status;
     JButton goButton = new JButton("Run Ferret, Run!");
-    RunCTRL runCTRL;
-
+    GUI g;
+    PopulationGUI pg;
+    RegionInteretGUI rig;
+    MenuFerretGUI mfg;
+    SettingsGUI sg;
     //à appeler dans le contrôleur
     public void setStatus(Traitement1KG traitement, List<String> processStatus){
           traitement.process(processStatus, status);
@@ -39,17 +42,17 @@ public class RunGUI extends GUI{
     }
 
     // TODO: GUI ne suffit pas comme paramétre ici, il faut la modifier pour éviter l'erreur dans test r.addRun(g,pg,rig,mfg);
-    public void addRun(GUI g){
-        g.bigPanel.add(goPanel);
-        goPanel.add(goButton);
-        goButton.setPreferredSize(new Dimension(320, 60));
-        goPanel.setBackground(Color.gray);
-        // setActionCommand
-        goButton.setActionCommand("goButton");
-    }
+//    public void addRun(GUI g){
+//        g.bigPanel.add(goPanel);
+//        goPanel.add(goButton);
+//        goButton.setPreferredSize(new Dimension(320, 60));
+//        goPanel.setBackground(Color.gray);
+//        // setActionCommand
+//        goButton.setActionCommand("goButton");
+//    }
 
     //J'ai ajouté une autre méthode avec les bons paramètres en attendant
-    public void addRun(GUI g,PopulationGUI pg,RegionInteretGUI rig,MenuFerretGUI mfg){
+    public void addRun(GUI g,PopulationGUI pg,RegionInteretGUI rig,MenuFerretGUI mfg/*,SettingsGUI sg*/){
         g.bigPanel.add(goPanel);
         goPanel.add(goButton);
         goButton.setPreferredSize(new Dimension(320, 60));
@@ -57,18 +60,29 @@ public class RunGUI extends GUI{
         // setActionCommand
         goButton.addActionListener(this);
         goButton.setActionCommand("goButton");
+        this.g= g;
+        this.pg=pg;
+        this.rig=rig;
+        this.mfg= mfg;
+        this.sg= sg;
     }
 
     public void runListener(ActionListener a) {
         goButton.addActionListener(a);}
-
-    public void RunListener() {
-        goButton.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
-            }
-        });
-    }
+    
+     public void actionPerformed(ActionEvent a) {
+        RunCTRL rctrl = new RunCTRL(this.pg,this.rig,this.sg,this.g);
+        if (rctrl.VerificationParam()){
+        rctrl.ExecutionTraitement1KG();
+        }
+     }
+//    public void RunListener() {
+//        goButton.addActionListener(new ActionListener(){
+//            public void actionPerformed(ActionEvent e){
+//                JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
+//            }
+//        });
+//    }
 
     /**
      *

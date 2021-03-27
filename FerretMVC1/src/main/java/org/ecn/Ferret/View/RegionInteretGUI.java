@@ -97,7 +97,7 @@ public class RegionInteretGUI extends GUI {
     }
 
     public JLabel getQuestionMarkLocusInput() {
-        return questionMarkLocusInput;
+       return questionMarkLocusInput;
     }
 
     public JTextField getSnpTextField() {

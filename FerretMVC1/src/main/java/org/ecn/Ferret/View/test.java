@@ -19,7 +19,7 @@ public class test {
     PopulationGUI pg = new PopulationGUI();
     RegionInteretGUI rig = new  RegionInteretGUI();
     RunGUI r = new RunGUI();
-    
+   // SettingsGUI sg=new SettingsGUI();
     MenuFerretGUI mfg= new MenuFerretGUI();
     MenuHelpGUI mhg= new MenuHelpGUI();
            
@@ -28,7 +28,7 @@ public class test {
     pg.addPopulation(g);
     rig.addRegoinInteret(g);
     
-    r.addRun(g,pg,rig,mfg);
+    r.addRun(g,pg,rig,mfg/*,sg*/);
     
     g.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     g.afficher();

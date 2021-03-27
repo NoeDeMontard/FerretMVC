@@ -22,7 +22,7 @@ import javax.swing.*;
  */
 public class GUI extends JFrame implements ActionListener {
     //Declarations
-    private String fileNameAndPath;
+    public String fileNameAndPath;
     URL questionMarkURL = getClass().getResource("/org/ecn/ferret/View/questionMark25.png");
     ImageIcon questionMark = new ImageIcon(questionMarkURL);
     JLabel fileLocation = new JLabel("File location: None Selected");

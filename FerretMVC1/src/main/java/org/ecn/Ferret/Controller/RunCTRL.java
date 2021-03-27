@@ -29,26 +29,21 @@ import org.ecn.Ferret.View.GUI;
     private RunGUI rg; // la classe GUI lançant l'exécution
 
 
-
-    public RunCTRL(PopulationGUI pg, RegionInteretGUI rig, SettingsGUI sg, RunGUI rg, Traitement1KG traitement) {
-        //this.run = run;
-        // run.RunListener(this);
-        this.traitement = traitement;
+     public RunCTRL(PopulationGUI pg, RegionInteretGUI rig, SettingsGUI sg,GUI gui) {
+        this.traitement =new Traitement1KG();
         this.pg = pg;
         this.rig = rig;
         this.sg = sg;
-        this.rg = rg;
         this.gui = gui;
     }
 
     // TODO: J'ai créé un constructeur vide pour l'appel dans le mains, vous pouvez le supprimer
-    public RunCTRL() {
-    	this.traitement = new Traitement1KG();
-    	this.pg = new PopulationGUI();
-    	this.rig = new RegionInteretGUI();
-    	this.sg = new SettingsGUI();
-    	this.rg = new RunGUI();
-	}
+//    public RunCTRL() {
+//    	this.traitement = new Traitement1KG();
+//    	this.pg = new PopulationGUI();
+//    	this.rig = new RegionInteretGUI();
+//    	this.sg = new SettingsGUI();
+//    }
 
 	public Traitement1KG getTraitement() {
 		return traitement;
@@ -82,123 +77,8 @@ import org.ecn.Ferret.View.GUI;
 		this.sg = sg;
 	}
 
-	public RunGUI getRg() {
-		return rg;
-	}
-
-	public void setRg(RunGUI rg) {
-		this.rg = rg;
-	}
-
-/*
-	public boolean VerificationParam(){//la methode pour verifier les paramatrs
-         	final long startTime = System.nanoTime();
-	        ArrayList<CharSequence> populations = new ArrayList<CharSequence>();
-		for(int i = 0; i < afrsub.length; i++){
-			if(afrsub[i].isSelected()){
-				populations.add(afrCode[i]);
-			}
-		}
-		for(int i = 0; i < eursub.length; i++){
-			if(eursub[i].isSelected()){
-				populations.add(eurCode[i]);
-			}
-		}
-		for(int i = 0; i < sansub.length; i++){
-			if(sansub[i].isSelected()){
-				populations.add(sanCode[i]);
-			}
-		}
-		for(int i = 0; i < asnsub.length; i++){
-			if(asnsub[i].isSelected()){
-				populations.add(asnCode[i]);
-			}
-		}
-		for(int i = 0; i < amrsub.length; i++){
-			if(amrsub[i].isSelected()){
-				populations.add(amrCode[i]);
-			}
-		}
-		if(allracessub[0].isSelected()){
-			populations.add("ALL");
-		}
-		boolean popSelected = !populations.isEmpty(), fileLocSelected = (fileNameAndPath != null);
-
-		if(inputSelect.getSelectedIndex() == 0){
-					// Chr position input method
-			boolean getESP = chrESPCheckBox.isSelected();
-			String chrSelected = (String)chrList.getSelectedItem();
-			String startPosition = startPosTextField.getText();
-			String endPosition = endPosTextField.getText();
-
-			boolean isChrSelected, startSelected, endSelected, startEndValid = true, withinRange = true;
-			int chrEndBound = 0;
-                        isChrSelected = !chrSelected.equals(" ");
-                        // Checks to see if number and integer
-			if((startSelected = !startPosition.isEmpty())){
-				for(int i = 0; i < startPosition.length(); i++){
-					if(!Character.isDigit(startPosition.charAt(i))){
-						startSelected = false;
-					}
-				}
-			}
-			if((endSelected = !endPosition.isEmpty())){
-				for(int i = 0; i < endPosition.length(); i++){
-					if(!Character.isDigit(endPosition.charAt(i))){
-						endSelected = false;
-					}
-				}
-			}
-=======
-        this.traitement = new Traitement1KG();
-        this.pg = new PopulationGUI();
-        this.rig = new RegionInteretGUI();
-        this.sg = new SettingsGUI();
-        this.rg = new RunGUI();
-    }
->>>>>>> 92a99b687bd1db09316110d4b169aa1255d5cfc4
-
-    public Traitement1KG getTraitement() {
-        return traitement;
-    }
-
-    public void setTraitement(Traitement1KG traitement) {
-        this.traitement = traitement;
-    }
-
-    public PopulationGUI getPg() {
-        return pg;
-    }
-
-    public void setPg(PopulationGUI pg) {
-        this.pg = pg;
-    }
-
-    public RegionInteretGUI getRig() {
-        return rig;
-    }
-
-    public void setRig(RegionInteretGUI rig) {
-        this.rig = rig;
-    }
-
-    public SettingsGUI getSg() {
-        return sg;
-    }
-
-    public void setSg(SettingsGUI sg) {
-        this.sg = sg;
-    }
-
-    public RunGUI getRg() {
-        return rg;
-    }
-
-    public void setRg(RunGUI rg) {
-        this.rg = rg;
-    }
-
-    public void VerificationParam() {//la methode pour verifier les paramatrs
+    public boolean VerificationParam() {//la methode pour verifier les paramatrs
+        boolean veification=true;
         final Boolean[] defaultHG = {true};
         final long startTime = System.nanoTime();
         ArrayList<CharSequence> populations = new ArrayList<CharSequence>();
@@ -585,318 +465,320 @@ import org.ecn.Ferret.View.GUI;
 			}
 			
                         } else {*/
-//                StringBuffer errorMessage = new StringBuffer("Correct the following errors:");
-//                if (!isChrSelected) {
-//                    errorMessage.append("\n Select a chromosome");
-//                }
-//                if (!popSelected) {
-//                    errorMessage.append("\n Select one or more populations");
-//                }
-//                if (!startSelected) {
-//                    errorMessage.append("\n Enter a valid, integer starting position");
-//                }
-//                if (!endSelected) {
-//                    errorMessage.append("\n Enter a valid, integer ending position");
-//                }
-//                if (!startEndValid) {
-//                    errorMessage.append("\n Starting position must be less than ending position");
-//                }
-//                if (!withinRange) {
-//                    errorMessage.append("\n Invalid chromosome positions. Valid positions for chr" + chrSelected + " are from 1 to " + chrEndBound);
-//                }
-//                if (!fileLocSelected) {
-//                    errorMessage.append("\n Select a destination for the files to be saved");
-//                }
-//                JOptionPane.showMessageDialog(gui.snpFerret, errorMessage, "Error", JOptionPane.OK_OPTION);
-//            }
-//
-//        } else if (rig.inputSelect.getSelectedIndex() == 1) {	// Gene starts after this line ------------------------------------------------------------------
-//            boolean getESP = rig.geneESPCheckBox.isSelected();
-//            String geneString = rig.geneNameField.getText();
-//            String[] geneListArray = null;
-//            boolean geneListInputted = geneString.length() > 0;
-//            boolean geneFileImported = rig.geneFileNameAndPath != null;
-//            boolean geneFileError = false;
-//            boolean geneFileExtensionError = false;
-//            boolean invalidCharacter = false;
-//            boolean geneNameInputted = rig.geneNameRadioButton.isSelected();
-//            boolean fromNCBI = rig.geneNCBIRadioButton.isSelected();
-//
-//            String invalidRegex;
-//            if (geneNameInputted) {
-//                invalidRegex = ".*[^a-zA-Z0-9\\-].*"; // This is everything except letters and numbers, including underscore
-//            } else {
-//                invalidRegex = ".*\\D.*"; // This is everything except numbers
-//            }
-//
-//            if (geneFileImported) {
-//                if (rig.geneFileNameAndPath.length() <= 4) {
-//                    geneFileError = true;
-//                } else {
-//                    String fileType = rig.geneFileNameAndPath.substring(rig.geneFileNameAndPath.length() - 4);
-//                    String delimiter = null;
-//                    switch (fileType) {
-//                        case ".csv":
-//                            delimiter = ",";
-//                            break;
-//                        case ".tab":
-//                        case ".tsv":
-//                            delimiter = "\\t";
-//                            break;
-//                        case ".txt":
-//                            delimiter = " ";
-//                            break;
-//                        default:
-//                            geneFileExtensionError = true;
-//                            break;
-//                    }
-//                    ArrayList<String> geneListArrayList = new ArrayList<String>();
-//
-//                    if (delimiter != null) {
-//                        try (
-//                                BufferedReader geneFileRead = new BufferedReader(new FileReader(rig.geneFileNameAndPath));) {
-//                            String geneStringToParse;
-//                            while ((geneStringToParse = geneFileRead.readLine()) != null) {
-//                                String[] text = geneStringToParse.split(delimiter);
-//                                for (int i = 0; i < text.length; i++) {
-//                                    text[i] = text[i].replace(" ", "").toUpperCase(new Locale("all")); // remove spaces
-//                                    if (text[i].matches(invalidRegex)) { // identify invalid characters
-//                                        invalidCharacter = true;
-//                                        break;
-//                                    }
-//                                    if (text[i].length() > 0) {
-//                                        geneListArrayList.add(text[i]);
-//                                    }
-//                                }
-//                            }
-//                            geneListArray = geneListArrayList.toArray(new String[geneListArrayList.size()]);
-//                        } catch (IOException e) {
-//                            //e.printStackTrace();
-//                            geneFileError = true;
-//                        } catch (NullPointerException e) {
-//                            //File is empty
-//                            geneFileError = true;
-//                        }
-//                    }
-//                }
-//
-//            } else if (geneListInputted) {
-//                geneString = geneString.toUpperCase(new Locale("all"));
-//                String geneList = geneString.replace(" ", "");
-//                invalidCharacter = geneList.replace(",", "").matches(invalidRegex);
-//                if (geneList.endsWith(",")) {
-//                    geneList = geneList.substring(0, geneList.length() - 1);
-//                }
-//                geneListArray = geneList.split(",");
-//            }
-//
-//            if (!((geneListInputted || (geneFileImported && !geneFileError && !geneFileExtensionError)) && !invalidCharacter && popSelected && fileLocSelected)) {/*
-//
-//			// this should be combined with the one single call to Ferret later
-//			final Integer[] variants = {0};
-//			String output = null;
-//
-//			switch (currFileOut[0]){
-//				case ALL:
-//					output = "all";
-//					break;
-//				case FRQ:
-//					output = "freq";
-//					break;
-//				case VCF:
-//					output = "vcf";
-//					break;
-//				}
-//
-//				String webAddress = null;
-//                                if (currVersion[0] == version1KG.ONE){
-//					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20110521/ALL.chr$.phase1_release_v3.20101123.snps_indels_svs.genotypes.vcf.gz";
-//				} else if (currVersion[0] == version1KG.THREE & defaultHG[0]){
-//					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr$.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz";
-//				} else if (currVersion[0] == version1KG.THREE & !defaultHG[0]){
-//					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/supporting/GRCh38_positions/ALL.chr$.phase3_shapeit2_mvncall_integrated_v3plus_nounphased.rsID.genotypes.GRCh38_dbSNP_no_SVs.vcf.gz";
-//				}
-//
-//				String geneQueryType;
-//				if(geneNameInputted){
-//					geneQueryType = "geneName";
-//				} else{
-//					geneQueryType = "geneID";
-//				}
-//
-//			} else {*/
-//                StringBuffer errorMessage = new StringBuffer("Correct the following errors:");
-//                if (!geneListInputted && !geneFileImported) {
-//                    errorMessage.append("\n Enter a gene name/ID or select a file");
-//                }
-//                if (geneFileImported && geneFileError) {
-//                    errorMessage.append("\n There was a problem reading the Gene file. Please check the FAQ.");
-//                }
-//                if (geneFileImported && geneFileExtensionError) {
-//                    errorMessage.append("\n Invalid file extension. Ferret supports tsv, csv, tab, and txt files.");
-//                }
-//                if ((geneListInputted || geneFileImported) && invalidCharacter) {
-//                    errorMessage.append("\n Invalid character entered");
-//                }
-//                if (!fileLocSelected) {
-//                    errorMessage.append("\n Select a destination for the files to be saved");
-//                }
-//                if (!popSelected) {
-//                    errorMessage.append("\n Select one or more populations");
-//                }
-//
-//                JOptionPane.showMessageDialog(gui.snpFerret, errorMessage, "Error", JOptionPane.OK_OPTION);
-//            }
-//        } else { // SNP starts here ---------------------------------------------------------------------------------
-//
-//            boolean getESP = rig.snpESPCheckBox.isSelected();
-//            String snpString = rig.snpTextField.getText();
-//            boolean snpListInputted = snpString.length() > 0;
-//            boolean snpFileImported = rig.snpFileNameAndPath != null;
-//            boolean snpFileError = false;
-//            boolean snpFileExtensionError = false;
-//            boolean invalidCharacter = false;
-//            boolean fromNCBI = rig.snpNCBIRadioButton.isSelected();
-//            String invalidRegex = ".*\\D.*"; // This is everything except numbers
-//            ArrayList<String> snpListArray = new ArrayList<String>();
-//            String snpWindowSize = rig.snpWindowField.getText();
-//            boolean snpWindowSelected = (rig.snpWindowCheckBox).isSelected();
-//            boolean validWindowSizeEntered = true; // must be both not empty and an int
-//
-//            if (snpWindowSelected) {
-//                if (snpWindowSize.length() == 0) {
-//                    validWindowSizeEntered = false; // must have something there
-//                } else { // test for non ints
-//                    for (int i = 0; i < snpWindowSize.length(); i++) {
-//                        if (!Character.isDigit(snpWindowSize.charAt(i))) {
-//                            validWindowSizeEntered = false;
-//                        }
-//                    }
-//                }
-//            } else { //if no window specified, it's always fine
-//                snpWindowSize = "0";
-//            }
-//
-//            if (snpFileImported) {
-//                if (rig.snpFileNameAndPath.length() <= 4) {
-//                    snpFileError = true;
-//                } else {
-//                    String fileType = rig.snpFileNameAndPath.substring(rig.snpFileNameAndPath.length() - 4);
-//                    String delimiter = null;
-//                    switch (fileType) {
-//                        case ".csv":
-//                            delimiter = ",";
-//                            break;
-//                        case ".tab":
-//                        case ".tsv":
-//                            delimiter = "\\t";
-//                            break;
-//                        case ".txt":
-//                            delimiter = " ";
-//                            break;
-//                        default:
-//                            snpFileExtensionError = true;
-//                            break;
-//                    }
-//                    if (delimiter != null) {
-//                        try (
-//                                BufferedReader snpFileRead = new BufferedReader(new FileReader(rig.snpFileNameAndPath));) {
-//                            String snpStringToParse;
-//                            while ((snpStringToParse = snpFileRead.readLine()) != null) {
-//                                String[] text = snpStringToParse.split(delimiter);
-//                                for (int i = 0; i < text.length; i++) {
-//                                    text[i] = text[i].replace(" ", ""); // remove spaces
-//                                    if (text[i].matches(invalidRegex)) { // identify invalid characters
-//                                        invalidCharacter = true; // probably can just throw error here, might be easier/more straight forward. But then errors wouldn't be 'accumulated' to the end
-//                                        break;
-//                                    }
-//                                    if (text[i].length() > 0) {
-//                                        snpListArray.add(text[i]);
-//                                    }
-//                                }
-//                            }
-//                        } catch (IOException e) {
-//                            //e.printStackTrace();
-//                            snpFileError = true;
-//                        } catch (NullPointerException e) {
-//                            snpFileError = true;
-//                        }
-//                    }
-//                }
-//            } else if (snpListInputted) {
-//
-//                while (snpString.endsWith(",") || snpString.endsWith(" ")) { // maybe this should be added for gene input too
-//                    snpString = snpString.substring(0, snpString.length() - 1);
-//                }
-//                String[] text = snpString.split(",");
-//                for (int i = 0; i < text.length; i++) {
-//                    text[i] = text[i].replace(" ", "");// remove spaces
-//                    if (text[i].matches(invalidRegex)) {
-//                        invalidCharacter = true;
-//                        break;
-//                    }
-//                }
-//                snpListArray = new ArrayList<String>(Arrays.asList(text));
-//            }
-//
-//            if (!((snpListInputted || (snpFileImported && !snpFileError && !snpFileExtensionError)) && !invalidCharacter && validWindowSizeEntered && popSelected && fileLocSelected)) {/*
-//
-//				final Integer[] variants = {0};
-//				String output = null;
-//
-//				switch (currFileOut[0]){
-//				case ALL:
-//					output = "all";
-//					break;
-//				case FRQ:
-//					output = "freq";
-//					break;
-//				case VCF:
-//					output = "vcf";
-//					break;
-//				}
-//
-//				String webAddress = null;
-//
-//				if (currVersion[0] == version1KG.ONE){
-//					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20110521/ALL.chr$.phase1_release_v3.20101123.snps_indels_svs.genotypes.vcf.gz";
-//				} else if (currVersion[0] == version1KG.THREE & defaultHG[0]){
-//					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr$.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz";
-//				} else if (currVersion[0] == version1KG.THREE & !defaultHG[0]){
-//					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/supporting/GRCh38_positions/ALL.chr$.phase3_shapeit2_mvncall_integrated_v3plus_nounphased.rsID.genotypes.GRCh38_dbSNP_no_SVs.vcf.gz";
-//				}
-//
-//
-//			} else {*/
-//
-//                StringBuffer errorMessage = new StringBuffer("Correct the following errors:");
-//                if (!snpListInputted && !snpFileImported) {
-//                    errorMessage.append("\n Enter a variant number or select a file");
-//                }
-//                if (snpFileImported && snpFileError) {
-//                    errorMessage.append("\n There was a problem reading the variant file. Please check the FAQ.");
-//                }
-//                if (snpFileImported && snpFileExtensionError) {
-//                    errorMessage.append("\n Invalid file extension. Ferret supports tsv, csv, tab, and txt files.");
-//                }
-//                if ((snpListInputted || snpFileImported) && invalidCharacter) {
-//                    errorMessage.append("\n Invalid character entered");
-//                }
-//                if (!fileLocSelected) {
-//                    errorMessage.append("\n Select a destination for the files to be saved");
-//                }
-//                if (!popSelected) {
-//                    errorMessage.append("\n Select one or more populations");
-//                }
-//                if (!validWindowSizeEntered) {
-//                    errorMessage.append("\n You must enter an integer window size if you wish to retrieve regions around variants");
-//                }
-//                JOptionPane.showMessageDialog(gui.snpFerret, errorMessage, "Error", JOptionPane.OK_OPTION);
-//            }
-//
-//        }
-//
-//    }
+                veification=false;
+                StringBuffer errorMessage = new StringBuffer("Correct the following errors:");
+                if (!isChrSelected) {
+                    errorMessage.append("\n Select a chromosome");
+                }
+                if (!popSelected) {
+                    errorMessage.append("\n Select one or more populations");
+                }
+                if (!startSelected) {
+                    errorMessage.append("\n Enter a valid, integer starting position");
+                }
+                if (!endSelected) {
+                    errorMessage.append("\n Enter a valid, integer ending position");
+                }
+                if (!startEndValid) {
+                    errorMessage.append("\n Starting position must be less than ending position");
+                }
+                if (!withinRange) {
+                    errorMessage.append("\n Invalid chromosome positions. Valid positions for chr" + chrSelected + " are from 1 to " + chrEndBound);
+                }
+                if (!fileLocSelected) {
+                    errorMessage.append("\n Select a destination for the files to be saved");
+                }
+                JOptionPane.showMessageDialog(gui.snpFerret, errorMessage, "Error", JOptionPane.OK_OPTION);
+            }
+
+        } else if (rig.inputSelect.getSelectedIndex() == 1) {	// Gene starts after this line ------------------------------------------------------------------
+            boolean getESP = rig.geneESPCheckBox.isSelected();
+            String geneString = rig.geneNameField.getText();
+            String[] geneListArray = null;
+            boolean geneListInputted = geneString.length() > 0;
+            boolean geneFileImported = rig.geneFileNameAndPath != null;
+            boolean geneFileError = false;
+            boolean geneFileExtensionError = false;
+            boolean invalidCharacter = false;
+            boolean geneNameInputted = rig.geneNameRadioButton.isSelected();
+            boolean fromNCBI = rig.geneNCBIRadioButton.isSelected();
+
+            String invalidRegex;
+            if (geneNameInputted) {
+                invalidRegex = ".*[^a-zA-Z0-9\\-].*"; // This is everything except letters and numbers, including underscore
+            } else {
+                invalidRegex = ".*\\D.*"; // This is everything except numbers
+            }
+
+            if (geneFileImported) {
+                if (rig.geneFileNameAndPath.length() <= 4) {
+                    geneFileError = true;
+                } else {
+                    String fileType = rig.geneFileNameAndPath.substring(rig.geneFileNameAndPath.length() - 4);
+                    String delimiter = null;
+                    switch (fileType) {
+                        case ".csv":
+                            delimiter = ",";
+                            break;
+                        case ".tab":
+                        case ".tsv":
+                            delimiter = "\\t";
+                            break;
+                        case ".txt":
+                            delimiter = " ";
+                            break;
+                        default:
+                            geneFileExtensionError = true;
+                            break;
+                    }
+                    ArrayList<String> geneListArrayList = new ArrayList<String>();
+
+                    if (delimiter != null) {
+                        try (
+                                BufferedReader geneFileRead = new BufferedReader(new FileReader(rig.geneFileNameAndPath));) {
+                            String geneStringToParse;
+                            while ((geneStringToParse = geneFileRead.readLine()) != null) {
+                                String[] text = geneStringToParse.split(delimiter);
+                                for (int i = 0; i < text.length; i++) {
+                                    text[i] = text[i].replace(" ", "").toUpperCase(new Locale("all")); // remove spaces
+                                    if (text[i].matches(invalidRegex)) { // identify invalid characters
+                                        invalidCharacter = true;
+                                        break;
+                                    }
+                                    if (text[i].length() > 0) {
+                                        geneListArrayList.add(text[i]);
+                                    }
+                                }
+                            }
+                            geneListArray = geneListArrayList.toArray(new String[geneListArrayList.size()]);
+                        } catch (IOException e) {
+                            //e.printStackTrace();
+                            geneFileError = true;
+                        } catch (NullPointerException e) {
+                            //File is empty
+                            geneFileError = true;
+                        }
+                    }
+                }
+
+            } else if (geneListInputted) {
+                geneString = geneString.toUpperCase(new Locale("all"));
+                String geneList = geneString.replace(" ", "");
+                invalidCharacter = geneList.replace(",", "").matches(invalidRegex);
+                if (geneList.endsWith(",")) {
+                    geneList = geneList.substring(0, geneList.length() - 1);
+                }
+                geneListArray = geneList.split(",");
+            }
+
+            if (!((geneListInputted || (geneFileImported && !geneFileError && !geneFileExtensionError)) && !invalidCharacter && popSelected && fileLocSelected)) {/*
+
+			// this should be combined with the one single call to Ferret later
+			final Integer[] variants = {0};
+			String output = null;
+
+			switch (currFileOut[0]){
+				case ALL:
+					output = "all";
+					break;
+				case FRQ:
+					output = "freq";
+					break;
+				case VCF:
+					output = "vcf";
+					break;
+				}
+
+				String webAddress = null;
+                                if (currVersion[0] == version1KG.ONE){
+					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20110521/ALL.chr$.phase1_release_v3.20101123.snps_indels_svs.genotypes.vcf.gz";
+				} else if (currVersion[0] == version1KG.THREE & defaultHG[0]){
+					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr$.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz";
+				} else if (currVersion[0] == version1KG.THREE & !defaultHG[0]){
+					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/supporting/GRCh38_positions/ALL.chr$.phase3_shapeit2_mvncall_integrated_v3plus_nounphased.rsID.genotypes.GRCh38_dbSNP_no_SVs.vcf.gz";
+				}
+
+				String geneQueryType;
+				if(geneNameInputted){
+					geneQueryType = "geneName";
+				} else{
+					geneQueryType = "geneID";
+				}
+
+			} else {*/
+                veification=false;
+                StringBuffer errorMessage = new StringBuffer("Correct the following errors:");
+                if (!geneListInputted && !geneFileImported) {
+                    errorMessage.append("\n Enter a gene name/ID or select a file");
+                }
+                if (geneFileImported && geneFileError) {
+                    errorMessage.append("\n There was a problem reading the Gene file. Please check the FAQ.");
+                }
+                if (geneFileImported && geneFileExtensionError) {
+                    errorMessage.append("\n Invalid file extension. Ferret supports tsv, csv, tab, and txt files.");
+                }
+                if ((geneListInputted || geneFileImported) && invalidCharacter) {
+                    errorMessage.append("\n Invalid character entered");
+                }
+                if (!fileLocSelected) {
+                    errorMessage.append("\n Select a destination for the files to be saved");
+                }
+                if (!popSelected) {
+                    errorMessage.append("\n Select one or more populations");
+                }
+
+                JOptionPane.showMessageDialog(gui.snpFerret, errorMessage, "Error", JOptionPane.OK_OPTION);
+            }
+        } else { // SNP starts here ---------------------------------------------------------------------------------
+
+            boolean getESP = rig.snpESPCheckBox.isSelected();
+            String snpString = rig.snpTextField.getText();
+            boolean snpListInputted = snpString.length() > 0;
+            boolean snpFileImported = rig.snpFileNameAndPath != null;
+            boolean snpFileError = false;
+            boolean snpFileExtensionError = false;
+            boolean invalidCharacter = false;
+            boolean fromNCBI = rig.snpNCBIRadioButton.isSelected();
+            String invalidRegex = ".*\\D.*"; // This is everything except numbers
+            ArrayList<String> snpListArray = new ArrayList<String>();
+            String snpWindowSize = rig.snpWindowField.getText();
+            boolean snpWindowSelected = (rig.snpWindowCheckBox).isSelected();
+            boolean validWindowSizeEntered = true; // must be both not empty and an int
+
+            if (snpWindowSelected) {
+                if (snpWindowSize.length() == 0) {
+                    validWindowSizeEntered = false; // must have something there
+                } else { // test for non ints
+                    for (int i = 0; i < snpWindowSize.length(); i++) {
+                        if (!Character.isDigit(snpWindowSize.charAt(i))) {
+                            validWindowSizeEntered = false;
+                        }
+                    }
+                }
+            } else { //if no window specified, it's always fine
+                snpWindowSize = "0";
+            }
+
+            if (snpFileImported) {
+                if (rig.snpFileNameAndPath.length() <= 4) {
+                    snpFileError = true;
+                } else {
+                    String fileType = rig.snpFileNameAndPath.substring(rig.snpFileNameAndPath.length() - 4);
+                    String delimiter = null;
+                    switch (fileType) {
+                        case ".csv":
+                            delimiter = ",";
+                            break;
+                        case ".tab":
+                        case ".tsv":
+                            delimiter = "\\t";
+                            break;
+                        case ".txt":
+                            delimiter = " ";
+                            break;
+                        default:
+                            snpFileExtensionError = true;
+                            break;
+                    }
+                    if (delimiter != null) {
+                        try (
+                                BufferedReader snpFileRead = new BufferedReader(new FileReader(rig.snpFileNameAndPath));) {
+                            String snpStringToParse;
+                            while ((snpStringToParse = snpFileRead.readLine()) != null) {
+                                String[] text = snpStringToParse.split(delimiter);
+                                for (int i = 0; i < text.length; i++) {
+                                    text[i] = text[i].replace(" ", ""); // remove spaces
+                                    if (text[i].matches(invalidRegex)) { // identify invalid characters
+                                        invalidCharacter = true; // probably can just throw error here, might be easier/more straight forward. But then errors wouldn't be 'accumulated' to the end
+                                        break;
+                                    }
+                                    if (text[i].length() > 0) {
+                                        snpListArray.add(text[i]);
+                                    }
+                                }
+                            }
+                        } catch (IOException e) {
+                            //e.printStackTrace();
+                            snpFileError = true;
+                        } catch (NullPointerException e) {
+                            snpFileError = true;
+                        }
+                    }
+                }
+            } else if (snpListInputted) {
+
+                while (snpString.endsWith(",") || snpString.endsWith(" ")) { // maybe this should be added for gene input too
+                    snpString = snpString.substring(0, snpString.length() - 1);
+                }
+                String[] text = snpString.split(",");
+                for (int i = 0; i < text.length; i++) {
+                    text[i] = text[i].replace(" ", "");// remove spaces
+                    if (text[i].matches(invalidRegex)) {
+                        invalidCharacter = true;
+                        break;
+                    }
+                }
+                snpListArray = new ArrayList<String>(Arrays.asList(text));
+            }
+
+            if (!((snpListInputted || (snpFileImported && !snpFileError && !snpFileExtensionError)) && !invalidCharacter && validWindowSizeEntered && popSelected && fileLocSelected)) {/*
+
+				final Integer[] variants = {0};
+				String output = null;
+
+				switch (currFileOut[0]){
+				case ALL:
+					output = "all";
+					break;
+				case FRQ:
+					output = "freq";
+					break;
+				case VCF:
+					output = "vcf";
+					break;
+				}
+
+				String webAddress = null;
+
+				if (currVersion[0] == version1KG.ONE){
+					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20110521/ALL.chr$.phase1_release_v3.20101123.snps_indels_svs.genotypes.vcf.gz";
+				} else if (currVersion[0] == version1KG.THREE & defaultHG[0]){
+					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr$.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz";
+				} else if (currVersion[0] == version1KG.THREE & !defaultHG[0]){
+					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/supporting/GRCh38_positions/ALL.chr$.phase3_shapeit2_mvncall_integrated_v3plus_nounphased.rsID.genotypes.GRCh38_dbSNP_no_SVs.vcf.gz";
+				}
+
+
+			} else {*/
+                veification=false;
+                StringBuffer errorMessage = new StringBuffer("Correct the following errors:");
+                if (!snpListInputted && !snpFileImported) {
+                    errorMessage.append("\n Enter a variant number or select a file");
+                }
+                if (snpFileImported && snpFileError) {
+                    errorMessage.append("\n There was a problem reading the variant file. Please check the FAQ.");
+                }
+                if (snpFileImported && snpFileExtensionError) {
+                    errorMessage.append("\n Invalid file extension. Ferret supports tsv, csv, tab, and txt files.");
+                }
+                if ((snpListInputted || snpFileImported) && invalidCharacter) {
+                    errorMessage.append("\n Invalid character entered");
+                }
+                if (!fileLocSelected) {
+                    errorMessage.append("\n Select a destination for the files to be saved");
+                }
+                if (!popSelected) {
+                    errorMessage.append("\n Select one or more populations");
+                }
+                if (!validWindowSizeEntered) {
+                    errorMessage.append("\n You must enter an integer window size if you wish to retrieve regions around variants");
+                }
+                JOptionPane.showMessageDialog(gui.snpFerret, errorMessage, "Error", JOptionPane.OK_OPTION);
+            }
+
+        }
+    return veification;
+   }
     
     public void ExecutionTraitement1KG() {//executer traitement1kg
         SettingsCTRL sc = new SettingsCTRL(sg, pg, rig);
@@ -905,4 +787,5 @@ import org.ecn.Ferret.View.GUI;
         LinkedList<ElementDeRechercheM> enteredQueries = new LinkedList<>();
         traitement.traitement(sc.getSettingsM(), enteredQueries);
     }
+
 }
