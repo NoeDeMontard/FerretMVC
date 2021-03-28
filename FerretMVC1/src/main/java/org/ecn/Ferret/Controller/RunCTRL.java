@@ -37,13 +37,6 @@ import org.ecn.Ferret.View.GUI;
         this.gui = gui;
     }
 
-    // TODO: J'ai créé un constructeur vide pour l'appel dans le mains, vous pouvez le supprimer
-//    public RunCTRL() {
-//    	this.traitement = new Traitement1KG();
-//    	this.pg = new PopulationGUI();
-//    	this.rig = new RegionInteretGUI();
-//    	this.sg = new SettingsGUI();
-//    }
 
 	public Traitement1KG getTraitement() {
 		return traitement;
@@ -435,36 +428,8 @@ import org.ecn.Ferret.View.GUI;
                 }
             }
 
-            if (!(isChrSelected && popSelected && startSelected && endSelected && startEndValid && withinRange && fileLocSelected)) {/*
-                           inputRegion[] queries = {new inputRegion(chrSelected, Integer.parseInt(startPosition), Integer.parseInt(endPosition))};
-                         // if not get esp, string is none, else if get only ref, then string is ref, else string is both
-			// this should be combined with the one single call to Ferret later
-			// HERE
-			final Integer[] variants = {0};
-			String output = null;
-
-			switch (currFileOut[0]){
-			    case ALL:
-				output = "all";
-				break;
-			    case FRQ:
-				output = "freq";
-				break;
-			    case VCF:
-				output = "vcf";
-				break;
-			}
-
-			String webAddress = null;
-			if (currVersion[0] == version1KG.ONE){
-				webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20110521/ALL.chr$.phase1_release_v3.20101123.snps_indels_svs.genotypes.vcf.gz";
-			} else if (currVersion[0] == version1KG.THREE & defaultHG[0]){
-				webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr$.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz";
-			} else if (currVersion[0] == version1KG.THREE & !defaultHG[0]){
-				webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/supporting/GRCh38_positions/ALL.chr$.phase3_shapeit2_mvncall_integrated_v3plus_nounphased.rsID.genotypes.GRCh38_dbSNP_no_SVs.vcf.gz";
-			}
-			
-                        } else {*/
+            if (!(isChrSelected && popSelected && startSelected && endSelected && startEndValid && withinRange && fileLocSelected)) {
+                          
                 veification=false;
                 StringBuffer errorMessage = new StringBuffer("Correct the following errors:");
                 if (!isChrSelected) {
@@ -571,41 +536,7 @@ import org.ecn.Ferret.View.GUI;
                 geneListArray = geneList.split(",");
             }
 
-            if (!((geneListInputted || (geneFileImported && !geneFileError && !geneFileExtensionError)) && !invalidCharacter && popSelected && fileLocSelected)) {/*
-
-			// this should be combined with the one single call to Ferret later
-			final Integer[] variants = {0};
-			String output = null;
-
-			switch (currFileOut[0]){
-				case ALL:
-					output = "all";
-					break;
-				case FRQ:
-					output = "freq";
-					break;
-				case VCF:
-					output = "vcf";
-					break;
-				}
-
-				String webAddress = null;
-                                if (currVersion[0] == version1KG.ONE){
-					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20110521/ALL.chr$.phase1_release_v3.20101123.snps_indels_svs.genotypes.vcf.gz";
-				} else if (currVersion[0] == version1KG.THREE & defaultHG[0]){
-					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr$.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz";
-				} else if (currVersion[0] == version1KG.THREE & !defaultHG[0]){
-					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/supporting/GRCh38_positions/ALL.chr$.phase3_shapeit2_mvncall_integrated_v3plus_nounphased.rsID.genotypes.GRCh38_dbSNP_no_SVs.vcf.gz";
-				}
-
-				String geneQueryType;
-				if(geneNameInputted){
-					geneQueryType = "geneName";
-				} else{
-					geneQueryType = "geneID";
-				}
-
-			} else {*/
+            if (!((geneListInputted || (geneFileImported && !geneFileError && !geneFileExtensionError)) && !invalidCharacter && popSelected && fileLocSelected)) {
                 veification=false;
                 StringBuffer errorMessage = new StringBuffer("Correct the following errors:");
                 if (!geneListInputted && !geneFileImported) {
@@ -721,35 +652,7 @@ import org.ecn.Ferret.View.GUI;
                 snpListArray = new ArrayList<String>(Arrays.asList(text));
             }
 
-            if (!((snpListInputted || (snpFileImported && !snpFileError && !snpFileExtensionError)) && !invalidCharacter && validWindowSizeEntered && popSelected && fileLocSelected)) {/*
-
-				final Integer[] variants = {0};
-				String output = null;
-
-				switch (currFileOut[0]){
-				case ALL:
-					output = "all";
-					break;
-				case FRQ:
-					output = "freq";
-					break;
-				case VCF:
-					output = "vcf";
-					break;
-				}
-
-				String webAddress = null;
-
-				if (currVersion[0] == version1KG.ONE){
-					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20110521/ALL.chr$.phase1_release_v3.20101123.snps_indels_svs.genotypes.vcf.gz";
-				} else if (currVersion[0] == version1KG.THREE & defaultHG[0]){
-					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr$.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz";
-				} else if (currVersion[0] == version1KG.THREE & !defaultHG[0]){
-					webAddress = "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/supporting/GRCh38_positions/ALL.chr$.phase3_shapeit2_mvncall_integrated_v3plus_nounphased.rsID.genotypes.GRCh38_dbSNP_no_SVs.vcf.gz";
-				}
-
-
-			} else {*/
+            if (!((snpListInputted || (snpFileImported && !snpFileError && !snpFileExtensionError)) && !invalidCharacter && validWindowSizeEntered && popSelected && fileLocSelected)) {
                 veification=false;
                 StringBuffer errorMessage = new StringBuffer("Correct the following errors:");
                 if (!snpListInputted && !snpFileImported) {
