@@ -64,6 +64,7 @@ public class MenuCTRL implements ActionListener {
                 break;
             case "faqMenuItem":
                 try {
+            
                     Desktop.getDesktop().browse(new URI("http://limousophie35.github.io/Ferret/#faq"));
                 } catch (IOException | URISyntaxException exception) {
                 }

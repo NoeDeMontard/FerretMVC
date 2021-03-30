@@ -206,6 +206,7 @@ public class GUI extends JFrame implements ActionListener {
         snpFerret.pack();
         snpFerret.setVisible(true);
         
+        //TODO: Etablir un lien entre cette classe est InfosRechercheCTRL pour faire fonctionner le bouton browse
         // setActionCommand
         browseButton.addActionListener(this);
         browseButton.setActionCommand("browseButton");

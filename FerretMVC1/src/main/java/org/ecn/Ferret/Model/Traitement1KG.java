@@ -163,6 +163,7 @@ public class Traitement1KG extends Traitement {
                     int sd = ((VariantParIDM)snpQueries.get(0)).getSurroundingDist();
                     this.allSNPsFound = allSNPsFound;
                     this.noSNPFound = SNPsFound.isEmpty();
+                    //TODO: Faire un appel à la méthode afficheVariantID avec des paramètres convenables
 //                    if(!allSNPsFound && !SNPsFound.isEmpty()){//Partial list
 //
 //                        // Done: Il s'agit de mettre en place du code qui permettrq de gérer l'affichage graphique de ce qui suit
@@ -204,11 +205,11 @@ public class Traitement1KG extends Traitement {
 //                        for(int i = 0; chromosome.size() > 0; i++){
 //                            queries[i] = new LocusM(Integer.parseInt(chromosome.remove()), Integer.parseInt(startPos.remove()) - sd, Integer.parseInt(endPos.remove()) + sd);
 //                        }
-//                    }
 //                    this.queries = queries;
                 } catch (FileNotFoundException e) {
                         // Either will occur if ncbi is down or if something is wrong with the input
                         e.printStackTrace();
+                        //Un appel de la méthode affichageError() est nécessaire pour chaque exception
                         //JOptionPane.showMessageDialog(null, "Ferret was unable to retrieve any variants","Error",JOptionPane.OK_OPTION);
                 } catch(IOException e){
                         e.printStackTrace();

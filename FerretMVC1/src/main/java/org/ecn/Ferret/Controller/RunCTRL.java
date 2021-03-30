@@ -687,6 +687,7 @@ import org.ecn.Ferret.View.GUI;
         SettingsCTRL sc = new SettingsCTRL(sg, pg, rig);
         InfosRechercheCTRL rc = new InfosRechercheCTRL(rig, pg, rg);
         // TODO: Il faut spécifier les éléments de recherche depuis InfosRechercheCTRL
+        //TODO: Extraire les queries des éléments entrés par l'utilisateur
         LinkedList<ElementDeRechercheM> enteredQueries = new LinkedList<>();
         traitement.traitement(sc.getSettingsM(), enteredQueries);
     }
